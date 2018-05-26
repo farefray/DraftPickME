@@ -44,6 +44,7 @@ function register(user) {
 
         userService.register(user)
             .then(
+                // eslint-disable-next-line no-unused-vars
                 user => {
                     dispatch(success());
                     history.push('/login');
@@ -84,6 +85,7 @@ function _delete(id) {
 
         userService.delete(id)
             .then(
+                // eslint-disable-next-line no-unused-vars
                 user => {
                     dispatch(success(id));
                 },

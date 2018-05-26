@@ -36,6 +36,7 @@ export function users(state = {}, action) {
         items: state.items.map(user => {
           if (user.id === action.id) {
             // make copy of user without 'deleting:true' property
+            // eslint-disable-next-line no-unused-vars
             const { deleting, ...userCopy } = user;
             // return copy of user with 'deleteError:[error]' property
             return { ...userCopy, deleteError: action.error };
