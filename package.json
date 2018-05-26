@@ -33,6 +33,7 @@
     "history": "4.6.0",
     "object-assign": "4.1.0",
     "react": "16.4.0",
+    "react-bootstrap": "0.32.1",
     "react-dom": "16.4.0",
     "react-redux": "5.0.7",
     "react-router-dom": "4.2.2",
