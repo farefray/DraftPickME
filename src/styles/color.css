@@ -1,0 +1,50 @@
+
+
+span.special,
+#contact div.btn:hover,
+.form_success {
+	color:#0487cc;
+}
+a.button,
+a.button-style-2:hover,
+.nav-button,
+#about .info .icons a:hover,
+#education .education-history,
+#experience .skill-bar .skill-percent,
+#experience .jobs .single-job .job-date .job-circle,
+#experience .jobs .single-job .job-date .job-date-p,
+#experience .single-hobby i,
+.simplefilter li.active,
+a.icon-1,
+a.icon-2,
+.hire a,
+#contact div.btn,
+#contact .contact-card .contact-social ul li a {
+	background-color:#0487cc;
+}
+
+
+
+a.button,
+a.button-style-2,
+a.icon-1,
+a.icon-2,
+.hire a,
+#contact div.btn {
+	border:1px solid #0487cc;
+}
+.cp-round:after{
+	border-top:solid 6px #0487cc;
+}
+#about .info .icons a:hover {
+	border-color:#0487cc;
+}
+#education .education-history:before {
+    border-bottom-color: #0487cc;
+}
+#education .education-history:before,
+#experience .jobs .single-job .job-date .job-date-p:before {
+    border-right-color: #0487cc;
+}
+
+

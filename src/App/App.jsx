@@ -7,6 +7,17 @@ import { alertActions } from "../actions";
 import { PrivateRoute } from "../components";
 import { HomePage, LoginPage, RegisterPage, ProfilePage } from "./";
 
+// Our global styles
+import "../styles/bootstrap.min.css";
+import "../styles/animate.css";
+import "../styles/color.css";
+import "../styles/font-awesome.min.css";
+import "../styles/ie10-viewport-bug-workaround.css";
+import "../styles/magnific-popup.css";
+import "../styles/material-design-iconic-font.min.css";
+import "../styles/material.min.css";
+import "../styles/style.css";
+
 class App extends React.Component {
   constructor(props) {
     super(props);

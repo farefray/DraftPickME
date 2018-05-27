@@ -43,7 +43,7 @@
     "redux-thunk": "2.2.0"
   },
   "devDependencies": {
-    "autoprefixer": "7.1.4",
+    "autoprefixer": "8.5.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.3",
@@ -80,7 +80,7 @@
     "node-sass": "4.9.0",
     "opn-cli": "3.1.0",
     "path": "^0.12.7",
-    "postcss-loader": "2.0.6",
+    "postcss-loader": "2.1.5",
     "prompt": "1.0.0",
     "prop-types": "15.5.10",
     "raf": "3.3.2",
