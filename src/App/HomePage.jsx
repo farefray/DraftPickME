@@ -58,18 +58,58 @@ class HomePage extends React.Component {
       </p>
     );
 
+    let backgroundImageStyle = {
+      background:
+        "url('http://placehold.it/1920x1280') no-repeat center center fixed",
+      backgroundSize: "cover",
+      backgroundColor: "#333",
+      backgroundBlendMode: "overlay",
+      height: "100%"
+    };
+
     return (
-      <div className="col-md-12">
-        <div className="col-md-6 col-md-offset-3">
-          <Link to="/profile">Edit profile</Link>
-        </div>
-        <div className="col-md-6 col-md-offset-3">
-          <h1>Hi {user && user.firstName ? user.firstName : "guest"}!</h1>
-          {user && <p>You're logged in with React!!</p>}
+      <div id="home" className="demo-1">
+        <div
+          id="large-header"
+          className="large-header"
+          style={backgroundImageStyle}
+        >
+          <canvas id="demo-canvas" />
+          <div className="container">
+            <div className="row">
+              <div className="table">
+                <div className="table-cell">
+                  <div className="container">
+                    <div className="col-md-8">
+                      <h1>
+                        <span className="thin">Hi! I'm</span>{" "}
+                        {user && user.firstName ? user.firstName : "guest"}
+                      </h1>
+                      <h4 className="sup-home">
+                        experienced IT Engineer / Webdeveloper
+                      </h4>
+                      <div>
+                        {user && <p>You're logged in with React!!</p>}
 
-          {users && !users.error ? usersBlock : ""}
-
-          {authBlock}
+                        {users && !users.error ? usersBlock : ""}
+                        <Link to="/profile">Edit profile</Link>
+                        {authBlock}
+                      </div>
+                      <a className="button text-center" href="downloads/cv.pdf">
+                        <i className="fa fa-download" /> Download Cv
+                      </a>
+                      <a
+                        className="button-style-2 text-center smooth"
+                        href="#about"
+                      >
+                        <i className="fa fa-file-text" /> More About Me
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
