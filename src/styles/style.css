@@ -490,9 +490,9 @@ nav .logo {
 nav .logo span {
   position: absolute;
   font-weight: bold;
-  font-family: 'Clicker Script', cursive;
+  font-family: cursive;
   top: 29px;
-  left: 24px;
+  left: 0px;
   font-size: 15px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   color: #caa669;

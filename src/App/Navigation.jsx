@@ -5,8 +5,8 @@ export class Navigation extends React.Component {
     return (
       <nav id="nav">
         <div className="logo">
-          <img className="img-responsive" alt="logo" src="img/deco.svg" />
-          <span>RPF</span>
+          <img className="img-responsive" alt="logo" src="../images/deco.svg" />
+          <span>DraftPickIT</span>
         </div>
         <ul>
           <li id="tt1">
