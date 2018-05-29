@@ -4,9 +4,20 @@ import { connect } from "react-redux";
 
 import { userActions } from "../actions";
 
+import {
+  initHeader,
+  initAnimation,
+  addListeners
+} from "../js/homepageAnimation.js";
+
 class HomePage extends React.Component {
   componentDidMount() {
     this.props.dispatch(userActions.getAll());
+
+    // TODO configurable particles based on profile
+    initHeader();
+    initAnimation();
+    addListeners();
   }
 
   handleDeleteUser(id) {
