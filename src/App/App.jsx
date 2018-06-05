@@ -5,7 +5,14 @@ import { connect } from "react-redux";
 import { history } from "../helpers";
 import { alertActions } from "../actions";
 import { PrivateRoute } from "../components";
-import { HomePage, LoginPage, RegisterPage, ProfilePage, Navigation, AboutPage } from "./";
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ProfilePage,
+  Navigation,
+  AboutPage
+} from "./";
 import { Loader } from "../components/Loader.jsx";
 
 // Our global styles
@@ -31,22 +38,26 @@ class App extends React.Component {
   render() {
     const { alert } = this.props;
     return (
-      <div id="root">
-        <Loader />
-        <Navigation />
-        {alert.message && (
-          <div className={`alert ${alert.type}`}>{alert.message}</div>
-        )}
-        <Router history={history}>
+      <Router history={history}>
+        <div id="root">
+          <Loader />
+          <Navigation />
+          {alert.message && (
+            <div className={`alert ${alert.type}`}>{alert.message}</div>
+          )}
           <div id="router-pages">
             <Route exact path="/" component={HomePage} />
             <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/education" component={HomePage} />
+            <Route exact path="/experience" component={HomePage} />
+            <Route exact path="/portfolio" component={HomePage} />
+            <Route exact path="/contact" component={HomePage} />
             <PrivateRoute path="/profile" component={ProfilePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
           </div>
-        </Router>
-      </div>
+        </div>
+      </Router>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export class Navigation extends React.Component {
   render() {
@@ -10,7 +11,7 @@ export class Navigation extends React.Component {
         </div>
         <ul>
           <li id="tt1">
-            <a className="smooth" href="/">
+            <Link className="smooth" to="/">
               <i className="menu fa fa-home" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -18,10 +19,10 @@ export class Navigation extends React.Component {
               >
                 home
               </div>
-            </a>
+            </Link>
           </li>
           <li id="tt2">
-            <a className="smooth" href="/about">
+            <Link className="smooth" to="/about">
               <i className="menu zmdi zmdi-account-box-o" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -29,10 +30,10 @@ export class Navigation extends React.Component {
               >
                 about
               </div>
-            </a>
+            </Link>
           </li>
           <li id="tt3">
-            <a className="smooth" href="#education">
+            <Link className="smooth" to="/education">
               <i className="menu zmdi zmdi-graduation-cap" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -40,10 +41,10 @@ export class Navigation extends React.Component {
               >
                 education
               </div>
-            </a>
+            </Link>
           </li>
           <li id="tt4">
-            <a className="smooth" href="#experience">
+            <Link className="smooth" to="/experience">
               <i className="menu fa fa-trophy" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -51,10 +52,10 @@ export class Navigation extends React.Component {
               >
                 experience
               </div>
-            </a>
+            </Link>
           </li>
           <li id="tt5">
-            <a className="smooth" href="#portfolio">
+            <Link className="smooth" to="/portfolio">
               <i className="menu fa fa-briefcase" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -62,10 +63,10 @@ export class Navigation extends React.Component {
               >
                 portfolio
               </div>
-            </a>
+            </Link>
           </li>
           <li id="tt6">
-            <a className="smooth" href="#contact">
+            <Link className="smooth" to="/contact">
               <i className="menu zmdi zmdi-email " />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -73,7 +74,7 @@ export class Navigation extends React.Component {
               >
                 contact
               </div>
-            </a>
+            </Link>
           </li>
         </ul>
         <p>&copy; 2017</p>
