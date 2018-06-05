@@ -1,4 +1,4 @@
-import "./TweenLite.min.js";
+import {TweenLite} from "gsap/TweenLite";
 
 var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
 
@@ -43,7 +43,7 @@ export function initHeader() {
       var p2 = points[j]
       if (!(p1 == p2)) {
         var placed = false;
-        for (var k = 0; k < 5; k++) {
+        for (let k = 0; k < 5; k++) {
           if (!placed) {
             if (closest[k] == undefined) {
               closest[k] = p2;
@@ -52,7 +52,7 @@ export function initHeader() {
           }
         }
 
-        for (var k = 0; k < 5; k++) {
+        for (let k = 0; k < 5; k++) {
           if (!placed) {
             if (getDistance(p1, p2) < getDistance(p1, closest[k])) {
               closest[k] = p2;
@@ -66,8 +66,8 @@ export function initHeader() {
   }
 
   // assign a circle to each point
-  for (var i in points) {
-    var c = new Circle(points[i], 2 + Math.random() * 2, 'rgba(255,255,255,0.3)');
+  for (let i in points) {
+    let c = new Circle(points[i], 2 + Math.random() * 2, 'rgba(255,255,255,0.3)');
     points[i].circle = c;
   }
 }
@@ -145,6 +145,7 @@ function animate() {
 }
 
 function shiftPoint(p) {
+  // eslint-disable-next-line no-undef
   TweenLite.to(p, 1 + 1 * Math.random(), {
     x: p.originX - 50 + Math.random() * 100,
     y: p.originY - 50 + Math.random() * 100,

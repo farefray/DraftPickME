@@ -31,6 +31,7 @@
   "author": "Maksym Fedan && Nikolay Kutsoloshchenko",
   "license": "MIT",
   "dependencies": {
+    "gsap": "2.0.1",
     "history": "4.6.0",
     "object-assign": "4.1.0",
     "react": "16.4.0",

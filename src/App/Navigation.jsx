@@ -10,7 +10,7 @@ export class Navigation extends React.Component {
         </div>
         <ul>
           <li id="tt1">
-            <a className="smooth" href="#home">
+            <a className="smooth" href="/">
               <i className="menu fa fa-home" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"
@@ -21,7 +21,7 @@ export class Navigation extends React.Component {
             </a>
           </li>
           <li id="tt2">
-            <a className="smooth" href="#about">
+            <a className="smooth" href="/about">
               <i className="menu zmdi zmdi-account-box-o" />
               <div
                 className="mdl-tooltip mdl-tooltip--right"

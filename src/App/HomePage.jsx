@@ -111,7 +111,7 @@ class HomePage extends React.Component {
                       </a>
                       <a
                         className="button-style-2 text-center smooth"
-                        href="#about"
+                        href="/about"
                       >
                         <i className="fa fa-file-text" /> More About Me
                       </a>

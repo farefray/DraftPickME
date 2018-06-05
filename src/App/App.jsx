@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { history } from "../helpers";
 import { alertActions } from "../actions";
 import { PrivateRoute } from "../components";
-import { HomePage, LoginPage, RegisterPage, ProfilePage, Navigation } from "./";
+import { HomePage, LoginPage, RegisterPage, ProfilePage, Navigation, AboutPage } from "./";
 import { Loader } from "../components/Loader.jsx";
 
 // Our global styles
@@ -40,6 +40,7 @@ class App extends React.Component {
         <Router history={history}>
           <div id="router-pages">
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/about" component={AboutPage} />
             <PrivateRoute path="/profile" component={ProfilePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
