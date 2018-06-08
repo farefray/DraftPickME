@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import AnimatedWrapper from "../components/AnimationWrapper";
 import { userActions } from "../actions";
 
 import {
@@ -136,5 +136,5 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedHomePage = connect(mapStateToProps)(HomePage);
+const connectedHomePage = connect(mapStateToProps)(AnimatedWrapper(HomePage));
 export { connectedHomePage as HomePage };

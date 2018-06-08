@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import AnimatedWrapper from "../components/AnimationWrapper";
 import { userActions } from "../actions";
 
 
@@ -128,5 +128,5 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedAboutPage = connect(mapStateToProps)(AboutPage);
+const connectedAboutPage = connect(mapStateToProps)(AnimatedWrapper(AboutPage));
 export { connectedAboutPage as AboutPage };
