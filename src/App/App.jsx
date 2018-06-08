@@ -11,7 +11,11 @@ import {
   RegisterPage,
   ProfilePage,
   Navigation,
-  AboutPage
+  AboutPage,
+  EducationPage,
+  ExperiencePage,
+  PortfolioPage,
+  ContactPage
 } from "./";
 import { Loader } from "../components/Loader.jsx";
 
@@ -48,10 +52,10 @@ class App extends React.Component {
           <div id="router-pages">
             <Route exact path="/" component={HomePage} />
             <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/education" component={HomePage} />
-            <Route exact path="/experience" component={HomePage} />
-            <Route exact path="/portfolio" component={HomePage} />
-            <Route exact path="/contact" component={HomePage} />
+            <Route exact path="/education" component={EducationPage} />
+            <Route exact path="/experience" component={ExperiencePage} />
+            <Route exact path="/portfolio" component={PortfolioPage} />
+            <Route exact path="/contact" component={ContactPage} />
             <PrivateRoute path="/profile" component={ProfilePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />

@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 
 export class Navigation extends React.Component {
   render() {
+    let currentYear = (new Date()).getFullYear();
+    if(currentYear > 2018) {
+      currentYear = '2018 - ' + currentYear;
+    }
+
     return (
       <nav id="nav">
         <div className="logo">
@@ -77,7 +82,9 @@ export class Navigation extends React.Component {
             </Link>
           </li>
         </ul>
-        <p>&copy; 2017</p>
+        <div className="bottom">
+        <p>&copy; {currentYear}</p>
+        </div>
         <div className="nav-controller" />
       </nav>
     );

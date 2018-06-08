@@ -5,3 +5,7 @@ export * from './RegisterPage';
 export * from './ProfilePage';
 export * from './Navigation';
 export * from './AboutPage';
+export * from './EducationPage';
+export * from './ExperiencePage';
+export * from './PortfolioPage';
+export * from './ContactPage';
