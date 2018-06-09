@@ -1,5 +1,6 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Drilldown from 'react-router-drilldown'
 import { connect } from "react-redux";
 
 import { history } from "../helpers";
@@ -50,28 +51,30 @@ class App extends React.Component {
             <div className={`alert ${alert.type}`}>{alert.message}</div>
           )}
           <div id="router-pages">
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/education" component={EducationPage} />
-            <Route exact path="/experience" component={ExperiencePage} />
-            <Route exact path="/portfolio" component={PortfolioPage} />
-            <Route exact path="/contact" component={ContactPage} />
-            <PrivateRoute path="/profile" component={ProfilePage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/register" component={RegisterPage} />
+            <Drilldown>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/about" component={AboutPage} />
+              <Route exact path="/education" component={EducationPage} />
+              <Route exact path="/experience" component={ExperiencePage} />
+              <Route exact path="/portfolio" component={PortfolioPage} />
+              <Route exact path="/contact" component={ContactPage} />
+              <PrivateRoute path="/profile" component={ProfilePage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
+            </Drilldown>
           </div>
-        </div>
+          </div>
       </Router>
-    );
-  }
-}
-
+        );
+      }
+    }
+    
 function mapStateToProps(state) {
-  const { alert } = state;
+  const {alert} = state;
   return {
-    alert
-  };
-}
-
-const connectedApp = connect(mapStateToProps)(App);
-export { connectedApp as App };
+          alert
+        };
+      }
+      
+      const connectedApp = connect(mapStateToProps)(App);
+export {connectedApp as App};

@@ -38,8 +38,11 @@
     "react-bootstrap": "0.32.1",
     "react-dom": "16.4.0",
     "react-redux": "5.0.7",
-    "react-router-dom": "4.2.2",
-    "react-router-redux": "5.0.0-alpha.6",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "react-router-drilldown": "3.0.2",
+    "react-router-redux": "5.0.0-alpha.8",
+    "react-view-slider": "3.0.5",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.2.0"
