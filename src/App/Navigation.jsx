@@ -85,7 +85,7 @@ export class Navigation extends React.Component {
         <div className="bottom">
         <p>&copy; {currentYear}</p>
         </div>
-        <div className="nav-controller" onClick={() => {alert('click')}} />
+        <Link className="nav-controller" to="/profile" />
       </nav>
     );
   }

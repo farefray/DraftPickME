@@ -1,6 +1,5 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
-import { alertActions } from './';
 
 export const userActions = {
     login,
@@ -21,7 +20,6 @@ function login(username, password) {
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
                 }
             );
     };
@@ -46,11 +44,9 @@ function register(user) {
                 user => {
                     dispatch(success());
                     history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
                 }
             );
     };

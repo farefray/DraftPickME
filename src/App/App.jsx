@@ -50,7 +50,8 @@ class App extends React.Component {
           {alert.message && (
             <div className={`alert ${alert.type}`}>{alert.message}</div>
           )}
-          <div id="router-pages">
+            <div className="table">
+            <div className="table-cell">
             <Drilldown>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/about" component={AboutPage} />
@@ -62,7 +63,7 @@ class App extends React.Component {
               <Route path="/login" component={LoginPage} />
              <Route path="/register" component={RegisterPage} />
             </Drilldown>
-          </div>
+          </div></div>
         </div>
       </BrowserRouter>
     );

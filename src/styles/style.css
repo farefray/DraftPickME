@@ -66,6 +66,12 @@ h4 {
   line-height: 25px;
 }
 
+.relative-table {
+  display: table;
+  width:100%;
+  height:100%;
+
+}
 .table {
   position: absolute;
   display: table;
@@ -619,18 +625,14 @@ Base
   height: 100%;
 }
 
-#router-pages {
-  height: 100%;
-}
 
 /* ==========
 Home
 ========== */
 
 #home {
-  height: 100%;
-  position: relative;
-  overflow: hidden;
+  max-width: 100%;
+  height: auto;
   color: #fff;
 }
 
@@ -639,6 +641,11 @@ Home
   font-weight: bold;
 }
 
+#demo-canvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 /* ==========
 about
 ========== */
