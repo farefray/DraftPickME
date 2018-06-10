@@ -3,22 +3,14 @@ import React from "react";
 export class Loader extends React.Component {
   // Maybe thats a stupid way to solve Loading issues? Aswell as animating, read this: https://reactjs.org/docs/animation.html
   // Need another loader. This one looks too bad to emulate its displaying
-  state = { loading: false, loaded: false };
+  state = { loading: true };
 
   constructor(props) {
     super(props);
-
-    this.emulateLoading();
   }
 
-  emulateLoading() {
-    // Very bad way to handle this, but I can't find any better for now :) TODO!
-    setTimeout(() => {
-      this.setState({ loading: true });
-      setTimeout(() => {
-        this.setState({ loaded: true });
-      }, 500);
-    }, 1000);
+  componentDidMount() {
+    setTimeout(() => { this.setState({loading:false}) }, 2500)
   }
 
   render() {
@@ -26,7 +18,7 @@ export class Loader extends React.Component {
       ? "loading fadeOut animated"
       : "loading";
 
-    let animationStyle = { display: this.state.loaded ? "none" : "table" };
+    let animationStyle = { display: !this.state.loading ? "none" : "table" };
     return (
       <div className={animationClasses} style={animationStyle}>
         <div className="table-cell">
@@ -36,3 +28,4 @@ export class Loader extends React.Component {
     );
   }
 }
+

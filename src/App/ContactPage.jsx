@@ -51,7 +51,7 @@ class ContactPage extends React.Component {
 					<p>&nbsp;</p>
 				</div>
 				<div className="col-md-5 right-section">
-					<div className="contact-card wow flipInY" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
+					<div className="contact-card flipInY">
 						<h2><span className="thin">Please Feel free to </span> Contact Me</h2>
 						<div className="contact-info">
 							<p><i className="fa fa-map-marker"></i> <strong>&nbsp; Address:</strong> 22 Place, Los Angelos</p>

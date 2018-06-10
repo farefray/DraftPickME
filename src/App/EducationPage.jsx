@@ -22,7 +22,7 @@ class EducationPage extends React.Component {
     return (
       <section id="education" style={sectionStyle}>
 			<div className="container">
-				<div className="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
+				<div className="row fadeInUp">
 					<h2 className="none">Education</h2>
 					<div className="col-md-4">
 						<div className="single-education">

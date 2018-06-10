@@ -30,9 +30,9 @@ class HomePage extends React.Component {
       <div id="home" className="large-header" style={backgroundImageStyle}>
         <canvas id="demo-canvas"></canvas>
         <div id="large-header">
-          <div class="relative-table">
-            <div class="table-cell">
-              <div class="container">
+          <div className="relative-table">
+            <div className="table-cell">
+              <div className="container">
                 <div className="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
                   <div className="col-md-12">
                     <h1><span className="thin">Hi! I'm</span> Johnathan Doe</h1>
