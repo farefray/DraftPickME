@@ -119,14 +119,4 @@ class AboutPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
-}
-
-const connectedAboutPage = connect(mapStateToProps)(AboutPage);
-export { connectedAboutPage as AboutPage };
+export default AboutPage;

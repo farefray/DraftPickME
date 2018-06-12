@@ -85,7 +85,7 @@ class ExperiencePage extends React.Component {
 							</div>
 						</div>
 					</div>
-					
+
 					<div className="col-md-4">
 						<div className="jobs">
 							<h2 className="special-margin"> <i className="fa fa-briefcase"></i> My Jobs</h2>
@@ -105,7 +105,7 @@ class ExperiencePage extends React.Component {
 									</p>
 								</div>
 							</div>
-							
+
 							<div className="single-job">
 								<div className="job-date">
 									<div className="job-circle"></div>
@@ -121,7 +121,7 @@ class ExperiencePage extends React.Component {
 									</p>
 								</div>
 							</div>
-							
+
 							<div className="single-job">
 								<div className="job-date">
 									<div className="job-circle"></div>
@@ -141,7 +141,7 @@ class ExperiencePage extends React.Component {
 					</div>
 					<div className="col-md-4">
 						<div className="specialities">
-							<h2><i className="fa fa-keyboard-o"></i> My Specialities</h2> 
+							<h2><i className="fa fa-keyboard-o"></i> My Specialities</h2>
 							<div className="single-speciality">
 								<h3>Responsive Web</h3>
 								<p>modern and compatible with all devices.</p>
@@ -187,14 +187,4 @@ class ExperiencePage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
-}
-
-const connectedExperiencePage = connect(mapStateToProps)(ExperiencePage);
-export { connectedExperiencePage as ExperiencePage };
+export default ExperiencePage;

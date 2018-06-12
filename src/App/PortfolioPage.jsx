@@ -91,19 +91,9 @@ class PortfolioPage extends React.Component {
 				</div>
 			</div>
 		</div>
-	</section>	
+	</section>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
-}
-
-const connectedPortfolioPage = connect(mapStateToProps)(PortfolioPage);
-export { connectedPortfolioPage as PortfolioPage };
+export default PortfolioPage;

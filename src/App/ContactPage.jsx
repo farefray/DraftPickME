@@ -29,7 +29,7 @@ class ContactPage extends React.Component {
 			</section>
 			<div className='row'>
 				<div className="col-md-7">
-					<h2>Get In touch</h2> 
+					<h2>Get In touch</h2>
 					<hr className="contact-hr"/>
 					<div className="contact-form">
 						<form method="post">
@@ -42,11 +42,11 @@ class ContactPage extends React.Component {
 								<input id="email" type="email" name="email" placeholder="Email"/>
 							</div>
 							<textarea id="message" placeholder="Your Message"></textarea>
-							<div onclick="submit_form();" className="btn">
+							<div className="btn">
 								<span><i className="fa fa-location-arrow"></i> Send Message</span>
 							</div>
 						</form>
-					</div>		
+					</div>
 					<div id="response_brought"></div>
 					<p>&nbsp;</p>
 				</div>
@@ -88,7 +88,7 @@ class ContactPage extends React.Component {
 							</ul>
 						</div>
 						<h3>Like Me on Facebook</h3>
-						<div className="fb-like" data-href="https://www.facebook.com/yahyaessamthemeforest" data-width="1000" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+						<div className="fb-like" data-href="#" data-width="1000" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
 						<div id="map"></div>
 					</div>
 				</div>
@@ -99,14 +99,4 @@ class ContactPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
-}
-
-const connectedContactPage = connect(mapStateToProps)(ContactPage);
-export { connectedContactPage as ContactPage };
+export default ContactPage;
