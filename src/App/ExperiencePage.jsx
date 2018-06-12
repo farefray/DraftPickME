@@ -28,7 +28,7 @@ class ExperiencePage extends React.Component {
       <section id="experience" style={sectionStyle}>
 			<div className="container">
 				<div className="row">
-					<div className="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
+					<div className="col-md-4">
 						<div className="skills">
 							<h2><i className="fa fa-trophy"></i> Main Skills</h2>
 							<div className="single-skill">
@@ -86,7 +86,7 @@ class ExperiencePage extends React.Component {
 						</div>
 					</div>
 					
-					<div className="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s" data-wow-offset="200">
+					<div className="col-md-4">
 						<div className="jobs">
 							<h2 className="special-margin"> <i className="fa fa-briefcase"></i> My Jobs</h2>
 							<hr className="timeline"/>
@@ -139,7 +139,7 @@ class ExperiencePage extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s" data-wow-offset="200">
+					<div className="col-md-4">
 						<div className="specialities">
 							<h2><i className="fa fa-keyboard-o"></i> My Specialities</h2> 
 							<div className="single-speciality">

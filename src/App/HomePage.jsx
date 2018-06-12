@@ -33,7 +33,7 @@ class HomePage extends React.Component {
           <div className="relative-table">
             <div className="table-cell">
               <div className="container">
-                <div className="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
+                <div className="row">
                   <div className="col-md-12">
                     <h1><span className="thin">Hi! I'm</span> Johnathan Doe</h1>
                     <h4 className="sup-home">experienced IT Engineer / Webdeveloper</h4>

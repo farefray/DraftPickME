@@ -21,7 +21,7 @@ class PortfolioPage extends React.Component {
 
     return (
 		<section id="portfolio" style={sectionStyle}>
-		<div className="container wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
+		<div className="container">
 			<div className="row">
 				<h2 className="none">Portfolio</h2>
 				<ul className="simplefilter text-center">
