@@ -31,6 +31,7 @@
   "author": "Maksym Fedan && Nikolay Kutsoloshchenko",
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-react-transform": "3.0.0",
     "gsap": "2.0.1",
     "history": "4.6.0",
     "object-assign": "4.1.0",
@@ -59,7 +60,7 @@
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
-    "babel-preset-stage-1": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
     "browser-sync": "2.24.4",
     "chalk": "2.0.1",
     "concurrently": "3.5.1",
@@ -89,8 +90,8 @@
     "prompt": "1.0.0",
     "prop-types": "15.5.10",
     "raf": "3.3.2",
-    "react-hot-loader": "4.2.0",
     "react-test-renderer": "16.4.0",
+    "react-transform-hmr": "1.0.4",
     "redux-immutable-state-invariant": "2.1.0",
     "redux-mock-store": "1.5.1",
     "replace": "0.3.0",
@@ -118,46 +119,5 @@
       "raf/polyfill",
       "./tools/enzymeTestAdapterSetup.js"
     ]
-  },
-  "babel": {
-    "env": {
-      "development": {
-        "presets": [
-          "env",
-          "react",
-          "stage-1"
-        ]
-      },
-      "production": {
-        "presets": [
-          [
-            "env",
-            {
-              "es2015": {
-                "modules": false
-              },
-              "targets": {
-                "ie": 9,
-                "uglify": true
-              }
-            }
-          ],
-          "react",
-          "stage-1"
-        ],
-        "plugins": [
-          "react-hot-loader/babel",
-          "transform-react-constant-elements",
-          "transform-react-remove-prop-types"
-        ]
-      },
-      "test": {
-        "presets": [
-          "env",
-          "react",
-          "stage-1"
-        ]
-      }
-    }
   }
 }
