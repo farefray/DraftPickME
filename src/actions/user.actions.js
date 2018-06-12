@@ -16,6 +16,7 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
+                    // todo redirect
                     dispatch(success(user));
                 },
                 error => {
@@ -30,6 +31,7 @@ function login(username, password) {
 }
 
 function logout() {
+    console.log('Logging out...');
     userService.logout();
     return { type: userConstants.LOGOUT };
 }
@@ -43,7 +45,7 @@ function register(user) {
                 // eslint-disable-next-line no-unused-vars
                 user => {
                     dispatch(success());
-                    history.push('/login');
+                    history.push('/login'); // todo fixme
                 },
                 error => {
                     dispatch(failure(error));

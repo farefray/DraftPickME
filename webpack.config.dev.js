@@ -17,6 +17,14 @@ export default {
   ],
   target: 'web',
   mode: 'development',
+  stats: {
+    builtAt: true,
+    assets: true,
+    colors: true,
+    errors: true,
+    errorDetails: true,
+    modules: true
+  },
   output: {
     path: path.resolve(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
