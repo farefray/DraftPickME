@@ -1,5 +1,6 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
+import history from '../helpers/history';
 
 export const userActions = {
     login,
@@ -16,7 +17,7 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
-                    // todo redirect
+                    history.push('/');
                     dispatch(success(user));
                 },
                 error => {
@@ -45,7 +46,6 @@ function register(user) {
                 // eslint-disable-next-line no-unused-vars
                 user => {
                     dispatch(success());
-                    history.push('/login'); // todo fixme
                 },
                 error => {
                     dispatch(failure(error));

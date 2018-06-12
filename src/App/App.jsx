@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import Drilldown from 'react-router-drilldown';
 import { connect } from 'react-redux';
-
+import history from '../helpers/history';
 import { PrivateRoute } from '../components';
 import {
   HomePage,
@@ -47,7 +47,7 @@ class App extends React.Component {
       Todo: when user inside non-resume pages(profile, login, register), set some state and hide main menu.
     */
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <div id="root">
           <Loader />
           <Navigation />
@@ -78,7 +78,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
