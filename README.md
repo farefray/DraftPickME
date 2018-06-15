@@ -16,18 +16,18 @@ A draft is a process used in some countries and sports to allocate certain playe
 ├── package.json              # Package configuration. The list of 3rd party libraries and utilities
 ├── src                       # Source code
 │   ├── actions               # Flux/Redux actions. List of distinct actions that can occur in the app.
-│   ├── App                   # React components and other code that is used only by the app.
 │   ├── components            # Contains shared React components that can be used anywhere in the application.
 │   ├── constants             # Application constants including constants for Redux
 │   ├── helpers               # All the bits and pieces that don't fit into other folders but don't justify having a folder of their own.
 │   ├── js                    # Vanilla JS which is used by App
 │   ├── reducers              # Redux reducers. Your state is altered here based on actions
 │   ├── services              # Handles all http communication with backend apis for the application, can also have methods that don't wrap http calls.
-│   ├── store                 # Redux store configuration
-│   ├── styles                # CSS Styles, typically written in Sass
+│   ├── styles                # CSS Styles
+│   ├───── fonts              # Fonts
 │   ├── favicon.ico           # favicon to keep your browser from throwing a 404 during dev. Not actually used in prod build.
 │   ├── index.ejs             # Template for homepage
 │   ├── index.js              # Entry point for your app
+│   ├── store.js              # Redux store configuration
 ├── tools                     # Node scripts that run build related tools
 │   └── analyzeBundle.js      # Analyzes the webpack bundle
 │   ├── assetsTransformer.js  # Fix for jest handling static assets like imported images

@@ -1,13 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import createStore from './store/createStore'
+import {
+  ReactDOM,
+  render
+} from 'react-dom'
+import store from './store'
 import './styles/main.scss'
 
-import { configureFakeBackend } from './helpers';
-
-// Store Initialization
-// ------------------------------------
-const store = createStore(window.__INITIAL_STATE__)
+import {
+  configureFakeBackend
+} from './helpers';
 
 // setup fake backend [todo on dev only]
 configureFakeBackend();
@@ -16,12 +17,14 @@ configureFakeBackend();
 // ------------------------------------
 const MOUNT_NODE = document.getElementById('app')
 
-let render = () => {
-  const App = require('./components/App').default
-  const routes = require('./routes/index').default(store)
+let myRender = () => {
+  const App = require('./pages/App').default
 
-  ReactDOM.render(
-    <App store={store} routes={routes} />,
+  render( <
+    App store = {
+      store
+    }
+    />,
     MOUNT_NODE
   )
 }
@@ -30,35 +33,37 @@ let render = () => {
 // ------------------------------------
 if (__DEV__) {
   if (module.hot) {
-    const renderApp = render
+    const renderApp = myRender
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
-    }
-
-    render = () => {
-      try {
-        renderApp()
-      } catch (e) {
-        console.error(e)
-        renderError(e)
+      render( < RedBox error = {
+          error
+        }
+        />, MOUNT_NODE)
       }
+
+      myRender = () => {
+        try {
+          renderApp()
+        } catch (e) {
+          console.error(e)
+          renderError(e)
+        }
+      }
+
+      // Setup hot module replacement
+      module.hot.accept([
+          './pages/App'
+        ], () =>
+        setImmediate(() => {
+          ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+          myRender()
+        })
+      )
     }
-
-    // Setup hot module replacement
-    module.hot.accept([
-      './components/App',
-      './routes/index',
-    ], () =>
-      setImmediate(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-        render()
-      })
-    )
   }
-}
 
-// Let's Go!
-// ------------------------------------
-if (!__TEST__) render()
+  // Let's Go!
+  // ------------------------------------
+  myRender()
