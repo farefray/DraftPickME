@@ -18,14 +18,7 @@ import {
 } from './';
 import { Loader } from '../components/Loader.jsx';
 
-// Our global styles
-import '../styles/bootstrap.min.css';
-import '../styles/font-awesome.min.css';
-import '../styles/material-design-iconic-font.min.css';
-import '../styles/magnific-popup.css';
-import '../styles/animate.css';
-import '../styles/style.css';
-import '../styles/color.css';
+
 
 class App extends React.Component {
   constructor(props) {
