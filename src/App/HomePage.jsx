@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 
 import {
@@ -50,4 +49,4 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+export {HomePage};

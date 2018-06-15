@@ -1,18 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-
-import { userActions } from "../actions";
-
 
 class AboutPage extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(userActions.getAll());
-  }
-
-  handleDeleteUser(id) {
-    return e => this.props.dispatch(userActions.delete(id));
-  }
 
   render() {
     let sectionStyle = {
@@ -119,4 +107,4 @@ class AboutPage extends React.Component {
   }
 }
 
-export default AboutPage;
+export {AboutPage};

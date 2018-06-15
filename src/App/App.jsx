@@ -65,7 +65,7 @@ class App extends React.Component {
                 />
                 <Route path="/register" component={RegisterPage} />
 
-                <Drilldown>
+                <Drilldown animateHeight={true} fillParent={true}>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/about" component={AboutPage} />
                   <Route exact path="/education" component={EducationPage} />

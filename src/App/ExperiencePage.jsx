@@ -1,18 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-
-import { userActions } from "../actions";
-
 
 class ExperiencePage extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(userActions.getAll());
-  }
-
-  handleDeleteUser(id) {
-    return e => this.props.dispatch(userActions.delete(id));
-  }
-
   render() {
     let sectionStyle = {
       background: "url('img/experience.png') no-repeat top center fixed",
@@ -187,4 +175,4 @@ class ExperiencePage extends React.Component {
   }
 }
 
-export default ExperiencePage;
+export {ExperiencePage};

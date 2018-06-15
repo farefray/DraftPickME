@@ -76,4 +76,17 @@ class ProfilePage extends React.Component {
   }
 }
 
+
+function mapStateToProps(state) {
+  const { users, authentication } = state;
+  const { user } = authentication;
+  return {
+    user,
+    users
+  };
+}
+
+const connectedProfilePage = connect(mapStateToProps)(ProfilePage);
+export { connectedProfilePage as ProfilePage };
 export default ProfilePage;
+
