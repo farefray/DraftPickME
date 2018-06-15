@@ -1,18 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-
-import { userActions } from "../actions";
-
 
 class AboutPage extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(userActions.getAll());
-  }
-
-  handleDeleteUser(id) {
-    return e => this.props.dispatch(userActions.delete(id));
-  }
 
   render() {
     let sectionStyle = {
@@ -23,7 +11,7 @@ class AboutPage extends React.Component {
     return (
       <section id="about" style={sectionStyle}>
 			<div className="container">
-				<div className="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="200">
+				<div className="row fadeInUp">
 					<div className="col-md-4">
 						<div className="profile-img">
 							<img className="img-responsive" alt="profile-img" src="http://placehold.it/270x340"/>
@@ -119,14 +107,4 @@ class AboutPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
-}
-
-const connectedAboutPage = connect(mapStateToProps)(AboutPage);
-export { connectedAboutPage as AboutPage };
+export {AboutPage};

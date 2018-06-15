@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 
 import {
@@ -27,19 +26,18 @@ class HomePage extends React.Component {
     };
 
     return (
-      <div id="home" style={backgroundImageStyle}>
-        <div id="particles-js">
-          <div className="container">
-            <div className="row">
-              <div className="table">
-                <div className="table-cell">
-                  <div className="container">
-                    <div className="col-md-8">
-                      <h1><span className="thin">Hi! I'm</span> Johnathan Doe</h1>
-                      <h4 className="sup-home">experienced IT Engineer / Webdeveloper</h4>
-                      <a className="button text-center" href="downloads/cv.pdf"><i className="fa fa-download"></i> Download Cv</a>
-                      <a className="button-style-2 text-center smooth" href="#about"><i className="fa fa-file-text"></i> More About Me</a>
-                    </div>
+      <div id="home" className="large-header" style={backgroundImageStyle}>
+        <canvas id="demo-canvas"></canvas>
+        <div id="large-header">
+          <div className="relative-table">
+            <div className="table-cell">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-12">
+                    <h1><span className="thin">Hi! I'm</span> Johnathan Doe</h1>
+                    <h4 className="sup-home">experienced IT Engineer / Webdeveloper</h4>
+                    <a className="button text-center" href="downloads/cv.pdf"><i className="fa fa-download"></i> Download Cv</a>
+                    <a className="button-style-2 text-center smooth" href="#about"><i className="fa fa-file-text"></i> More About Me</a>
                   </div>
                 </div>
               </div>
@@ -51,14 +49,4 @@ class HomePage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
-  return {
-    user,
-    users
-  };
-}
-
-const connectedHomePage = connect(mapStateToProps)(HomePage);
-export { connectedHomePage as HomePage };
+export {HomePage};

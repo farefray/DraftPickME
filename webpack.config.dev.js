@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
-import HardSourceWebpackPlugin from 'hard-source-webpack-plugin'; 
+import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
 
 export default {
   resolve: {
@@ -11,12 +11,19 @@ export default {
   entry: [
     // must be first entry to properly set public path
     './src/webpack-public-path',
-    'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
     path.resolve(__dirname, 'src/index.js') // Defining path seems necessary for this to work consistently on Windows machines.
   ],
   target: 'web',
   mode: 'development',
+  stats: {
+    builtAt: true,
+    assets: true,
+    colors: true,
+    errors: true,
+    errorDetails: true,
+    modules: true
+  },
   output: {
     path: path.resolve(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',

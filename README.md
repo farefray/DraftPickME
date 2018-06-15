@@ -31,10 +31,6 @@ A draft is a process used in some countries and sports to allocate certain playe
 ├── tools                     # Node scripts that run build related tools
 │   └── analyzeBundle.js      # Analyzes the webpack bundle
 │   ├── assetsTransformer.js  # Fix for jest handling static assets like imported images
-│   ├── setup                 # Scripts for setting up a new project using React Slingshot
-│   │   ├── setup.js          # Configure project set up
-│   │   ├── setupMessage.js   # Display message when beginning set up
-│   │   └── setupPrompts.js   # Configure prompts for set up
 │   ├── build.js              # Runs the production build
 │   ├── chalkConfig.js        # Centralized configuration for chalk (adds color to console statements)
 │   ├── distServer.js         # Starts webserver and opens final built app that's in dist in your default browser
@@ -51,7 +47,7 @@ A draft is a process used in some countries and sports to allocate certain playe
 
 ## Technologies
 
-Slingshot offers a rich development experience using the following technologies:
+Following technologies used:
 
 | **Tech**                                                | **Description**                                                                                                                                                                                    | **Learn More**                                                                                                                                                                                                                                                                                              |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

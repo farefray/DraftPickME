@@ -1,6 +1,6 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
-import { alertActions } from './';
+import history from '../helpers/history';
 
 export const userActions = {
     login,
@@ -17,11 +17,11 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
+                    history.push('/');
                     dispatch(success(user));
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
                 }
             );
     };
@@ -32,6 +32,7 @@ function login(username, password) {
 }
 
 function logout() {
+    console.log('Logging out...');
     userService.logout();
     return { type: userConstants.LOGOUT };
 }
@@ -45,12 +46,9 @@ function register(user) {
                 // eslint-disable-next-line no-unused-vars
                 user => {
                     dispatch(success());
-                    history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
                 }
             );
     };

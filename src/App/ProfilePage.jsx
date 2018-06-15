@@ -12,6 +12,10 @@ class ProfilePage extends React.Component {
     return e => this.props.dispatch(userActions.delete(id));
   }
 
+  handleLogout() {
+    return e => this.props.dispatch(userActions.logout());
+  }
+
   render() {
     const { user, users } = this.props;
 
@@ -62,12 +66,16 @@ class ProfilePage extends React.Component {
             </div>
 
             <Link to="/">Back</Link>
+            <Link to="/" className="right" onClick={
+              this.handleLogout()
+              }>Logout</Link>
           </div>
         </div>
       </div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   const { users, authentication } = state;
@@ -80,3 +88,5 @@ function mapStateToProps(state) {
 
 const connectedProfilePage = connect(mapStateToProps)(ProfilePage);
 export { connectedProfilePage as ProfilePage };
+export default ProfilePage;
+
