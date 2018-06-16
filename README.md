@@ -20,6 +20,8 @@ A draft is a process used in some countries and sports to allocate certain playe
 │   ├── constants             # Application constants including constants for Redux
 │   ├── helpers               # All the bits and pieces that don't fit into other folders but don't justify having a folder of their own.
 │   ├── js                    # Vanilla JS which is used by App
+│   ├── pages                 # Fractal structure. Root level components, ones which are directly mounted on level 1 routes.
+│   ├───── ~                  # Components and their nested components. All components are CamelCased. The sub components of Component.js are present in a folder called component. All components required by a page go to it’s node folder. 
 │   ├── reducers              # Redux reducers. Your state is altered here based on actions
 │   ├── services              # Handles all http communication with backend apis for the application, can also have methods that don't wrap http calls.
 │   ├── styles                # CSS Styles

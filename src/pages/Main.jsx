@@ -4,21 +4,21 @@ import Drilldown from "react-router-drilldown";
 import { connect } from "react-redux";
 import { PrivateRoute } from "../components/PrivateRoute";
 import {
-  HomePage,
   AboutPage,
   EducationPage,
   ExperiencePage,
   PortfolioPage,
   ContactPage
-} from "./app/";
+} from "./profile/";
+import { Homepage } from './Homepage';
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { Profile } from "./Profile";
-import { Navigation } from "../components/Navigation"
+import { EditProfile } from "./login/EditProfile";
 import { Loader } from "../components/Loader.jsx";
 import history from '../helpers/history';
 
-class App extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -41,29 +41,28 @@ class App extends React.Component {
       <Router history={history}>
         <div id="root">
           <Loader />
-          <Navigation />
           {alert.message && (
             <div className={`alert ${alert.type}`}>{alert.message}</div>
           )}
           <div className="table">
             <div className="table-cell">
               <Switch>
+                <Route exact path="/" component={Homepage} />
                 <Route path="/login" component={Login} />
                 <PrivateRoute
                   path="/profile"
                   isAuthenticated={this.props.auth}
-                  component={Profile}
+                  component={EditProfile}
                 />
                 <Route path="/register" component={Register} />
+                <Route path="/profile" component={Profile} />
 
                 <Drilldown animateHeight={true} fillParent={true}>
-                  <Route exact path="/" component={HomePage} />
                   <Route exact path="/about" component={AboutPage} />
                   <Route exact path="/education" component={EducationPage} />
                   <Route exact path="/experience" component={ExperiencePage} />
                   <Route exact path="/portfolio" component={PortfolioPage} />
                   <Route exact path="/contact" component={ContactPage} />
-                  <Route exact path="/" component={HomePage} />
                 </Drilldown>
               </Switch>
             </div>
@@ -83,4 +82,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Main);

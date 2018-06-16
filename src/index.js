@@ -19,10 +19,10 @@ configureFakeBackend();
 const MOUNT_NODE = document.getElementById('app')
 
 let myRender = () => {
-  const App = require('./pages/App').default
+  const Main = require('./pages/Main').default
 
   render( <Provider store={store}>
-    <App/>
+    <Main/>
     </Provider>,
     MOUNT_NODE
   )
@@ -55,7 +55,7 @@ if (__DEV__) {
 
       // Setup hot module replacement
       module.hot.accept([
-          './pages/App'
+          './pages/Main'
         ], () =>
         setImmediate(() => {
           ReactDOM.unmountComponentAtNode(MOUNT_NODE)
