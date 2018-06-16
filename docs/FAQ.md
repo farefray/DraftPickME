@@ -1,55 +1,3 @@
-# FAQ
-
-[Why does this exist?](#why-does-this-exist)
-
-[What do the scripts in package.json do?](#what-do-the-scripts-in-packagejson-do)
-
-[What are the dependencies in package.json used for?](#what-are-the-dependencies-in-packagejson-used-for)
-
-[Where are the files being served from when I run `npm start`?](#where-are-the-files-being-served-from-when-i-run-npm-start)
-
-[Where is index.html?](#where-is-indexhtml)
-
-[How is Sass being converted into CSS and landing in the browser?](#how-is-sass-being-converted-into-css-and-landing-in-the-browser)
-
-[I don't like the magic you just described above. I simply want to use a CSS file.](#i-dont-like-the-magic-you-just-described-above-i-simply-want-to-use-a-css-file)
-
-[I just want an empty starter kit.](#i-just-want-an-empty-starter-kit)
-
-[Do I have to use Redux?](#do-i-have-to-use-redux)
-
-[How do I remove React Router?](#how-do-i-remove-react-router)
-
-[How do I deploy this?](#how-do-i-deploy-this)
-
-[Why are test files placed alongside the file under test (instead of centralized)?](#why-are-test-files-placed-alongside-the-file-under-test-instead-of-centralized)
-
-[How do I debug?](#how-do-i-debug)
-
-[Debugging in Visual Studio Code](#debugging-in-visual-studio-code)
-
-[Why does the build use npm scripts instead of Gulp or Grunt?](#why-does-the-build-use-npm-scripts-instead-of-gulp-or-grunt)
-
-[Why does package.json reference the exact version?](#why-does-packagejson-reference-the-exact-version)
-
-[How do I handle images?](#how-do-i-handle-images)
-
-[I'm getting an error when running npm install: Failed to locate "CL.exe"](#im-getting-an-error-when-running-npm-install-failed-to-locate-clexe)
-
-[I can't access the external URL for Browsersync](#i-cant-access-the-external-url-for-browsersync)
-
-[What about the Redux Devtools?](#what-about-the-redux-devtools)
-
-[Hot reloading isn't working!](#hot-reloading-isnt-working)
-
-[How do I setup code coverage reporting?](#how-do-i-setup-code-coverage-reporting)
-
----
-
-## Why does this exist?
-
-This starter kit implements best practices like testing, minification, bundling, and so on. It codifies a long list of decisions that you no longer have to make to get rolling. It saves you from the long, painful process of wiring it all together into an automated dev environment and build process. It's also useful as inspiration for ideas you might want to integrate into your current development environment or build process.
-
 ## What do the scripts in package.json do?
 
 Unfortunately, scripts in package.json can't be commented inline because the JSON spec doesn't support comments, so I'm providing info on what each script in package.json does here.
@@ -163,28 +111,6 @@ For both of the above methods, a separate sourcemap is generated for debugging S
 
 No problem. Reference your CSS file in index.html, and add a step to the build process to copy your CSS file over to the same relative location /dist as part of the build step. But be forwarned, you lose style hot reloading with this approach.
 
-## I just want an empty starter kit.
-
-This starter kit includes an example app so you can see how everything hangs together on a real app. When you're done reviewing it, run this to remove the demo app:
-
-`npm run remove-demo`
-
-Don't want to use Redux? See the next question for some steps on removing Redux.
-
-## Do I have to use Redux?
-
-Nope. Redux is useful for applications with more complex data flows. If your app is simple, Redux is overkill. Remove Redux like this:
-
-1.  Run `npm run remove-demo`
-2.  Uninstall Redux related packages: `npm uninstall redux react-redux redux-thunk`
-3.  Create a new empty component in /components.
-4.  Call render on the new top level component you created in step 3 in src/index.js.
-
-## How do I remove React Router?
-
-1.  Uninstall React Router and routing related packages: `npm uninstall --save react-router-dom`
-2.  Remove `import { Switch, NavLink, Route } from 'react-router-dom';` from top of `src/components/App.js`, add a reference to `src/components/FuelSavingsForm.js`, and replace body of (implicit) render with this: `<FuelSavingsPage />`.
-
 ## How do I deploy this?
 
 `npm run build`. This will build the project for production. It does the following:
@@ -233,10 +159,6 @@ Don't see your favorite code editor debugging configuration here? Submit a PR an
 
 In short, Gulp is an unnecessary abstraction that creates more problems than it solves. [Here's why](https://medium.com/@housecor/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8#.vtaziro8n).
 
-## Why does package.json reference the exact version?
-
-This assures that the build won't break when some new version is released. Unfortunately, many package authors don't properly honor [Semantic Versioning](http://semver.org), so instead, as new versions are released, we'll test them and then introduce them into React Slingshot. But yes, this means when you do `npm update` no new dependencies will be pulled down. You'll have to update package.json with the new version manually.
-
 ## How do I handle images?
 
 Via [Webpack's file loader](https://github.com/webpack/file-loader). Example:
@@ -247,21 +169,9 @@ Via [Webpack's file loader](https://github.com/webpack/file-loader). Example:
 
 Webpack will then intelligently handle your image for you. For the production build, it will copy the physical file to /dist, give it a unique filename, and insert the appropriate path in your image tag.
 
-## I'm getting an error when running npm install: Failed to locate "CL.exe"
-
-On Windows, you need to install extra dependencies for browser-sync to build and install successfully. Follow the getting started steps above to assure you have the necessary dependencies on your machine.
-
-## I can't access the external URL for Browsersync
-
-To hit the external URL, all devices must be on the same LAN. So this may mean your dev machine needs to be on the same Wifi as the mobile devices you're testing. Alternatively, you can use a tool like [localtunnel](https://localtunnel.github.io/www/) or [ngrok](https://ngrok.com) to expose your app via a public URL. This way, you can interact with the Browsersync hosted app on any device.
-
 ## What about the Redux Devtools?
 
 Install the [Redux devtools extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) in Chrome Developer Tools. If you're interested in running Redux dev tools cross-browser, Barry Staes created a [branch with the devtools incorporated](https://github.com/coryhouse/react-slingshot/pull/27).
-
-## Hot reloading isn't working!
-
-Hot reloading doesn't always play nicely with stateless functional components at this time. [This is a known limitation that is currently being worked](https://github.com/gaearon/babel-plugin-react-transform/issues/57). To avoid issues with hot reloading for now, use a traditional class-based React component at the top of your component hierarchy.
 
 ## How do I setup code coverage reporting?
 
@@ -270,17 +180,3 @@ Use the `npm run test:cover` command to run the tests, building a code coverage 
 ```bash
 npm run open:cover
 ```
-
-You can add code coverage metrics to your `README.md` file and pull by integrating with [Coveralls](https://coveralls.io/).
-
-1.  Sign in to Coveralls with your GitHub account.
-2.  Authorise Coveralls to access your repositories.
-3.  Choose 'Add Repo' and select your repo.
-
-That's it! Travis will now execute the `npm run test:cover:travis` script after a successful build, which will write the coverage report in the standard lcov format and send it directly to Coveralls. The environment variables provided for travis jobs are used to automatically target the correct Coveralls project, as long as it is set up as described above.
-
-You can get the badge from the Coveralls website.
-
-## What about TypeScript?
-
-Here's a [fork with TS support](https://github.com/typescriptcrew/ts-react-slingshot).

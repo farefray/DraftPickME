@@ -27,6 +27,7 @@
   },
   "globals": {},
   "rules": {
+    "no-console": [0],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "import/named": [0],

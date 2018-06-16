@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { userActions } from '../actions';
 
-class RegisterPage extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
 
@@ -91,4 +91,4 @@ class RegisterPage extends React.Component {
     }
 }
 
-export {RegisterPage};
+export {Register};

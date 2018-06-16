@@ -1,31 +1,22 @@
-import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
-import Drilldown from 'react-router-drilldown';
-import { connect } from 'react-redux';
-import history from '../helpers/history';
-import { PrivateRoute } from '../components';
+import React from "react";
+import { Router, Route, Switch } from "react-router-dom";
+import Drilldown from "react-router-drilldown";
+import { connect } from "react-redux";
+import { PrivateRoute } from "../components/PrivateRoute";
 import {
   HomePage,
-  LoginPage,
-  RegisterPage,
-  ProfilePage,
-  Navigation,
   AboutPage,
   EducationPage,
   ExperiencePage,
   PortfolioPage,
   ContactPage
-} from './';
-import { Loader } from '../components/Loader.jsx';
-
-// Our global styles
-import '../styles/bootstrap.min.css';
-import '../styles/font-awesome.min.css';
-import '../styles/material-design-iconic-font.min.css';
-import '../styles/magnific-popup.css';
-import '../styles/animate.css';
-import '../styles/style.css';
-import '../styles/color.css';
+} from "./app/";
+import { Login } from "./Login";
+import { Register } from "./Register";
+import { Profile } from "./Profile";
+import { Navigation } from "../components/Navigation"
+import { Loader } from "../components/Loader.jsx";
+import history from '../helpers/history';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,13 +48,13 @@ class App extends React.Component {
           <div className="table">
             <div className="table-cell">
               <Switch>
-                <Route path="/login" component={LoginPage} />
+                <Route path="/login" component={Login} />
                 <PrivateRoute
                   path="/profile"
                   isAuthenticated={this.props.auth}
-                  component={ProfilePage}
+                  component={Profile}
                 />
-                <Route path="/register" component={RegisterPage} />
+                <Route path="/register" component={Register} />
 
                 <Drilldown animateHeight={true} fillParent={true}>
                   <Route exact path="/" component={HomePage} />
@@ -92,5 +83,4 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedApp = connect(mapStateToProps)(App);
-export { connectedApp as App };
+export default connect(mapStateToProps)(App);

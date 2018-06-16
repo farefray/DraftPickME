@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "../actions";
 
-class ProfilePage extends React.Component {
+class Profile extends React.Component {
   componentDidMount() {
     this.props.dispatch(userActions.getAll());
   }
@@ -86,7 +86,5 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedProfilePage = connect(mapStateToProps)(ProfilePage);
-export { connectedProfilePage as ProfilePage };
-export default ProfilePage;
-
+const connectedProfilePage = connect(mapStateToProps)(Profile);
+export { connectedProfilePage as Profile };
