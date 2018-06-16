@@ -70,6 +70,7 @@ function register(user) {
       .then(
         // eslint-disable-next-line no-unused-vars
         user => {
+          history.push('/login');
           dispatch(success());
         },
         error => {

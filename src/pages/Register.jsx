@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { userActions } from '../actions';
 
@@ -91,4 +92,5 @@ class Register extends React.Component {
     }
 }
 
-export {Register};
+const connectedRegistration = connect()(Register);
+export {connectedRegistration as Register};
