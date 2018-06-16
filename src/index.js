@@ -3,6 +3,7 @@ import {
   ReactDOM,
   render
 } from 'react-dom'
+import { Provider } from 'react-redux';
 import store from './store'
 import './styles/main.scss'
 
@@ -20,11 +21,9 @@ const MOUNT_NODE = document.getElementById('app')
 let myRender = () => {
   const App = require('./pages/App').default
 
-  render( <
-    App store = {
-      store
-    }
-    />,
+  render( <Provider store={store}>
+    <App/>
+    </Provider>,
     MOUNT_NODE
   )
 }

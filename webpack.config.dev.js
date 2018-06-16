@@ -36,8 +36,8 @@ export default {
   },
   plugins: [
     new HardSourceWebpackPlugin(),
-    new webpack.DefinePlugin(GLOBALS),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin(GLOBALS),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
