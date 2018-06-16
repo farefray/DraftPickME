@@ -7,6 +7,7 @@ function Navigation(props) {
     currentYear = "2018 - " + currentYear;
   }
 
+  const url = "/p/" + props.username;
   return (
     <nav id="nav">
       <div className="logo">
@@ -15,7 +16,7 @@ function Navigation(props) {
       </div>
       <ul>
         <li id="tt1">
-          <Link className="smooth" to="/">
+          <Link className="smooth" to={url}>
             <i className="menu fa fa-home" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt1">
               home
@@ -23,7 +24,7 @@ function Navigation(props) {
           </Link>
         </li>
         <li id="tt2">
-          <Link className="smooth" to="/about">
+          <Link className="smooth" to={url + "/about"}>
             <i className="menu zmdi zmdi-account-box-o" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt2">
               about
@@ -31,7 +32,7 @@ function Navigation(props) {
           </Link>
         </li>
         <li id="tt3">
-          <Link className="smooth" to="/education">
+          <Link className="smooth" to={url + "/education"}>
             <i className="menu zmdi zmdi-graduation-cap" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt3">
               education
@@ -39,7 +40,7 @@ function Navigation(props) {
           </Link>
         </li>
         <li id="tt4">
-          <Link className="smooth" to="/experience">
+          <Link className="smooth" to={url + "/experience"}>
             <i className="menu fa fa-trophy" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt4">
               experience
@@ -47,7 +48,7 @@ function Navigation(props) {
           </Link>
         </li>
         <li id="tt5">
-          <Link className="smooth" to="/portfolio">
+          <Link className="smooth" to={url + "/portfolio"}>
             <i className="menu fa fa-briefcase" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt5">
               portfolio
@@ -55,7 +56,7 @@ function Navigation(props) {
           </Link>
         </li>
         <li id="tt6">
-          <Link className="smooth" to="/contact">
+          <Link className="smooth" to={url + "/contact"}>
             <i className="menu zmdi zmdi-email " />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt6">
               contact
@@ -66,7 +67,7 @@ function Navigation(props) {
       <div className="bottom">
         <p>&copy; {currentYear}</p>
       </div>
-      <Link className="nav-controller" to="/profile" />
+      <Link className="nav-controller" to="/editprofile" />
     </nav>
   );
 }

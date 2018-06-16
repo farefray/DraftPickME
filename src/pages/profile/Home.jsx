@@ -1,13 +1,12 @@
 import React from "react";
 
-
 import {
   initHeader,
   initAnimation,
   addListeners
 } from "../../js/homepageAnimation.js";
 
-class HomePage extends React.Component {
+class Home extends React.Component {
   componentDidMount() {
     // TODO configurable particles based on profile
     initHeader();
@@ -34,8 +33,8 @@ class HomePage extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
-                    <h1><span className="thin">Hi! I'm</span> Johnathan Doe</h1>
-                    <h4 className="sup-home">experienced IT Engineer / Webdeveloper</h4>
+                    <h1><span className="thin">Hi! I'm</span> ???</h1>
+                    <h4 className="sup-home">experienced ??</h4>
                     <a className="button text-center" href="downloads/cv.pdf"><i className="fa fa-download"></i> Download Cv</a>
                     <a className="button-style-2 text-center smooth" href="#about"><i className="fa fa-file-text"></i> More About Me</a>
                   </div>
@@ -49,4 +48,4 @@ class HomePage extends React.Component {
   }
 }
 
-export {HomePage};
+export {Home};

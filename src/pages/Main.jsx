@@ -1,22 +1,15 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import Drilldown from "react-router-drilldown";
 import { connect } from "react-redux";
 import { PrivateRoute } from "../components/PrivateRoute";
-import {
-  AboutPage,
-  EducationPage,
-  ExperiencePage,
-  PortfolioPage,
-  ContactPage
-} from "./profile/";
-import { Homepage } from './Homepage';
+
+import { Homepage } from "./Homepage";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { Profile } from "./Profile";
 import { EditProfile } from "./login/EditProfile";
 import { Loader } from "../components/Loader.jsx";
-import history from '../helpers/history';
+import history from "../helpers/history";
 
 class Main extends React.Component {
   constructor(props) {
@@ -44,29 +37,18 @@ class Main extends React.Component {
           {alert.message && (
             <div className={`alert ${alert.type}`}>{alert.message}</div>
           )}
-          <div className="table">
-            <div className="table-cell">
-              <Switch>
-                <Route exact path="/" component={Homepage} />
-                <Route path="/login" component={Login} />
-                <PrivateRoute
-                  path="/profile"
-                  isAuthenticated={this.props.auth}
-                  component={EditProfile}
-                />
-                <Route path="/register" component={Register} />
-                <Route path="/profile" component={Profile} />
 
-                <Drilldown animateHeight={true} fillParent={true}>
-                  <Route exact path="/about" component={AboutPage} />
-                  <Route exact path="/education" component={EducationPage} />
-                  <Route exact path="/experience" component={ExperiencePage} />
-                  <Route exact path="/portfolio" component={PortfolioPage} />
-                  <Route exact path="/contact" component={ContactPage} />
-                </Drilldown>
-              </Switch>
-            </div>
-          </div>
+          <Switch>
+            <Route exact path="/" component={Homepage} />
+            <Route path="/login" component={Login} />
+            <PrivateRoute
+              path="/editprofile"
+              isAuthenticated={this.props.auth}
+              component={EditProfile}
+            />
+            <Route path="/register" component={Register} />
+          </Switch>
+          <Route path="/p/:username" component={Profile} />
         </div>
       </Router>
     );

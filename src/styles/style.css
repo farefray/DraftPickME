@@ -49,17 +49,19 @@ body {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 h1,
 h2,
 h3 {
   font-weight: bold;
+  cursor: default;
 }
 
 h3 {
   font-size: 16px;
-  color: #666;
+  color: #fff;
 }
 
 h4 {
@@ -681,7 +683,7 @@ about
   font-weight: bold;
   text-transform: capitalize;
   text-decoration: none;
-  color: #666;
+  color: #fff;
   letter-spacing: 1px;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
@@ -708,7 +710,7 @@ about
 #about .info ul li .info-title {
   min-width: 65px;
   font-weight: bold;
-  color: #666;
+  color: #fff;
 }
 
 #about .info .social-media {
@@ -720,7 +722,7 @@ about
   padding: 3px 10px;
   display: inline-block;
   border: 1px solid #999;
-  color: #666;
+  color: #fff;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
 }
@@ -916,7 +918,7 @@ experience
 
 #experience .jobs .single-job .job-details h3 {
   font-size: 16px;
-  color: #666;
+  color: #fff;
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -961,7 +963,7 @@ experience
 }
 
 #experience h2 {
-  color: #666;
+  color: #fff;
 }
 
 #experience .company {}

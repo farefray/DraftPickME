@@ -16,6 +16,7 @@ class Homepage extends React.Component {
     addListeners();
 
     this.props.dispatch(userActions.getAll());
+    console.log(this.props);
   }
 
   handleDeleteUser(id) {
@@ -27,7 +28,11 @@ class Homepage extends React.Component {
   }
 
   render() {
-    const { user, users } = this.props;
+    const { currentUser, users, auth } = this.props;
+
+    const profileLink = (username) => {
+      return '/p/' + username;
+    }
 
     const usersBlock = (
       <div>
@@ -35,11 +40,13 @@ class Homepage extends React.Component {
         {users.error && <span>Error: {users.error}</span>}
         {users.items && (
           <div>
-            <h3>All registered users:</h3>
+            <h3>Take a look at our resumes:</h3>
             <ul>
               {users.items.map((user, index) => (
                 <li key={user.id}>
-                  {user.firstName + " " + user.lastName}
+                  <Link to={profileLink(user.username)}>
+                    {user.firstName + " " + user.lastName}
+                  </Link>
                   {user.deleting ? (
                     <em> - Deleting...</em>
                   ) : user.deleteError ? (
@@ -81,20 +88,23 @@ class Homepage extends React.Component {
                   <div className="col-md-6 col-md-offset-3">
                     <h1>
                       <span className="thin">Hello </span>{" "}
-                      {user && user.firstName ? user.firstName : "guest"}
+                      {auth && currentUser.firstName ? currentUser.firstName : "guest"}
                     </h1>
-                    <div>
-                      {users && !users.error ? usersBlock : ""}
-                    </div>
+                    <div>{users && !users.error ? usersBlock : ""}</div>
 
-                    <Link to="/">Back</Link>
-                    <Link
-                      to="/"
-                      className="right"
-                      onClick={this.handleLogout()}
-                    >
-                      Logout
-                    </Link>
+                    {!auth ? (
+                      <Link to="/login" className="right">
+                        Login / Register
+                      </Link>
+                    ) : (
+                      <Link
+                        to="/"
+                        className="btn btn-primary right"
+                        onClick={this.handleLogout()}
+                      >
+                        Logout
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -107,11 +117,13 @@ class Homepage extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   const { users, authentication } = state;
   const { user } = authentication;
   return {
-    user,
-    users
+    currentUser: user,
+    users,
+    auth: !!(authentication && authentication.loggedIn)
   };
 }
 
