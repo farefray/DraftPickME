@@ -30,8 +30,10 @@ let myRender = () => {
 
 // Development Tools
 // ------------------------------------
+ // eslint-disable-next-line no-undef
 if (__DEV__) {
-  if (module.hot) {
+  console.log('Running in dev mode. Hot: ' + module.hot.active)
+  if (module.hot.active) {
     const renderApp = myRender
     const renderError = (error) => {
       const RedBox = require('redbox-react').default

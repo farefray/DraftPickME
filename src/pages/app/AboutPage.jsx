@@ -4,8 +4,11 @@ class AboutPage extends React.Component {
 
   render() {
     let sectionStyle = {
-      background: "url('img/about.png') no-repeat top center fixed",
+      background: "url('images/about.png') no-repeat top center fixed",
       backgroundSize: "cover",
+      backgroundColor: '#e6e6e6',
+      backgroundBlendMode: "overlay",
+      height: "100%"
     }
 
     return (

@@ -3,8 +3,10 @@ import React from "react";
 class EducationPage extends React.Component {
   render() {
     let sectionStyle = {
-      background: "url('img/education.png') no-repeat top center fixed",
-      backgroundSize: "cover"
+      background: "url('images/education.png') no-repeat top center fixed",
+      backgroundSize: "cover",
+      backgroundColor: "#fff",
+      backgroundBlendMode: "overlay"
     };
 
     return (
