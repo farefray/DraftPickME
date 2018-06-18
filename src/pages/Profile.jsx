@@ -1,7 +1,8 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
+
 import {
   AboutPage,
   EducationPage,

@@ -3,6 +3,8 @@ import { Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { PrivateRoute } from "../components/PrivateRoute";
 
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
 import { Homepage } from "./Homepage";
 import { Login } from "./Login";
 import { Register } from "./Register";
@@ -11,53 +13,67 @@ import { EditProfile } from "./login/EditProfile";
 import { Loader } from "../components/Loader.jsx";
 import history from "../helpers/history";
 
-class Main extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const PageFade = props => (
+  <CSSTransition
+    {...props}
+    classNames="fadeTranslate"
+    timeout={1000}
+    mountOnEnter={true}
+    unmountOnExit={true}
+  />
+);
 
-  render() {
-    const { alert } = this.props;
-    /* Example for nested router and probably dynamic route (draftpickit.com/fare => user = fare)
-    const ContactPageRoute = ({ match }) => (
-      <Drilldown>
-        <Route exact path={match.path} component={ContactPage} />
-        <Route path={`${match.url}/fare`} component={ContactPageFare} />
-      </Drilldown>
-    ) */
+const Layout = ({ children }) => (
+  <div id="root">
+    <Loader />
+    {children}
+  </div>
+);
 
-    /*
-      Only resume pages being animated with drilldown, else loading all the pages inside drilldown makes login logic fails.
-      Todo: when user inside non-resume pages(profile, login, register), set some state and hide main menu.
-    */
-    return (
-      <Router history={history}>
-        <div id="root">
-          <Loader />
-          {alert.message && (
-            <div className={`alert ${alert.type}`}>{alert.message}</div>
-          )}
+const App = props => {
+  console.log(props);
+  const locationKey = props.location.pathname;
 
-          <Switch>
+  return (
+    <Layout>
+      <TransitionGroup>
+        <PageFade key={locationKey}>
+          <Switch location={props.location}>
             <Route exact path="/" component={Homepage} />
             <Route path="/login" component={Login} />
             <PrivateRoute
               path="/editprofile"
-              isAuthenticated={this.props.auth}
+              isAuthenticated={props.auth}
               component={EditProfile}
             />
             <Route path="/register" component={Register} />
           </Switch>
-          <Route path="/p/:username" component={Profile} />
-        </div>
-      </Router>
+        </PageFade>
+      </TransitionGroup>
+      <Route path="/p/:username" component={Profile} />
+    </Layout>
+  );
+};
+
+class Main extends React.Component {
+  render() {
+    const { alert } = this.props; // todo
+    const alertBlock = alert.message && (
+      <div className={`alert ${alert.type}`}>{alert.message}</div>
+    );
+    return (
+      <div>
+        {alertBlock}
+        <Router history={history}>
+          <Route path="/" component={App} />
+        </Router>
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
   const { alert, authentication } = state;
-  console.log(!!(authentication && authentication.loggedIn));
   return {
     alert,
     auth: !!(authentication && authentication.loggedIn)

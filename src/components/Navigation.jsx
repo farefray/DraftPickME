@@ -11,8 +11,10 @@ function Navigation(props) {
   return (
     <nav id="nav">
       <div className="logo">
-        <img className="img-responsive" alt="logo" src="../images/deco.svg" />
-        <span>DraftPickIT</span>
+        <Link to="/">
+          <img className="img-responsive" alt="logo" src="../images/deco.svg" />
+          <span>DraftPickIT</span>
+        </Link>
       </div>
       <ul>
         <li id="tt1">

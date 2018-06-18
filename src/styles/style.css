@@ -40,6 +40,7 @@ General Style
 html,
 body {
   height: 100%;
+  background: #525252;
 }
 
 body {
@@ -194,8 +195,8 @@ ul {
 /* Animation */
 
 .animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
@@ -316,7 +317,7 @@ Loading Animation
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 99999;
+  z-index: 0;
   top: 0;
   left: 0;
   display: table;
@@ -448,14 +449,15 @@ Nav Menu
 }
 
 nav {
-  position: fixed;
+  position: absolute;
   left: 0;
-  padding-top: 30px;
+  top: 0;
   background-color: rgba(1, 1, 1, .6);
   color: #fff;
   width: 100px;
   text-align: center;
   height: 100%;
+  overflow: hidden;
   box-shadow: 0 0 25px #333;
   z-index: 10000;
   -webkit-transition: all .5s ease-in-out;
@@ -463,6 +465,7 @@ nav {
 }
 
 nav ul {
+  padding-top: 30px;
   list-style: none;
   padding-left: 0;
 }
@@ -633,8 +636,8 @@ Home
 ========== */
 
 #home {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   color: #fff;
 }
 
@@ -647,6 +650,10 @@ Home
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+#large-header {
+  height: 100%;
 }
 /* ==========
 about
