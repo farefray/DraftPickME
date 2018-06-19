@@ -31,7 +31,6 @@ const Layout = ({ children }) => (
 );
 
 const App = props => {
-  console.log(props);
   const locationKey = props.location.pathname;
 
   return (
@@ -55,17 +54,26 @@ const App = props => {
   );
 };
 
+const AuthRoute = ({ component: Component, path, auth, ...rest }) =>
+  <Route
+    {...rest}
+    render={props => <Component path={path}
+    auth={auth} {...props} />}
+  />;
+
 class Main extends React.Component {
   render() {
     const { alert } = this.props; // todo
     const alertBlock = alert.message && (
       <div className={`alert ${alert.type}`}>{alert.message}</div>
     );
+    console.log('Main');
+    console.log(this.props);
     return (
       <div>
         {alertBlock}
         <Router history={history}>
-          <Route path="/" component={App} />
+          <AuthRoute path="/" component={App} auth={this.props.auth}/>
         </Router>
       </div>
     );
@@ -76,7 +84,7 @@ function mapStateToProps(state) {
   const { alert, authentication } = state;
   return {
     alert,
-    auth: !!(authentication && authentication.loggedIn)
+    auth: authentication.loggedIn
   };
 }
 
