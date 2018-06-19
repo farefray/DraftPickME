@@ -123,10 +123,11 @@ export default {
               ],
               sourceMap: true
             }
-          }, {
+          },
+          {
             loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, 'src', 'scss')],
+              includePaths: [path.resolve(__dirname, 'src/styles', 'scss')],
               sourceMap: true
             }
           }
