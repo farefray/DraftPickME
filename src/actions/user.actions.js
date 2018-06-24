@@ -11,6 +11,7 @@ export const userActions = {
   logout,
   register,
   getAll,
+  getByName,
   delete: _delete
 };
 
@@ -96,6 +97,29 @@ function register(user) {
   function failure(error) {
     return {
       type: userConstants.REGISTER_FAILURE,
+      error
+    }
+  }
+}
+
+function getByName(name) {
+  return userService.getByName(name)
+    .then(
+      response => success(response),
+      error => failure(error)
+    );
+
+
+  function success(response) {
+    return {
+      type: userConstants.GETBYNAME_SUCCESS,
+      response
+    }
+  }
+
+  function failure(error) {
+    return {
+      type: userConstants.GETBYNAME_FAILURE,
       error
     }
   }

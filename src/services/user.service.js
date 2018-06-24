@@ -5,7 +5,7 @@ export const userService = {
     logout,
     register,
     getAll,
-    getById,
+    getByName,
     update,
     remove: _delete
 };
@@ -51,13 +51,12 @@ function getAll() {
     return fetch('/users', requestOptions).then(handleResponse);
 }
 
-function getById(id) {
+function getByName(name) {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
     };
 
-    return fetch('/users/' + id, requestOptions).then(handleResponse);
+    return fetch('/users/' + name, requestOptions);
 }
 
 function register(user) {
