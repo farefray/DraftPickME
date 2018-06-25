@@ -12,7 +12,7 @@ function Navigation(props) {
     <nav id="nav">
       <div className="logo">
         <Link to="/">
-          <img className="img-responsive" alt="logo" src="../images/deco.svg" />
+          <img className="img-responsive" alt="logo" src="/images/deco.svg" />
           <span>DraftPickIT</span>
         </Link>
       </div>

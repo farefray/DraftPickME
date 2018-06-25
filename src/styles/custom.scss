@@ -1,0 +1,9 @@
+input[type="checkbox"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+    width: auto;
+    position: relative;
+    margin: 0px 10px;
+    line-height: 100%;
+    vertical-align: middle;
+}

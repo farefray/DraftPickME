@@ -3,14 +3,14 @@ import React from "react";
 class ExperiencePage extends React.Component {
   render() {
     let sectionStyle = {
-      background: "url('images/experience.png') no-repeat top center fixed",
+      background: "url('/images/experience.png') no-repeat top center fixed",
       backgroundSize: "cover",
     }
 
-		// Nikolay gonna love skill percents!
-		let skillPercent = {
-			width: Math.floor(Math.random() * 31) + 50 + '%'
-		}
+	// Nikolay gonna love skill percents!
+	let skillPercent = {
+		width: Math.floor(Math.random() * 31) + 50 + '%'
+	}
 
     return (
       <section id="experience" style={sectionStyle}>

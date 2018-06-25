@@ -3,7 +3,7 @@ import React from "react";
 class PortfolioPage extends React.Component {
   render() {
     let sectionStyle = {
-      background: "url('images/portfolio.png') no-repeat top center fixed",
+      background: "url('/images/portfolio.png') no-repeat top center fixed",
       backgroundSize: "cover"
     };
 
