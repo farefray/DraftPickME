@@ -20,36 +20,43 @@ const RouteWithProps = ({ component: Component, path, user, ...rest }) =>
     user={user} {...props} />}
   />;
 
-const ProfilePage = ({ match }) => (
-  <div>
+const ProfilePage = (props) => {
+  console.log(props);
+  return ( 
+   <div>
     <Drilldown animateHeight={true} fillParent={true}>
-      <Route
-        path={"/p/" + match.params.username + "/about"}
+      <RouteWithProps
+        path={"/p/" + props.match.params.username + "/about"}
         component={AboutPage}
+        user={props.user}
       />
-      <Route
+      <RouteWithProps
         exact
-        path={"/p/" + match.params.username + "/education"}
+        path={"/p/" + props.match.params.username + "/education"}
         component={EducationPage}
+        user={props.user}
       />
-      <Route
+      <RouteWithProps
         exact
-        path={"/p/" + match.params.username + "/experience"}
+        path={"/p/" + props.match.params.username + "/experience"}
         component={ExperiencePage}
+        user={props.user}
       />
-      <Route
+      <RouteWithProps
         exact
-        path={"/p/" + match.params.username + "/portfolio"}
+        path={"/p/" + props.match.params.username + "/portfolio"}
         component={PortfolioPage}
+        user={props.user}
       />
-      <Route
+      <RouteWithProps
         exact
-        path={"/p/" + match.params.username + "/contact"}
+        path={"/p/" + props.match.params.username + "/contact"}
         component={ContactPage}
+        user={props.user}
       />
     </Drilldown>
   </div>
-);
+)};
 
 class Profile extends React.Component {
   constructor(props) {

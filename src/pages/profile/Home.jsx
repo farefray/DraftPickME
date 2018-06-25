@@ -24,7 +24,6 @@ class Home extends React.Component {
       height: "100%"
     };
 
-    console.log(this.props);
     return (
       <div id="home" className="large-header" style={backgroundImageStyle}>
         <canvas id="demo-canvas"></canvas>

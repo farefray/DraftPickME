@@ -11,6 +11,7 @@ class AboutPage extends React.Component {
       height: "100%"
     }
 
+	let user = this.props.user;
     return (
       <section id="about" style={sectionStyle}>
 			<div className="container">
@@ -28,7 +29,7 @@ class AboutPage extends React.Component {
 					</div>
 					<div className="col-md-8">
 						<div className="about-info">
-							<h2><span>Hello I'm </span>John Doe</h2>
+							<h2><span>Hello I'm </span>{user.lastName} {user.firstName}</h2>
 							<p className="strong-p">
 								I'm John Doe. Creative Web
 										Designer And Developer With More
