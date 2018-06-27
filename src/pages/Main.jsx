@@ -31,6 +31,8 @@ const Layout = ({ children }) => (
 );
 
 const App = props => {
+  console.log('App:');
+  console.log(props);
   const locationKey = props.location.pathname;
 
   return (
