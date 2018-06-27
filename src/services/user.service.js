@@ -4,6 +4,7 @@ export const userService = {
     login,
     logout,
     register,
+    edit,
     getAll,
     getByName,
     update,
@@ -67,6 +68,16 @@ function register(user) {
     };
 
     return fetch('/users/register', requestOptions).then(handleResponse);
+}
+
+function edit(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify(user)
+    };
+
+    return fetch('/users/edit/' + user.id, requestOptions).then(handleResponse);
 }
 
 function update(user) {

@@ -10,6 +10,7 @@ export const userActions = {
   login,
   logout,
   register,
+  edit,
   getAll,
   getByName,
   delete: _delete
@@ -55,12 +56,55 @@ function login(username, password) {
   }
 }
 
-function logout() {
+function logout(redirect = true) {
   console.log('Logging out...');
+  if (redirect) {
+    history.push('/');
+  }
+
   userService.logout();
+
   return {
     type: userConstants.LOGOUT
   };
+}
+
+function edit(user) {
+  return dispatch => {
+    dispatch(request(user));
+
+    userService.edit(user)
+      .then(
+        // eslint-disable-next-line no-unused-vars
+        user => {
+          dispatch(success());
+        },
+        error => {
+          dispatch(failure(error));
+        }
+      );
+  };
+
+  function request(user) {
+    return {
+      type: 'REQUEST',
+      user
+    }
+  }
+
+  function success(user) {
+    return {
+      type: 'OK',
+      user
+    }
+  }
+
+  function failure(error) {
+    return {
+      type: 'ERROR',
+      error
+    }
+  }
 }
 
 function register(user) {
