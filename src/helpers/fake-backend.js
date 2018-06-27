@@ -68,6 +68,7 @@ export function configureFakeBackend() {
                 // edit user
                 if (url.match(/\/users\/edit\/\d+$/) && opts.method === 'POST') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
+                    // todo we also need to check rights to edit this user.
                     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
                         // find user by id in users array
                         let urlParts = url.split('/');
@@ -76,6 +77,7 @@ export function configureFakeBackend() {
                             let user = users[i];
                             if (user.id === id) {
                                 // edit user
+                                // fixme, we need to edit, not to replace(else we gonna lose password for example)
                                 users[i] = JSON.parse(opts.body);
                                 localStorage.setItem('users', JSON.stringify(users));
                                 break;

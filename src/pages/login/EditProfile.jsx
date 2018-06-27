@@ -44,6 +44,7 @@ class EditProfile extends React.Component {
   }
 
   handleLogout() {
+    // fixme do redirect, then logout, else it drops a mistake cuz its protected route
     return e => this.props.dispatch(userActions.logout());
   }
 
