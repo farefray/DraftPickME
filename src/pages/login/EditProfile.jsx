@@ -1,20 +1,21 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { userActions } from '../../actions';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { userActions } from "../../actions";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
 
     // todo better way. Object desctructing or smt
+    let { user } = props;
     this.state = {
-      id: props.user.id,
-      firstName: props.user.firstName ? props.user.firstName : '',
-      lastName: props.user.lastName ? props.user.lastName : '',
-      username: props.user.username ? props.user.username : '',
-      title: props.user.title ? props.user.title : '',
-      enabled: props.user.enabled ? props.user.enabled : false
+      id: user.id,
+      firstName: user.firstName ? user.firstName : "",
+      lastName: user.lastName ? user.lastName : "",
+      username: user.username ? user.username : "",
+      title: user.title ? user.title : "",
+      enabled: user.enabled ? user.enabled : false
     };
 
     console.log(this.state);
@@ -25,10 +26,10 @@ class EditProfile extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    console.log('change event');
+    console.log("change event");
     console.log(name, value);
     this.setState({
       [name]: value
@@ -37,8 +38,7 @@ class EditProfile extends React.Component {
 
   handleSubmit(event) {
     const user = this.state; // todo make user inside of state and {user}
-    const { dispatch } = this.props;
-    dispatch(userActions.edit(user));
+    this.props.dispatch(userActions.edit(user));
 
     event.preventDefault();
   }

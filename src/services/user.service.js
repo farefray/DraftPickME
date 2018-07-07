@@ -8,7 +8,7 @@ export const userService = {
     getAll,
     getByName,
     update,
-    remove: _delete
+    remove: remove
 };
 
 function login(username, password) {
@@ -91,7 +91,7 @@ function update(user) {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+function remove(id) {
     const requestOptions = {
         method: 'DELETE',
         headers: authHeader()

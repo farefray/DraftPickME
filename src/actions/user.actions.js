@@ -13,7 +13,7 @@ export const userActions = {
   edit,
   getAll,
   getByName,
-  delete: _delete
+  remove: remove
 };
 
 function login(username, password) {
@@ -71,13 +71,14 @@ function logout(redirect = true) {
 
 function edit(user) {
   return dispatch => {
-    dispatch(request(user));
+    dispatch(request({
+      user
+    }));
 
     userService.edit(user)
       .then(
-        // eslint-disable-next-line no-unused-vars
         user => {
-          dispatch(success());
+          dispatch(success(user));
         },
         error => {
           dispatch(failure(error));
@@ -87,21 +88,21 @@ function edit(user) {
 
   function request(user) {
     return {
-      type: 'REQUEST',
+      type: userConstants.EDIT_REQUEST,
       user
     }
   }
 
   function success(user) {
     return {
-      type: 'OK',
+      type: userConstants.EDIT_SUCCESS,
       user
     }
   }
 
   function failure(error) {
     return {
-      type: 'ERROR',
+      type: userConstants.EDIT_FAILURE,
       error
     }
   }
@@ -202,11 +203,11 @@ function getAll() {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+function remove(id) {
   return dispatch => {
     dispatch(request(id));
 
-    userService.delete(id)
+    userService.remove(id)
       .then(
         // eslint-disable-next-line no-unused-vars
         user => {

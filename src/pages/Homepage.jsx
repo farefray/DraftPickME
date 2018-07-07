@@ -20,7 +20,7 @@ class Homepage extends React.Component {
   }
 
   handleDeleteUser(id) {
-    return e => this.props.dispatch(userActions.delete(id));
+    return e => this.props.dispatch(userActions.remove(id));
   }
 
   handleLogout() {
@@ -30,9 +30,25 @@ class Homepage extends React.Component {
   render() {
     const { currentUser, users, auth } = this.props;
 
-    const profileLink = (username) => {
-      return '/p/' + username;
-    }
+    const profileLink = username => {
+      return "/p/" + username;
+    };
+
+    // todo access control
+    const userDeleteBlock = user => (
+      <span>
+        {user.deleting ? (
+          <em> - Deleting...</em>
+        ) : user.deleteError ? (
+          <span className="text-danger"> - ERROR: {user.deleteError}</span>
+        ) : (
+          <span>
+            {" "}
+            - <a onClick={this.handleDeleteUser(user.id)}>Delete</a>
+          </span>
+        )}
+      </span>
+    );
 
     const usersBlock = (
       <div>
@@ -47,19 +63,7 @@ class Homepage extends React.Component {
                   <Link to={profileLink(user.username)}>
                     {user.firstName + " " + user.lastName}
                   </Link>
-                  {user.deleting ? (
-                    <em> - Deleting...</em>
-                  ) : user.deleteError ? (
-                    <span className="text-danger">
-                      {" "}
-                      - ERROR: {user.deleteError}
-                    </span>
-                  ) : (
-                    <span>
-                      {" "}
-                      - <a onClick={this.handleDeleteUser(user.id)}>Delete</a>
-                    </span>
-                  )}
+                  {userDeleteBlock(user)}
                 </li>
               ))}
             </ul>
@@ -88,7 +92,9 @@ class Homepage extends React.Component {
                   <div className="col-md-6 col-md-offset-3">
                     <h1>
                       <span className="thin">Hello </span>{" "}
-                      {auth && currentUser.firstName ? currentUser.firstName : "guest"}
+                      {auth && currentUser.firstName
+                        ? currentUser.firstName
+                        : "guest"}
                     </h1>
                     <div>{users && !users.error ? usersBlock : ""}</div>
 
