@@ -5,6 +5,8 @@ import { PrivateRoute } from "../components/PrivateRoute";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
+import { NProgress } from 'redux-nprogress';
+
 import { Homepage } from "./Homepage";
 import { Login } from "./Login";
 import { Register } from "./Register";
@@ -30,8 +32,8 @@ const Layout = ({ children }) => (
   </div>
 );
 
-const App = props => {
-  console.log('App:');
+const Main = props => {
+  console.log('Main:');
   console.log(props);
   const locationKey = props.location.pathname;
 
@@ -63,19 +65,20 @@ const AuthRoute = ({ component: Component, path, auth, ...rest }) =>
     auth={auth} {...props} />}
   />;
 
-class Main extends React.Component {
+class App extends React.Component {
   render() {
     const { alert } = this.props; // todo
     const alertBlock = alert.message && (
       <div className={`alert ${alert.type}`}>{alert.message}</div>
     );
-    console.log('Main');
+    console.log('App');
     console.log(this.props);
     return (
       <div>
+        <NProgress color="#78cc78" />
         {alertBlock}
         <Router history={history}>
-          <AuthRoute path="/" component={App} auth={this.props.auth}/>
+          <AuthRoute path="/" component={Main} auth={this.props.auth}/>
         </Router>
       </div>
     );
@@ -83,11 +86,12 @@ class Main extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { alert, authentication } = state;
+  const { alert, authentication, app } = state;
   return {
+    app,
     alert,
     auth: authentication.loggedIn
   };
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps)(App);

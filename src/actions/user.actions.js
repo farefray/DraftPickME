@@ -1,5 +1,10 @@
 import {
-  userConstants
+  beginTask,
+  endTask
+} from 'redux-nprogress';
+import {
+  userConstants,
+  appConstants
 } from '../constants';
 import {
   userService
@@ -70,42 +75,19 @@ function logout(redirect = true) {
 }
 
 function edit(user) {
-  return dispatch => {
-    dispatch(request({
-      user
-    }));
+  return (dispatch) => {
+    dispatch(beginTask());
 
     userService.edit(user)
-      .then(
-        user => {
-          dispatch(success(user));
-        },
-        error => {
-          dispatch(failure(error));
-        }
-      );
+      .then(() => {
+        // todo success message
+        dispatch(endTask());
+      })
+      .catch((err) => {
+        // todo error alert here
+        console.warn(err);
+      });
   };
-
-  function request(user) {
-    return {
-      type: userConstants.EDIT_REQUEST,
-      user
-    }
-  }
-
-  function success(user) {
-    return {
-      type: userConstants.EDIT_SUCCESS,
-      user
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.EDIT_FAILURE,
-      error
-    }
-  }
 }
 
 function register(user) {
