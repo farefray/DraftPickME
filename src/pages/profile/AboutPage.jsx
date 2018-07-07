@@ -15,7 +15,7 @@ class AboutPage extends React.Component {
     return (
       <section id="about" style={sectionStyle}>
 			<div className="container">
-				<div className="row fadeInUp">
+				<div className="row animated fadeInUp">
 					<div className="col-md-4">
 						<div className="profile-img">
 							<img className="img-responsive" alt="profile-img" src="http://placehold.it/270x340"/>

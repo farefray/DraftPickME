@@ -12,7 +12,7 @@ class EducationPage extends React.Component {
     return (
       <section id="education" style={sectionStyle}>
         <div className="container">
-          <div className="row fadeInUp">
+          <div className="row animated fadeInUp">
             <h2 className="none">Education</h2>
             <div className="col-md-4">
               <div className="single-education">

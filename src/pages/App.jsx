@@ -69,7 +69,7 @@ class App extends React.Component {
   render() {
     const { alert } = this.props; // todo
     const alertBlock = alert.message && (
-      <div className={`alert ${alert.type}`}>{alert.message}</div>
+      <div className={`alert animated fadeInDown ${alert.type}`}>{alert.message}</div>
     );
     console.log('App');
     console.log(this.props);
