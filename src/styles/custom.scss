@@ -1,20 +1,24 @@
 input[type="checkbox"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
-    width: auto;
-    position: relative;
-    margin: 0px 10px;
-    line-height: 100%;
-    vertical-align: middle;
+  width: auto;
+  position: relative;
+  margin: 0px 10px;
+  line-height: 100%;
+  vertical-align: middle;
 }
-
 
 // redux progress bar
 #nprogress .bar {
-    background: green !important;
-    height: 4px !important;
+  background: green !important;
+  height: 4px !important;
+  .peg {
+    box-shadow: none !important;
+  }
+}
 
-    .peg {
-        box-shadow: none !important;
-    }
+.alert {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }

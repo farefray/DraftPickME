@@ -3,8 +3,7 @@ import {
   endTask
 } from 'redux-nprogress';
 import {
-  userConstants,
-  appConstants
+  userConstants, alertConstants
 } from '../constants';
 import {
   userService
@@ -80,12 +79,18 @@ function edit(user) {
 
     userService.edit(user)
       .then(() => {
-        // todo success message
-        dispatch(endTask());
+        dispatch({
+          type: alertConstants.SUCCESS,
+          message: 'Profile saved.'
+        });
+      }, (error) => {
+        dispatch({
+          type: alertConstants.ERROR,
+          message: error
+        });
       })
-      .catch((err) => {
-        // todo error alert here
-        console.warn(err);
+      .then(() => {
+        dispatch(endTask());
       });
   };
 }
