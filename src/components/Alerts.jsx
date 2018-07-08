@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { removeAlert, hideAlert } from "../actions";
+import { hideAlert } from "../actions";
 
 class Alert extends React.Component {
   render() {
@@ -27,7 +27,7 @@ Alert.propTypes = {
 };
 
 const Alerts = ({ actions, alerts }) => {
-  const { removeAlert, hideAlert } = actions;
+  const { hideAlert } = actions;
   return (
     <ul className="alerts">
       {alerts.map(alert => {
@@ -37,8 +37,7 @@ const Alerts = ({ actions, alerts }) => {
             {...alert}
             key={id}
             onDismissClick={() => {
-              hideAlert(id);
-              setTimeout(() => removeAlert(id), 500);
+              hideAlert(id);              
             }}
           />
         );
@@ -49,14 +48,13 @@ const Alerts = ({ actions, alerts }) => {
 
 Alerts.propTypes = {
   actions: PropTypes.shape({
-    removeAlert: PropTypes.func.isRequired,
     hideAlert: PropTypes.func.isRequired
   }).isRequired,
   alerts: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ removeAlert, hideAlert }, dispatch)
+  actions: bindActionCreators({ hideAlert }, dispatch)
 });
 
 function mapStateToProps(state) {

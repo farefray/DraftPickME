@@ -1,9 +1,7 @@
 import { beginTask, endTask } from 'redux-nprogress';
 import { userConstants } from '../constants';
 import { userService } from '../services';
-import {
-  addAlert
-} from './alert.actions';
+import { addAlert } from './alert.actions';
 import history from '../helpers/history';
 
 export const userActions = {
