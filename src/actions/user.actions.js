@@ -1,14 +1,9 @@
+import { beginTask, endTask } from 'redux-nprogress';
+import { userConstants } from '../constants';
+import { userService } from '../services';
 import {
-  beginTask,
-  endTask
-} from 'redux-nprogress';
-import {
-  userConstants, alertConstants
-} from '../constants';
-import {
-  userService
-} from '../services';
-import { addAlert } from './alert.actions';
+  addAlert
+} from './alert.actions';
 import history from '../helpers/history';
 
 export const userActions = {
@@ -23,42 +18,32 @@ export const userActions = {
 
 function login(username, password) {
   return dispatch => {
-    dispatch(request({
-      username
-    }));
+    dispatch(beginTask()); // todo move this into middleware?
 
     userService.login(username, password)
       .then(
         user => {
+          dispatch({
+            type: userConstants.LOGIN_SUCCESS,
+            user
+          });
           history.push('/');
-          dispatch(success(user));
         },
         error => {
-          dispatch(failure(error));
+          dispatch({
+            type: userConstants.LOGIN_FAILURE,
+            error
+          });
+          dispatch(addAlert({
+            text: error,
+            type: 'danger'
+          }));
         }
-      );
+      )
+      .then(() => {
+        dispatch(endTask());
+      });
   };
-
-  function request(user) {
-    return {
-      type: userConstants.LOGIN_REQUEST,
-      user
-    }
-  }
-
-  function success(user) {
-    return {
-      type: userConstants.LOGIN_SUCCESS,
-      user
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.LOGIN_FAILURE,
-      error
-    }
-  }
 }
 
 function logout(redirect = true) {
@@ -80,9 +65,15 @@ function edit(user) {
 
     userService.edit(user)
       .then(() => {
-        dispatch(addAlert({ text: "Profile saved!", type: 'success' }));
+        dispatch(addAlert({
+          text: "Profile saved!",
+          type: 'success'
+        }));
       }, (error) => {
-        dispatch(addAlert({ text: error, type: 'warning' }));
+        dispatch(addAlert({
+          text: error,
+          type: 'warning'
+        }));
       })
       .then(() => {
         dispatch(endTask());
@@ -92,41 +83,29 @@ function edit(user) {
 
 function register(user) {
   return dispatch => {
-    dispatch(request(user));
+    dispatch(beginTask());
 
     userService.register(user)
       .then(
         // eslint-disable-next-line no-unused-vars
         user => {
           history.push('/login');
-          dispatch(success());
+          dispatch(addAlert({
+            text: "Successfull registration!",
+            type: 'success'
+          }));
         },
         error => {
-          dispatch(failure(error));
+          dispatch(addAlert({
+            text: error,
+            type: 'warning'
+          }));
         }
-      );
+      )
+      .then(() => {
+        dispatch(endTask());
+      });
   };
-
-  function request(user) {
-    return {
-      type: userConstants.REGISTER_REQUEST,
-      user
-    }
-  }
-
-  function success(user) {
-    return {
-      type: userConstants.REGISTER_SUCCESS,
-      user
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.REGISTER_FAILURE,
-      error
-    }
-  }
 }
 
 function getByName(name) {

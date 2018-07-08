@@ -17,7 +17,7 @@ class Home extends React.Component {
   render() {
     let backgroundImageStyle = {
       background:
-        "url('http://placehold.it/1920x1280') no-repeat center center fixed",
+        "darkgray no-repeat center center fixed",
       backgroundSize: "cover",
       backgroundColor: "#333",
       backgroundBlendMode: "overlay",

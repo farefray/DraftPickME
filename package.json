@@ -28,7 +28,7 @@
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
-  "author": "Maksym Fedan && Nikolay Kutsoloshchenko",
+  "author": "Maksym Fedan && Yulia Pilat",
   "license": "MIT",
   "dependencies": {
     "babel-plugin-react-transform": "3.0.0",
