@@ -147,7 +147,7 @@ export function configureFakeBackend() {
                 // pass through any requests not handled above
                 realFetch(url, opts).then(response => resolve(response));
 
-            }, 1500);
+            }, Math.random() * 1500 + 100);
         });
     }
 }

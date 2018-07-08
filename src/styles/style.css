@@ -195,10 +195,12 @@ ul {
 /* Animation */
 
 .animated {
-  -webkit-animation-duration: 2s;
   animation-duration: 2s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+
+.animated.quick {
+  animation-duration: 0.5s;
 }
 
 .animated.infinite {

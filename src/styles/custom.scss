@@ -1,5 +1,5 @@
 body {
-    color: #eae7e7;
+  color: #eae7e7;
 }
 
 input[type="checkbox"],
@@ -48,16 +48,35 @@ input[type="checkbox"],
   }
 }
 
+.alerts {
+  top: 14px;
+  position: fixed;
+  right: 24px;
+  width: 240px;
+  z-index: 100;
+}
+
 .alert {
-  position: absolute;
   top: 15px;
   right: 15px;
+  border-radius: 4px;
+  color: #ffffff;
+  display: flex;
+  padding: 16px;
+  cursor: pointer;
+  &:hover {
+    background: #5e5e5e;
+  }
+}
+
+.alert__content {
+  margin: 0 5px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .alert-success {
-    background-color: rgba(14, 129, 43, 0.5);
-    border-color: #000000;
-    color: #ffffff;
-  }
-
-  
+  background-color: rgba(14, 129, 43, 0.5);
+  border-color: #000000;
+  color: #ffffff;
+}

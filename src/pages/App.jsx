@@ -12,7 +12,7 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { Profile } from "./Profile";
 import { EditProfile } from "./login/EditProfile";
-import { Loader } from "../components/Loader.jsx";
+import { Alerts }  from "../components/Alerts";
 import history from "../helpers/history";
 
 const PageFade = props => (
@@ -66,16 +66,12 @@ const AuthRoute = ({ component: Component, path, auth, ...rest }) =>
 
 class App extends React.Component {
   render() {
-    const { alert } = this.props; // todo
-    const alertBlock = alert.message && (
-      <div className={`alert animated fadeInDown ${alert.type}`}>{alert.message}</div>
-    );
     console.log('App');
     console.log(this.props);
     return (
       <div>
         <NProgress color="#78cc78" />
-        {alertBlock}
+        <Alerts/>
         <Router history={history}>
           <AuthRoute path="/" component={Main} auth={this.props.auth}/>
         </Router>
@@ -85,10 +81,9 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { alert, authentication, app } = state;
+  const { authentication, app } = state;
   return {
     app,
-    alert,
     auth: authentication.loggedIn
   };
 }

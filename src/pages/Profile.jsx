@@ -11,7 +11,7 @@ import {
   PortfolioPage,
   ContactPage,
   Home
-} from "./profile/";
+} from "./profile";
 
 const RouteWithProps = ({ component: Component, path, user, ...rest }) =>
   <Route

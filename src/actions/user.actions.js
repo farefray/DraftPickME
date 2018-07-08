@@ -8,6 +8,7 @@ import {
 import {
   userService
 } from '../services';
+import { addAlert } from './alert.actions';
 import history from '../helpers/history';
 
 export const userActions = {
@@ -79,15 +80,9 @@ function edit(user) {
 
     userService.edit(user)
       .then(() => {
-        dispatch({
-          type: alertConstants.SUCCESS,
-          message: 'Profile saved.'
-        });
+        dispatch(addAlert({ text: "Profile saved!", type: 'success' }));
       }, (error) => {
-        dispatch({
-          type: alertConstants.ERROR,
-          message: error
-        });
+        dispatch(addAlert({ text: error, type: 'warning' }));
       })
       .then(() => {
         dispatch(endTask());
