@@ -11,7 +11,6 @@ import {
 import {
   nprogressMiddleware
 } from 'redux-nprogress';
-import promiseMiddleware from 'redux-promise-middleware';
 import rootReducer from './reducers';
 
 const loggerMiddleware = createLogger();
@@ -23,7 +22,6 @@ const store = createStore(
       thunk, 
       loggerMiddleware, 
       nprogressMiddleware(),
-      promiseMiddleware()
     ),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )

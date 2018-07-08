@@ -75,6 +75,10 @@ function edit(user) {
           type: userConstants.LOGIN_SUCCESS,
           user
         });
+
+        // update user in local storage in order to keep our changes.
+        // TODO better way for auth and this part. Make it DRY and not that leakable.
+        localStorage.setItem('user', JSON.stringify(Object.assign(JSON.parse(localStorage.getItem('user')), user)));
       }, (error) => {
         dispatch(addAlert({
           text: error,
