@@ -47,7 +47,6 @@
     "react-router-redux": "5.0.0-alpha.8",
     "react-transition-group": "2.3.1",
     "react-view-slider": "3.0.5",
-    "redbox-react": "1.6.0",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
     "redux-nprogress": "1.0.2",

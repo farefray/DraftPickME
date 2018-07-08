@@ -27,7 +27,6 @@ const PageFade = props => (
 
 const Layout = ({ children }) => (
   <div id="root">
-    <Loader />
     {children}
   </div>
 );
