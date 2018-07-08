@@ -77,8 +77,7 @@ export function configureFakeBackend() {
                             let user = users[i];
                             if (user.id === id) {
                                 // edit user
-                                // fixme, we need to edit, not to replace(else we gonna lose password for example)
-                                users[i] = JSON.parse(opts.body);
+                                users[i] = Object.assign(users[i], JSON.parse(opts.body));
                                 localStorage.setItem('users', JSON.stringify(users));
                                 break;
                             }
@@ -107,8 +106,7 @@ export function configureFakeBackend() {
                     }
 
                     // save new user
-                    let newID = Math.max(...users.map(user => user.id)) + 1;
-                    newUser.id = newID ? newID : 1;
+                    newUser.id = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
                     users.push(newUser);
                     localStorage.setItem('users', JSON.stringify(users));
 

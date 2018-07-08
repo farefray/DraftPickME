@@ -67,6 +67,8 @@ class Profile extends React.Component {
       user: {}
     };
 
+    // TODO Fixme 
+    // Can't call setState (or forceUpdate) on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
     userActions.getByName(this.state.username).then((data) => {
       this.setState({ user: data.response.user });
     });

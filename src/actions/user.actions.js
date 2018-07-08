@@ -69,6 +69,12 @@ function edit(user) {
           text: "Profile saved!",
           type: 'success'
         }));
+
+        // relogin user to update his storage for current customer
+        dispatch({
+          type: userConstants.LOGIN_SUCCESS,
+          user
+        });
       }, (error) => {
         dispatch(addAlert({
           text: error,
