@@ -46,7 +46,7 @@ function login(username, password) {
 
 function logout(redirect = true) {
   console.log('Logging out...');
-  if (redirect) {
+  if (redirect === true) {
     history.push('/');
   }
 
