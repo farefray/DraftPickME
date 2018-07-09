@@ -23,7 +23,8 @@ class EditProfile extends React.Component {
       username: user.username ? user.username : "",
       title: user.title ? user.title : "",
       enabled: user.enabled ? user.enabled : false,
-      files: []
+      cv_file: [],
+      photo: []
     };
 
     console.log(this.state);
@@ -172,10 +173,26 @@ class EditProfile extends React.Component {
                 allowMultiple={false}
                 maxFiles={1}
                 labelIdle={
-                  'Drag & Drop your CV or <span class="filepond--label-action"> Browse </span>'
+                  'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
                 server="/api/upload">
-                {this.state.files.map(file => (
+                {this.state.cv_file.map(file => (
+                  <File key={file} source={file} />
+                ))}
+              </FilePond>
+            </div>
+            <div className="form-group">
+              <label htmlFor="surnameInput">Upload your photo:</label>
+              <FilePond
+                allowFileTypeValidation={true}
+                acceptedFileTypes={['image/jpeg', 'image/png']}
+                allowMultiple={false}
+                maxFiles={1}
+                labelIdle={
+                  'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
+                }
+                server="/api/upload">
+                {this.state.photo.map(file => (
                   <File key={file} source={file} />
                 ))}
               </FilePond>

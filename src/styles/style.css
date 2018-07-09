@@ -613,7 +613,7 @@ about
   box-shadow: 0 0 10px #333;
 }
 
-#about a.white-button {
+#about a.black-button {
   width: 270px;
   margin: 25px auto;
   display: inline-block;
@@ -624,13 +624,13 @@ about
   font-weight: bold;
   text-transform: capitalize;
   text-decoration: none;
-  color: #fff;
+  color: rgb(4, 135, 204);
   letter-spacing: 1px;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
 }
 
-#about a.white-button:hover {
+#about a.black-button:hover {
   -webkit-box-shadow: 0 0 20px #222;
   box-shadow: 0 0 25px #222;
 }
@@ -651,7 +651,11 @@ about
 #about .info ul li .info-title {
   min-width: 65px;
   font-weight: bold;
-  color: #fff;
+  color: #000;
+}
+
+#about .info ul li .info-details {
+  color: #000;
 }
 
 #about .info .social-media {
@@ -663,7 +667,7 @@ about
   padding: 3px 10px;
   display: inline-block;
   border: 1px solid #999;
-  color: #fff;
+  color: #000;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
 }
