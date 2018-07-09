@@ -81,3 +81,11 @@ input[type="checkbox"],
     color: #ffffff;
   }
 }
+
+
+// CV upload 
+.filepond--root .filepond--file-status,
+.filepond--root .filepond--file-info,
+.filepond--drop-label label {
+  font-size: 1.875em !important;
+}

@@ -3,6 +3,13 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "../../actions";
 
+// Import React FilePond
+import { FilePond, File } from "react-filepond";
+import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+
+// Import FilePond styles
+import "filepond/dist/filepond.min.css";
+
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +22,8 @@ class EditProfile extends React.Component {
       lastName: user.lastName ? user.lastName : "",
       username: user.username ? user.username : "",
       title: user.title ? user.title : "",
-      enabled: user.enabled ? user.enabled : false
+      enabled: user.enabled ? user.enabled : false,
+      files: []
     };
 
     console.log(this.state);
@@ -44,8 +52,10 @@ class EditProfile extends React.Component {
   }
 
   handleLogout() {
-    // fixme do redirect, then logout, else it drops a mistake cuz its protected route
-    return e => this.props.dispatch(userActions.logout());
+    return e => {
+      e.preventDefault();
+      this.props.dispatch(userActions.logout(true));
+    };
   }
 
   saveProfile() {}
@@ -55,11 +65,10 @@ class EditProfile extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-md-3 col-md-offset-5">
-            <h1>
-              <span className="thin">Hello</span> {user.firstName}!
-            </h1>
-            <h4>Here you can edit your profile:</h4>
+          <div className="col-md-6 col-md-offset-2">
+            <h2>
+              <span className="thin">Hello</span> {user.firstName}<span className="thin">! Edit your profile before publishing!</span>
+            </h2>
           </div>
         </div>
         <div className="row">
@@ -137,25 +146,40 @@ class EditProfile extends React.Component {
                   <div
                     className="btn-group"
                     role="group"
-                    aria-label="Basic example"
-                  >
+                    aria-label="Basic example">
                     <Link
                       to={"/p/" + this.state.username}
-                      className="btn btn-primary"
-                    >
+                      className="btn btn-primary">
                       Back
                     </Link>
-                    <Link
-                      to="/"
+                    <a
+                      href="#"
                       className="btn btn-primary"
-                      onClick={this.handleLogout()}
-                    >
+                      onClick={this.handleLogout()}>
                       Logout
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
             </form>
+          </div>
+          <div className="col-md-4">
+            <div className="form-group">
+              <label htmlFor="surnameInput">Upload your CV:</label>
+              <FilePond
+                allowFileTypeValidation={true}
+                acceptedFileTypes={['image/jpeg']}
+                allowMultiple={false}
+                maxFiles={1}
+                labelIdle={
+                  'Drag & Drop your CV or <span class="filepond--label-action"> Browse </span>'
+                }
+                server="/api/upload">
+                {this.state.files.map(file => (
+                  <File key={file} source={file} />
+                ))}
+              </FilePond>
+            </div>
           </div>
         </div>
       </div>
