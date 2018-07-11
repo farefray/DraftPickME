@@ -12,11 +12,6 @@ registerPlugin(FilepondPluginFileValidateType);
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
 
-EditProfile.propTypes = {
-  user: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
-
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -213,6 +208,11 @@ class EditProfile extends React.Component {
     );
   }
 }
+
+EditProfile.propTypes = {
+  user: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
   const { authentication } = state;

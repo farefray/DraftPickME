@@ -1,6 +1,41 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import Editable from "react-x-editable";
+import EditableField from "./components/EditableField";
+import { userActions } from "../../actions";
 
 class AboutPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { user } = props;
+    console.log('about page constructor');
+    console.log(user);
+    this.state = {
+      user: user
+    }
+
+    console.log(this.state);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('about compoennt update')
+    console.log(prevProps, prevState);
+  }
+
+  updateProfile = (field, val) => {
+    console.log('AboutPage update');
+    console.log(field, val);
+    console.log(this.state);
+    let updatedUser = this.state.user;
+    updatedUser[field] = val;
+    this.setState({
+      user: updatedUser
+    });
+
+    this.props.dispatch(userActions.edit(updatedUser));
+  }
+
   render() {
     let sectionStyle = {
       background: "url('/images/about.png') no-repeat top center fixed",
@@ -11,6 +46,9 @@ class AboutPage extends React.Component {
     };
 
     let { user } = this.props;
+    console.log('user in render');
+    console.log(user);
+    let canEditProfile = !true; // TODO
     return (
       <section id="about" style={sectionStyle}>
         <div className="container">
@@ -36,9 +74,16 @@ class AboutPage extends React.Component {
                   <span>Hello I'm </span>
                   {user.lastName} {user.firstName}
                 </h2>
-                <p className="strong-p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
+                <div className="strong-p">
+                  <Editable
+                    name="title"
+                    dataType="custom"
+                    value={user.title}           
+                    customComponent={(props, state) => {
+                      return (<EditableField {...props} {...state} onChanged={this.updateProfile}/>);
+                    }}                         
+                  />
+                </div>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
                   vitae tortor rhoncus elit ornare euismod. Donec in erat neque.
@@ -140,5 +185,10 @@ class AboutPage extends React.Component {
     );
   }
 }
+
+AboutPage.propTypes = {
+  user: PropTypes.object.isRequired
+};
+
 
 export { AboutPage };
