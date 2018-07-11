@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "../../actions";
 
-// Import React FilePond
-import { FilePond, File } from "react-filepond";
+// Import React FilePond and file type validation for it
+import { FilePond, File, registerPlugin } from "react-filepond";
 import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+registerPlugin(FilepondPluginFileValidateType);
 
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
@@ -169,7 +170,7 @@ class EditProfile extends React.Component {
               <label htmlFor="surnameInput">Upload your CV:</label>
               <FilePond
                 allowFileTypeValidation={true}
-                acceptedFileTypes={['image/jpeg']}
+                acceptedFileTypes={['application/msword', 'application/vnd.oasis.opendocument.text', 'application/rtf', 'text/plain', 'text/html', 'application/pdf']}
                 allowMultiple={false}
                 maxFiles={1}
                 labelIdle={
