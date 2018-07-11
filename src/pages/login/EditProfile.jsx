@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "../../actions";
@@ -11,23 +12,29 @@ registerPlugin(FilepondPluginFileValidateType);
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
 
+EditProfile.propTypes = {
+  user: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
+
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
 
-    // todo better way. Object desctructing or smt
     let { user } = props;
     this.state = {
-      id: user.id,
-      firstName: user.firstName ? user.firstName : "",
-      lastName: user.lastName ? user.lastName : "",
-      username: user.username ? user.username : "",
-      title: user.title ? user.title : "",
-      enabled: user.enabled ? user.enabled : false,
-      cv_file: [],
-      photo: []
-    };
-
+      user: Object.assign({
+        id: user.id,
+        firstName: user.firstName ? user.firstName : "",
+        lastName: user.lastName ? user.lastName : "",
+        username: user.username ? user.username : "",
+        title: user.title ? user.title : "",
+        enabled: user.enabled ? user.enabled : false,
+        cv_file: [],
+        photo: []
+      }, user)
+    }
+    console.log(user);
     console.log(this.state);
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -41,13 +48,15 @@ class EditProfile extends React.Component {
 
     console.log("change event");
     console.log(name, value);
+    let updatedUser = this.state.user;
+    updatedUser[name] = value;
     this.setState({
-      [name]: value
+      user: updatedUser
     });
   }
 
   handleSubmit(event) {
-    const user = this.state; // todo make user inside of state and {user}
+    const { user } = this.state; // todo make user inside of state and {user}
     this.props.dispatch(userActions.edit(user));
 
     event.preventDefault();
@@ -63,13 +72,13 @@ class EditProfile extends React.Component {
   saveProfile() {}
 
   render() {
-    const { user } = this.props;
+    const firstName = this.props.user.firstName;
     return (
       <div>
         <div className="row">
           <div className="col-md-6 col-md-offset-2">
             <h2>
-              <span className="thin">Hello</span> {user.firstName}<span className="thin">! Edit your profile before publishing!</span>
+              <span className="thin">Hello</span> {firstName}<span className="thin">! Edit your profile before publishing!</span>
             </h2>
           </div>
         </div>
@@ -84,7 +93,7 @@ class EditProfile extends React.Component {
                   id="nameInput"
                   placeholder="Jane"
                   name="firstName"
-                  value={this.state.firstName}
+                  value={this.state.user.firstName}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -96,7 +105,7 @@ class EditProfile extends React.Component {
                   id="surnameInput"
                   placeholder="Doe"
                   name="lastName"
-                  value={this.state.lastName}
+                  value={this.state.user.lastName}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -108,7 +117,7 @@ class EditProfile extends React.Component {
                   id="titleInput"
                   placeholder="experienced IT Engineer / Webdeveloper"
                   name="title"
-                  value={this.state.title}
+                  value={this.state.user.title}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -122,7 +131,7 @@ class EditProfile extends React.Component {
                     placeholder="Username"
                     aria-describedby="basic-addon1"
                     name="username"
-                    value={this.state.username}
+                    value={this.state.user.username}
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -135,7 +144,7 @@ class EditProfile extends React.Component {
                     id="enabledCheckbox"
                     name="enabled"
                     type="checkbox"
-                    checked={this.state.enabled}
+                    checked={this.state.user.enabled}
                     onChange={this.handleInputChange}
                   />
                 </label>
@@ -150,7 +159,7 @@ class EditProfile extends React.Component {
                     role="group"
                     aria-label="Basic example">
                     <Link
-                      to={"/p/" + this.state.username}
+                      to={"/p/" + this.state.user.username}
                       className="btn btn-primary">
                       Back
                     </Link>
@@ -177,7 +186,7 @@ class EditProfile extends React.Component {
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
                 server="/api/upload">
-                {this.state.cv_file.map(file => (
+                {this.state.user.cv_file.map(file => (
                   <File key={file} source={file} />
                 ))}
               </FilePond>
@@ -193,7 +202,7 @@ class EditProfile extends React.Component {
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
                 server="/api/upload">
-                {this.state.photo.map(file => (
+                {this.state.user.photo.map(file => (
                   <File key={file} source={file} />
                 ))}
               </FilePond>
