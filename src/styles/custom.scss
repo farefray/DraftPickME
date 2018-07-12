@@ -89,3 +89,13 @@ input[type="checkbox"],
 .filepond--drop-label label {
   font-size: 1.875em !important;
 }
+
+
+// Editable fields
+.editable-container {
+  background-image: url('../images/edit.svg');
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-position: top;
+}
+
