@@ -1,6 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
+import Editable from "react-x-editable";
+import EditableField from "./components/EditableField";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { userActions } from "../../actions";
 
 class AboutPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  updateProfile = (field, val) => {
+    console.log("AboutPage update");
+    console.log(field, val);
+    console.log(this.props);
+    let updatedUser = this.props.user;
+    updatedUser[field] = val;
+    this.props.dispatch(userActions.edit(updatedUser));
+  };
+
   render() {
     let sectionStyle = {
       background: "url('/images/about.png') no-repeat top center fixed",
@@ -10,7 +29,10 @@ class AboutPage extends React.Component {
       height: "100%"
     };
 
-    let { user } = this.props;
+    let { user } = this.props; // TODO make default values for fields which are available on this page
+    console.log("user in render");
+    console.log(user);
+    let canEditProfile = !true; // TODO check if thats current user
     return (
       <section id="about" style={sectionStyle}>
         <div className="container">
@@ -36,20 +58,42 @@ class AboutPage extends React.Component {
                   <span>Hello I'm </span>
                   {user.lastName} {user.firstName}
                 </h2>
-                <p className="strong-p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-                  vitae tortor rhoncus elit ornare euismod. Donec in erat neque.
-                  Etiam cursus vel est eget scelerisque. Vestibulum vitae arcu a
-                  leo porttitor tincidunt. Nulla facilisi. Nunc tempor lectus
-                  lectus. Aenean finibus lobortis quam et faucibus. Nam eget
-                  diam id turpis iaculis hendrerit. Pellentesque a lectus
-                  tempus, iaculis nunc eu, ultricies magna. Integer eleifend
-                  posuere neque, ultrices porta dui scelerisque quis. Fusce
-                  dictum vestibulum est, ac rutrum augue consectetur a.
-                </p>
+                <div className="strong-p">
+                  <Editable
+                    name="title"
+                    dataType="custom"
+                    disabled={canEditProfile}
+                    value={user.title}
+                    showButtons={false}
+                    customComponent={(props, state) => {
+                      return (
+                        <EditableField
+                          {...props}
+                          {...state}
+                          onChanged={this.updateProfile}
+                        />
+                      );
+                    }}
+                  />
+                </div>
+                <div>
+                  <Editable
+                    name="description"
+                    dataType="custom"
+                    disabled={canEditProfile}
+                    value={user.description}
+                    showButtons={false}
+                    customComponent={(props, state) => {
+                      return (
+                        <EditableField
+                          {...props}
+                          {...state}
+                          onChanged={this.updateProfile}
+                        />
+                      );
+                    }}
+                  />                  
+                </div>
                 <div className="info">
                   <div className="col-md-6 no-padding-left">
                     <ul>
@@ -141,4 +185,12 @@ class AboutPage extends React.Component {
   }
 }
 
-export { AboutPage };
+AboutPage.propTypes = {
+  user: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
+
+const connectedAboutPage = connect(mapDispatchToProps)(AboutPage);
+export { connectedAboutPage as AboutPage };

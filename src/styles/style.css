@@ -598,9 +598,15 @@ about
   height: auto;
 }
 
-#about p {
+#about {
   color: #444;
   font-size: 14px;
+}
+
+#about div {
+  line-height: 1.7;
+  letter-spacing: .5px;
+  padding-right: 10px;
 }
 
 #about a {

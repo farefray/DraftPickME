@@ -11,8 +11,7 @@ class Alert extends React.Component {
         className={`alert animated quick alert-${this.props.type} ${
           this.props.animationClass
         }`}
-        onClick={this.props.onDismissClick}
-      >
+        onClick={this.props.onDismissClick}>
         <p className="alert__content">{this.props.text}</p>
       </li>
     );
@@ -37,7 +36,7 @@ const Alerts = ({ actions, alerts }) => {
             {...alert}
             key={id}
             onDismissClick={() => {
-              hideAlert(id);              
+              hideAlert(id);
             }}
           />
         );
