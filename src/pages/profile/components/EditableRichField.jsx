@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { FormGroup, FormControl, HelpBlock } from "react-bootstrap";
+import DraftEditor from "./DraftEditor.jsx";
 
-export default class EditableField extends Component {
+export default class EditableRichField extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,10 @@ export default class EditableField extends Component {
   getValue = () => {
     return this.state.value;
   };
+  onChange = ({ value }) => {
+    console.log('value changed');
+    console.log(value);
+  }
   setValue = e => {
     let { value } = this.state;
     value = e.target.value;
@@ -24,8 +28,8 @@ export default class EditableField extends Component {
   onBlur = e => {
     console.log("BLUR");
     console.log(e.target.value);
-    this.props.onChanged(this.props.name, e.target.value);
-    this.props.onSubmit();
+    //this.props.onChanged(this.props.name, e.target.value);
+    this.props.onSubmit(e);
   };
   getValidationState() {
     const length = this.state.value.length;
@@ -36,31 +40,15 @@ export default class EditableField extends Component {
   }
   render() {
     return (
-      <FormGroup
-        controlId="value"
-        validationState={this.getValidationState()}
-        key={"form-text-value"}
-        name={"value"}>
-        <FormControl
-          key={"form-control-value"}
-          type="text"
-          bsSize="sm"
-          value={this.state.value || ""}
-          onChange={this.setValue.bind(this)}
-          onBlur={this.onBlur.bind(this)}
-        />
-        <HelpBlock key={"HelpBlock" + this.props.name}>
-          {this.state.validationError}
-        </HelpBlock>
-      </FormGroup>
+      <DraftEditor
+      />
     );
   }
 }
 
-EditableField.propTypes = {
+EditableRichField.propTypes = {
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   setValueToAnchor: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onChanged: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired
 };

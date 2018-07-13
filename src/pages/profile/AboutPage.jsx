@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Editable from "react-x-editable";
-import EditableField from "./components/EditableField";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import Editable from "react-x-editable";
+import EditableRichField from "./components/EditableRichField"; 
 import { userActions } from "../../actions";
 
 class AboutPage extends React.Component {
@@ -11,13 +11,12 @@ class AboutPage extends React.Component {
     super(props);
   }
 
-  updateProfile = (field, val) => {
+  updateProfile = (editedField) => {
     console.log("AboutPage update");
-    console.log(field, val);
-    console.log(this.props);
-    let updatedUser = this.props.user;
-    updatedUser[field] = val;
-    this.props.dispatch(userActions.edit(updatedUser));
+    console.log(editedField);
+    let { user } = this.props;
+    user[editedField.state.name] = editedField.newValue;
+    this.props.dispatch(userActions.edit(user));
   };
 
   render() {
@@ -61,38 +60,32 @@ class AboutPage extends React.Component {
                 <div className="strong-p">
                   <Editable
                     name="title"
-                    dataType="custom"
+                    dataType="text"
                     disabled={canEditProfile}
                     value={user.title}
                     showButtons={false}
-                    customComponent={(props, state) => {
-                      return (
-                        <EditableField
-                          {...props}
-                          {...state}
-                          onChanged={this.updateProfile}
-                        />
-                      );
-                    }}
+                    mode="inline"
+                    handleSubmit={this.updateProfile}
                   />
                 </div>
                 <div>
-                  <Editable
+                <Editable
                     name="description"
                     dataType="custom"
                     disabled={canEditProfile}
                     value={user.description}
                     showButtons={false}
-                    customComponent={(props, state) => {
-                      return (
-                        <EditableField
-                          {...props}
-                          {...state}
-                          onChanged={this.updateProfile}
-                        />
-                      );
-                    }}
-                  />                  
+                    mode="inline"
+                    handleSubmit={this.updateProfile}
+                    customComponent={(props, state) => { 
+                      return ( 
+                        <EditableRichField 
+                          {...props} 
+                          {...state} 
+                        /> 
+                      ); 
+                    }} 
+                  />         
                 </div>
                 <div className="info">
                   <div className="col-md-6 no-padding-left">
