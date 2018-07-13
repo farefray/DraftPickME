@@ -49,6 +49,7 @@
     "react-router-redux": "5.0.0-alpha.8",
     "react-transition-group": "2.3.1",
     "react-view-slider": "3.0.5",
+    "react-x-editable": "0.0.10-beta",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
     "redux-nprogress": "1.0.2",
