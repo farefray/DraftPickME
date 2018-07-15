@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Editable from "react-x-editable";
-import DraftEditor from "./DraftEditor.jsx";
+import RichTextEditor from "./RichTextEditor.jsx";
 import RichTextRenderer from "./RichTextRenderer";
 
 export default class EditableRichComponent extends Component {
@@ -11,17 +11,14 @@ export default class EditableRichComponent extends Component {
   };
 
   handleSubmit = () => {
-    console.log('submit')
     const {name, value} = this.state;
-    this.props.onSubmit(name, value);
+    this.props.handleSubmit(name, value);
   }
 
-  onChange = (newValue) => {
+  onRichFieldEdited = (newValue) => {
     let { value } = this.state;
     value = newValue;
     this.setState({ value });
-    console.log('EditableRichComponent received on Change');
-    console.log(this.state);
   }
 
   render() {
@@ -33,11 +30,10 @@ export default class EditableRichComponent extends Component {
         value={this.state.value}
         handleSubmit={this.handleSubmit}
         display={(value) => {
-          console.log(value);
           return (<RichTextRenderer raw={value}/>);
         }}
         customComponent={(props, state) => {
-          return <DraftEditor {...props} {...state} onChange={this.onChange} value={this.state.value}/>;
+          return <RichTextEditor {...props} {...state} onChange={this.onRichFieldEdited} value={this.state.value}/>;
         }}
       />
     );
@@ -45,6 +41,8 @@ export default class EditableRichComponent extends Component {
 }
 
 EditableRichComponent.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired
 };

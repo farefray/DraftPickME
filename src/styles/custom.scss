@@ -82,7 +82,6 @@ input[type="checkbox"],
   }
 }
 
-
 // CV upload 
 .filepond--root .filepond--file-status,
 .filepond--root .filepond--file-info,
@@ -90,12 +89,41 @@ input[type="checkbox"],
   font-size: 1.875em !important;
 }
 
-
 // Editable fields
-.editable-container {
-  background-image: url('../images/edit.svg');
-  background-repeat: no-repeat;
-  background-size: 10px;
-  background-position: top;
+.editable-disabled {
+  a {
+    cursor: default;
+  }
 }
 
+.editable-container {
+  display: inline-block;
+  cursor: pointer;
+  .form-group {
+    margin-bottom: 0px;
+  }
+  a {
+    width: 100%;
+    min-width: 100%;
+    display: block;
+  }  
+}
+
+.popover {
+  //width: 400px;
+  max-width: 400px;
+  .popover-content {
+    input {
+      text-indent: 0;
+    }
+  }
+}
+
+.editable-btn {
+  text-align: right;
+  padding: 0;
+  margin: 2px 1px 0 0;
+  button:not(:last-child) {
+    margin: 0 4px;
+  }
+}

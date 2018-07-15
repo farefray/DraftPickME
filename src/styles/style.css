@@ -137,7 +137,7 @@ a.button-style-2:hover {
 p {
   line-height: 1.7;
   letter-spacing: .5px;
-  padding-right: 10px;
+  padding-right: 7px;
 }
 
 section {
@@ -606,7 +606,6 @@ about
 #about div {
   line-height: 1.7;
   letter-spacing: .5px;
-  padding-right: 10px;
 }
 
 #about a {

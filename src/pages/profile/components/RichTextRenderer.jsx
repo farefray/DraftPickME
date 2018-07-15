@@ -8,13 +8,11 @@ import PropTypes from "prop-types";
 const styles = {
   code: {
     backgroundColor: "rgba(0, 0, 0, 0.05)",
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
     padding: 2
   },
   codeBlock: {
     backgroundColor: "rgba(0, 0, 0, 0.05)",
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
     padding: 20
   }
@@ -80,7 +78,7 @@ const renderers = {
   }
 };
 
-export default class RichTextRenderer extends Component {
+export default class RichTextRenderer extends React.PureComponent {
   static propTypes = {
     raw: PropTypes.string
   };
@@ -90,12 +88,12 @@ export default class RichTextRenderer extends Component {
   }
 
   render() {
+    // FIXME TODO: if I gonna erase all the content and save, then we will never see again our editable field :)
     const { raw } = this.props;
-    console.log('about to render :');
-    console.log(raw);
     if (!raw) {
       return this.renderWarning();
     }
+    
     const rendered = redraft(JSON.parse(raw), renderers);
     // redraft returns a null if there's nothing to render
     if (!rendered) {

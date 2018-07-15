@@ -11,29 +11,15 @@ class AboutPage extends React.Component {
     super(props);
   }
 
-  richEditorFieldChange = (name, richEditorField) => {
-    console.log('rich field change');
-    console.log(name);
-    console.log(richEditorField);
-  }
-
-  updateProfileRichValue = (name, value) => {
-    console.log('YEY');
-    console.log(name);
-    console.log(value);
-    this.updateUserProfile(name, value)
-  }
-
-  updateProfileValue = (editedField) => {
-    console.log('about page ydate rich profile value')
-    this.updateUserProfile(editedField.state.name, editedField.newValue)
+  updateProfileValue = editedField => {
+    this.updateUserProfile(editedField.state.name, editedField.newValue);
   };
 
-  updateUserProfile(name, value) {
+  updateUserProfile = (name, value) => {
     let { user } = this.props;
     user[name] = value;
     this.props.dispatch(userActions.edit(user));
-  }
+  };
 
   render() {
     let sectionStyle = {
@@ -45,12 +31,9 @@ class AboutPage extends React.Component {
     };
 
     let { user } = this.props; // TODO make default values for fields which are available on this page
-    console.log("user in render");
-    console.log(user);
-
     let canEditProfile = !true; // TODO check if thats current user
-    if(!user.id) {
-      return <div>Loading...</div>
+    if (!user.id) {
+      return <div>Loading...</div>;
     }
 
     return (
@@ -75,7 +58,6 @@ class AboutPage extends React.Component {
             <div className="col-md-8">
               <div className="about-info">
                 <h2>
-                  <span>Hello I'm </span>
                   {user.lastName} {user.firstName}
                 </h2>
                 <div className="strong-p">
@@ -84,17 +66,18 @@ class AboutPage extends React.Component {
                     dataType="text"
                     disabled={canEditProfile}
                     value={user.title}
-                    showButtons={false}
-                    mode="inline"
+                    placement="bottom"
+                    mode="popup"
                     handleSubmit={this.updateProfileValue}
                   />
                 </div>
+                <hr />
                 <div>
                   <EditableRichComponent
                     name="description"
                     disabled={canEditProfile}
                     value={user.description}
-                    onSubmit={this.updateProfileRichValue}
+                    handleSubmit={this.updateUserProfile}
                   />
                 </div>
                 <div className="info">
@@ -102,20 +85,44 @@ class AboutPage extends React.Component {
                     <ul>
                       <li>
                         <p className="info-title">Age </p>
-                        <span className="info-details"> 28</span>
+                        <span className="info-details">
+                          <Editable
+                            name="age"
+                            dataType="text"
+                            disabled={canEditProfile}
+                            value={user.age}
+                            placement="bottom"
+                            mode="popup"
+                            handleSubmit={this.updateProfileValue}
+                          />
+                        </span>
                       </li>
                       <li>
                         <p className="info-title">Address </p>
                         <span className="info-details">
-                          {" "}
-                          22 Place, Los Angelos
+                          <Editable
+                            name="address"
+                            dataType="text"
+                            disabled={canEditProfile}
+                            value={user.address}
+                            placement="bottom"
+                            mode="popup"
+                            handleSubmit={this.updateProfileValue}
+                          />
                         </span>
                       </li>
                       <li>
                         <p className="info-title">Email </p>
                         <span className="info-details">
-                          {" "}
-                          Johndoe@mywebsite.com
+                        <Editable
+                            name="email"
+                            dataType="text"
+                            disabled={canEditProfile}
+                            value={user.email}
+                            placement="bottom"
+                            mode="popup"
+                            handleSubmit={this.updateProfileValue}
+                          />
                         </span>
                       </li>
                     </ul>
@@ -124,15 +131,45 @@ class AboutPage extends React.Component {
                     <ul>
                       <li>
                         <p className="info-title">Phone </p>
-                        <span className="info-details"> +002 123 456 789</span>
+                        <span className="info-details">
+                        <Editable
+                            name="phone"
+                            dataType="text"
+                            disabled={canEditProfile}
+                            value={user.phone}
+                            placement="bottom"
+                            mode="popup"
+                            handleSubmit={this.updateProfileValue}
+                          />
+                        </span>
                       </li>
                       <li>
                         <p className="info-title">Website </p>
-                        <span className="info-details"> www.mywebsite.com</span>
+                        <span className="info-details">
+                        <Editable
+                            name="website"
+                            dataType="text"
+                            disabled={canEditProfile}
+                            value={user.website}
+                            placement="bottom"
+                            mode="popup"
+                            handleSubmit={this.updateProfileValue}
+                          />
+                        </span>
                       </li>
                       <li>
                         <p className="info-title">Country </p>
-                        <span className="info-details"> Australia</span>
+                        <span className="info-details">
+                        <Editable
+                            name="country"
+                            dataType="text"
+                            disabled={canEditProfile}
+                            value={user.country}
+                            placement="bottom"
+                            mode="popup"
+                            handleSubmit={this.updateProfileValue}
+                          />
+                          </span>
                       </li>
                     </ul>
                   </div>
