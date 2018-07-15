@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Editable from "react-x-editable";
-import EditableRichComponent from "./components/EditableRichField";
+import EditableRichComponent from "./components/EditableRichComponent";
 import { userActions } from "../../actions";
 
 class AboutPage extends React.Component {
@@ -17,9 +17,11 @@ class AboutPage extends React.Component {
     console.log(richEditorField);
   }
 
-  updateProfileRichValue(e) {
+  updateProfileRichValue = (name, value) => {
     console.log('YEY');
-    console.log(e);
+    console.log(name);
+    console.log(value);
+    this.updateUserProfile(name, value)
   }
 
   updateProfileValue = (editedField) => {
@@ -45,7 +47,12 @@ class AboutPage extends React.Component {
     let { user } = this.props; // TODO make default values for fields which are available on this page
     console.log("user in render");
     console.log(user);
+
     let canEditProfile = !true; // TODO check if thats current user
+    if(!user.id) {
+      return <div>Loading...</div>
+    }
+
     return (
       <section id="about" style={sectionStyle}>
         <div className="container">
@@ -83,20 +90,11 @@ class AboutPage extends React.Component {
                   />
                 </div>
                 <div>
-                  <Editable
+                  <EditableRichComponent
                     name="description"
-                    dataType="custom"
                     disabled={canEditProfile}
-                    value={user.description ? user.description : 'Default value for description.'}
-                    handleSubmit={this.updateProfileRichValue}
-                    customComponent={(props, state) => {
-                      return (
-                        <EditableRichComponent
-                          {...props}
-                          {...state}
-                        />
-                      );
-                    }}
+                    value={user.description}
+                    onSubmit={this.updateProfileRichValue}
                   />
                 </div>
                 <div className="info">

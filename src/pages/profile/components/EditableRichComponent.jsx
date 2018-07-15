@@ -1,73 +1,50 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Editable from "react-x-editable";
 import DraftEditor from "./DraftEditor.jsx";
+import RichTextRenderer from "./RichTextRenderer";
 
-class EditableRichField extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value ? props.value : '',
-      validationError: "" // TODO
-    };
-  }
-
-  getValue = () => {
-    return this.state.value;
+export default class EditableRichComponent extends Component {
+  state = { 
+    value: this.props.value,
+    name: this.props.name,
   };
 
+  handleSubmit = () => {
+    console.log('submit')
+    const {name, value} = this.state;
+    this.props.onSubmit(name, value);
+  }
+
   onChange = (newValue) => {
-    console.log('rich value changed');
-    console.log(newValue);
-    // todo here we update state of current rich field
     let { value } = this.state;
     value = newValue;
     this.setState({ value });
-  };
-
-  handleSubmit = (e) => {
-console.log('BLURRR')
-  };
-
-  setValue = e => {
-    // todo seems its not working :)
-    console.log('set value')
-    let { value } = this.state;
-    value = e.target.value;
-    this.setState({ value });
-    console.log(value);
-    this.props.setValueToAnchor(value, e);
-    console.log(this.props);
-  };
-
-  getValidationState() {
-    const length = this.state.value.length;
-    if (length > 10) return "success";
-    else if (length > 5) return "warning";
-    else if (length > 0) return "error";
-    return null;
+    console.log('EditableRichComponent received on Change');
+    console.log(this.state);
   }
 
   render() {
     return (
-      <DraftEditor onChange={this.onChange} />
+      <Editable
+        name="description"
+        dataType="custom"
+        disabled={this.props.disabled}
+        value={this.state.value}
+        handleSubmit={this.handleSubmit}
+        display={(value) => {
+          console.log(value);
+          return (<RichTextRenderer raw={value}/>);
+        }}
+        customComponent={(props, state) => {
+          return <DraftEditor {...props} {...state} onChange={this.onChange} value={this.state.value}/>;
+        }}
+      />
     );
   }
 }
 
-EditableRichField.propTypes = {
+EditableRichComponent.propTypes = {
   value: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  setValueToAnchor: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
-};
-
-
-const higherOrderComponent = (WrappedComponent) => {
-  class HOC extends React.Component {
-    render() {
-      return <WrappedComponent />;
-    }
-  }
-    
-  return HOC;
+  name: PropTypes.string.isRequired
 };

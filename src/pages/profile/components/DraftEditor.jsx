@@ -3,10 +3,12 @@ import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
 import { convertFromRaw, convertToRaw } from 'draft-js';
 
 
-export default class RichEditorExample extends React.Component {
+export default class DraftEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+    console.log('drafteditror');
+    console.log(props);
+    this.state = { editorState: props.value ? EditorState.createWithContent(convertFromRaw(JSON.parse(props.value))) : EditorState.createEmpty() };
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => {
       this.setState({ editorState });
@@ -132,16 +134,13 @@ class StyleButton extends React.Component {
   }
 }
 const BLOCK_TYPES = [
-  { label: 'H1', style: 'header-one' },
-  { label: 'H2', style: 'header-two' },
   { label: 'H3', style: 'header-three' },
   { label: 'H4', style: 'header-four' },
   { label: 'H5', style: 'header-five' },
-  { label: 'H6', style: 'header-six' },
   { label: 'Blockquote', style: 'blockquote' },
-  { label: 'UL', style: 'unordered-list-item' },
-  { label: 'OL', style: 'ordered-list-item' },
-  { label: 'Code Block', style: 'code-block' },
+  /*{ label: 'UL', style: 'unordered-list-item' },
+  { label: 'OL', style: 'ordered-list-item' },*/
+  { label: 'Code', style: 'code-block' },
 ];
 const BlockStyleControls = (props) => {
   const { editorState } = props;
@@ -168,7 +167,6 @@ var INLINE_STYLES = [
   { label: 'Bold', style: 'BOLD' },
   { label: 'Italic', style: 'ITALIC' },
   { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
 ];
 const InlineStyleControls = (props) => {
   const currentStyle = props.editorState.getCurrentInlineStyle();

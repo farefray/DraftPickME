@@ -684,6 +684,12 @@ about
   border-color: #0487cc;
 }
 
+#about .about-info {
+  max-height: 800px;
+  overflow-y: auto;
+  
+}
+
 #about .about-info h2 {
   color: #0487cc;
   margin-top: 0;
