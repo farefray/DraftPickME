@@ -51,6 +51,7 @@
     "react-transition-group": "2.3.1",
     "react-view-slider": "3.0.5",
     "react-x-editable": "0.0.10-beta",
+    "redraft": "0.10.1",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
     "redux-nprogress": "1.0.2",

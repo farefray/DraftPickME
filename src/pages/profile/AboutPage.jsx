@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Editable from "react-x-editable";
-import EditableRichField from "./components/EditableRichField"; 
+import EditableRichComponent from "./components/EditableRichField";
 import { userActions } from "../../actions";
 
 class AboutPage extends React.Component {
@@ -11,13 +11,27 @@ class AboutPage extends React.Component {
     super(props);
   }
 
-  updateProfile = (editedField) => {
-    console.log("AboutPage update");
-    console.log(editedField);
-    let { user } = this.props;
-    user[editedField.state.name] = editedField.newValue;
-    this.props.dispatch(userActions.edit(user));
+  richEditorFieldChange = (name, richEditorField) => {
+    console.log('rich field change');
+    console.log(name);
+    console.log(richEditorField);
+  }
+
+  updateProfileRichValue(e) {
+    console.log('YEY');
+    console.log(e);
+  }
+
+  updateProfileValue = (editedField) => {
+    console.log('about page ydate rich profile value')
+    this.updateUserProfile(editedField.state.name, editedField.newValue)
   };
+
+  updateUserProfile(name, value) {
+    let { user } = this.props;
+    user[name] = value;
+    this.props.dispatch(userActions.edit(user));
+  }
 
   render() {
     let sectionStyle = {
@@ -65,27 +79,25 @@ class AboutPage extends React.Component {
                     value={user.title}
                     showButtons={false}
                     mode="inline"
-                    handleSubmit={this.updateProfile}
+                    handleSubmit={this.updateProfileValue}
                   />
                 </div>
                 <div>
-                <Editable
+                  <Editable
                     name="description"
                     dataType="custom"
                     disabled={canEditProfile}
-                    value={user.description}
-                    showButtons={false}
-                    mode="inline"
-                    handleSubmit={this.updateProfile}
-                    customComponent={(props, state) => { 
-                      return ( 
-                        <EditableRichField 
-                          {...props} 
-                          {...state} 
-                        /> 
-                      ); 
-                    }} 
-                  />         
+                    value={user.description ? user.description : 'Default value for description.'}
+                    handleSubmit={this.updateProfileRichValue}
+                    customComponent={(props, state) => {
+                      return (
+                        <EditableRichComponent
+                          {...props}
+                          {...state}
+                        />
+                      );
+                    }}
+                  />
                 </div>
                 <div className="info">
                   <div className="col-md-6 no-padding-left">
