@@ -7,11 +7,7 @@ import Editable from "react-x-editable";
 import EditableRichComponent from "../../components/EditableRichComponent";
 import { userActions } from "../../actions";
 
-class AboutPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class AboutPage extends React.PureComponent {
   updateProfileValue = editedField => {
     this.updateUserProfile(editedField.state.name, editedField.newValue);
   };
@@ -92,7 +88,9 @@ class AboutPage extends React.Component {
       </div>
     ) : (
       <div>
-        <Link to={"/editprofile"} className="black-button">Edit profile.</Link>
+        <Link to={"/editprofile"} className="black-button">
+          Edit profile.
+        </Link>
       </div>
     );
 

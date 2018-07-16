@@ -3,7 +3,7 @@ import React from "react";
 class ExperiencePage extends React.Component {
   render() {
     let sectionStyle = {
-      background: "url('/images/experience.png') no-repeat top center fixed",
+      background: "url('/images/education.png') no-repeat top center fixed",
       backgroundSize: "cover",
     }
 
