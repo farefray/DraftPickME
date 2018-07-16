@@ -4,10 +4,19 @@ import Editable from "react-x-editable";
 import RichTextEditor from "./RichTextEditor.jsx";
 import RichTextRenderer from "./RichTextRenderer";
 
+const EMPTY_RICH_VALUE = '{"blocks":[{"text":""}],"entityMap":{}}'
 export default class EditableRichComponent extends Component {
   state = { 
-    value: this.props.value,
+    value: this.props.value ? this.props.value : EMPTY_RICH_VALUE,
     name: this.props.name,
+  };
+
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    value: PropTypes.string,
+    defaultValue: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired
   };
 
   handleSubmit = () => {
@@ -24,13 +33,13 @@ export default class EditableRichComponent extends Component {
   render() {
     return (
       <Editable
-        name="description"
+        name={this.props.name}
         dataType="custom"
         disabled={this.props.disabled}
         value={this.state.value}
         handleSubmit={this.handleSubmit}
         display={(value) => {
-          return (<RichTextRenderer raw={value}/>);
+          return (<RichTextRenderer raw={value} defaultValue={this.props.defaultValue}/>);
         }}
         customComponent={(props, state) => {
           return <RichTextEditor {...props} {...state} onChange={this.onRichFieldEdited} value={this.state.value}/>;
@@ -39,10 +48,3 @@ export default class EditableRichComponent extends Component {
     );
   }
 }
-
-EditableRichComponent.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired
-};

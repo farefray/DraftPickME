@@ -80,25 +80,49 @@ const renderers = {
 
 export default class RichTextRenderer extends React.PureComponent {
   static propTypes = {
-    raw: PropTypes.string
+    raw: PropTypes.string,
+    defaultValue: PropTypes.string.isRequired
   };
 
   renderWarning() {
-    return <div>Nothing to render.</div>;
+    return <div>{this.props.defaultValue ? this.props.defaultValue : 'Nothing to render.'}</div>;
+  }
+
+  isEmpty(jsonData) {
+    if(!jsonData.blocks) {
+      return true;
+    }
+
+    let isEmpty = true;
+    jsonData.blocks.forEach(block => {
+      if(block.text.trim() !== "") {
+        isEmpty = false;
+        return;
+      }
+    });
+
+    return isEmpty;
   }
 
   render() {
-    // FIXME TODO: if I gonna erase all the content and save, then we will never see again our editable field :)
-    const { raw } = this.props;
+    let { raw } = this.props;
     if (!raw) {
       return this.renderWarning();
     }
+
+    raw = JSON.parse(raw);
     
-    const rendered = redraft(JSON.parse(raw), renderers);
+    if(this.isEmpty(raw)) {
+      console.log('rendeder is empty')
+      return this.renderWarning();
+    }
+    
+    const rendered = redraft(raw, renderers);
     // redraft returns a null if there's nothing to render
     if (!rendered) {
       return this.renderWarning();
     }
+
     return <div>{rendered}</div>;
   }
 }
