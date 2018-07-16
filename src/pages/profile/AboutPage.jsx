@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Editable from "react-x-editable";
 import EditableRichComponent from "../../components/EditableRichComponent";
 import { userActions } from "../../actions";
@@ -82,6 +83,19 @@ class AboutPage extends React.Component {
       <div />
     );
 
+    const CVBlock = user.cvFile ? (
+      <div>
+        <a className="black-button" href={user.cvFile}>
+          <i className="fa fa-download" />
+          Download CV
+        </a>
+      </div>
+    ) : (
+      <div>
+        <Link to={"/editprofile"} className="black-button">Edit profile.</Link>
+      </div>
+    );
+
     return (
       <section id="about" style={sectionStyle}>
         <div className="container">
@@ -94,12 +108,7 @@ class AboutPage extends React.Component {
                   src="http://placehold.it/270x340"
                 />
               </div>
-              <div>
-                <a className="black-button" href="downloads/cv.pdf">
-                  <i className="fa fa-download" />
-                  Download CV
-                </a>
-              </div>
+              {CVBlock}
             </div>
             <div className="col-md-8">
               <div className="about-info">

@@ -25,7 +25,7 @@ class EditProfile extends React.Component {
         username: user.username ? user.username : "",
         title: user.title ? user.title : "",
         enabled: user.enabled ? user.enabled : false,
-        cv_file: [],
+        cvFile: [],
         photo: [],
         github: user.github ? user.github : '',
         facebook: user.facebook ? user.facebook : '',
@@ -224,7 +224,7 @@ class EditProfile extends React.Component {
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
                 server="/api/upload">
-                {this.state.user.cv_file.map(file => (
+                {this.state.user.cvFile.map(file => (
                   <File key={file} source={file} />
                 ))}
               </FilePond>
