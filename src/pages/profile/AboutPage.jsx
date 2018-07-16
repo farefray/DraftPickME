@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Editable from "react-x-editable";
-import EditableRichComponent from "./components/EditableRichComponent";
+import EditableRichComponent from "../../components/EditableRichComponent";
 import { userActions } from "../../actions";
 
 class AboutPage extends React.Component {
