@@ -26,7 +26,10 @@ class EditProfile extends React.Component {
         title: user.title ? user.title : "",
         enabled: user.enabled ? user.enabled : false,
         cv_file: [],
-        photo: []
+        photo: [],
+        github: user.github ? user.github : '',
+        facebook: user.facebook ? user.facebook : '',
+        linkedin: user.linkedin ? user.linkedin : ''
       }, user)
     }
     console.log(user);
@@ -104,6 +107,7 @@ class EditProfile extends React.Component {
                   onChange={this.handleInputChange}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="titleInput">Title</label>
                 <input
@@ -124,12 +128,51 @@ class EditProfile extends React.Component {
                     type="text"
                     className="form-control"
                     placeholder="Username"
-                    aria-describedby="basic-addon1"
+                    data-toggle="tooltip" title="Your login and profile URL"
                     name="username"
                     value={this.state.user.username}
                     onChange={this.handleInputChange}
                   />
                 </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="githubInput">GitHub</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="githubInput"
+                  placeholder="GitHub profile"
+                  name="github"
+                  value={this.state.user.github}
+                  onChange={this.handleInputChange}
+                />
+              </div>             
+
+              <div className="form-group">
+                <label htmlFor="LinkedInInput">LinkedIn</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="LinkedInInput"
+                  placeholder="LinkedIn profile"
+                  name="linkedin"
+                  value={this.state.user.linkedin}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="facebookInput">Facebook</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="facebookInput"
+                  placeholder="Facebook profile"
+                  name="facebook"
+                  value={this.state.user.facebook}
+                  onChange={this.handleInputChange}
+                />
               </div>
 
               <div className="form-group">

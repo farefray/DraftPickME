@@ -55,6 +55,7 @@ export default class RichTextEditor extends React.Component {
   }
 
   _mapKeyToEditorCommand(e) {
+    // Todo tab not working
     if (e.keyCode === 9 /* TAB */) {
       const newEditorState = RichUtils.onTab(
         e,

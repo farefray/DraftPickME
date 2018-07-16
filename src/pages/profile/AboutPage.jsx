@@ -36,6 +36,52 @@ class AboutPage extends React.Component {
       return <div>Loading...</div>;
     }
 
+    let hasSocials = () => {
+      console.log(user.github || user.facebook || user.linkedin);
+      return user.github || user.facebook || user.linkedin;
+    };
+
+    let socialLinksBlock = hasSocials() ? (
+      <div>
+        <div className="col-md-12 no-padding-left">
+          <ul>
+            <li className="social-media">
+              <p className="info-title">Social Links</p>
+            </li>
+            {user.github ? (
+              <li className="social-media icons">
+                <a href={user.github} target="_blank" rel="noopener">
+                  <i className="fa fa-github" />
+                </a>
+              </li>
+            ) : (
+              ""
+            )}
+            {user.linkedin ? (
+              <li className="social-media icons">
+                <a href={user.linkedin} target="_blank" rel="noopener">
+                  <i className="fa fa-linkedin" />
+                </a>
+              </li>
+            ) : (
+              ""
+            )}
+            {user.facebook ? (
+              <li className="social-media icons">
+                <a href={user.facebook} target="_blank" rel="noopener">
+                  <i className="fa fa-facebook" />
+                </a>
+              </li>
+            ) : (
+              ""
+            )}
+          </ul>
+        </div>
+      </div>
+    ) : (
+      <div />
+    );
+
     return (
       <section id="about" style={sectionStyle}>
         <div className="container">
@@ -91,7 +137,7 @@ class AboutPage extends React.Component {
                             name="age"
                             dataType="text"
                             disabled={canEditProfile}
-                            value={user.age ? user.age : '-'}
+                            value={user.age ? user.age : "-"}
                             placement="bottom"
                             mode="popup"
                             handleSubmit={this.updateProfileValue}
@@ -105,7 +151,7 @@ class AboutPage extends React.Component {
                             name="address"
                             dataType="text"
                             disabled={canEditProfile}
-                            value={user.address ? user.adress : '-'}
+                            value={user.address ? user.adress : "-"}
                             placement="bottom"
                             mode="popup"
                             handleSubmit={this.updateProfileValue}
@@ -115,11 +161,11 @@ class AboutPage extends React.Component {
                       <li>
                         <p className="info-title">Email </p>
                         <span className="info-details">
-                        <Editable
+                          <Editable
                             name="email"
                             dataType="text"
                             disabled={canEditProfile}
-                            value={user.email ? user.email : '-'}
+                            value={user.email ? user.email : "-"}
                             placement="bottom"
                             mode="popup"
                             handleSubmit={this.updateProfileValue}
@@ -133,11 +179,11 @@ class AboutPage extends React.Component {
                       <li>
                         <p className="info-title">Phone </p>
                         <span className="info-details">
-                        <Editable
+                          <Editable
                             name="phone"
                             dataType="text"
                             disabled={canEditProfile}
-                            value={user.phone ? user.phone : '-'}
+                            value={user.phone ? user.phone : "-"}
                             placement="bottom"
                             mode="popup"
                             handleSubmit={this.updateProfileValue}
@@ -147,11 +193,11 @@ class AboutPage extends React.Component {
                       <li>
                         <p className="info-title">Website </p>
                         <span className="info-details">
-                        <Editable
+                          <Editable
                             name="website"
                             dataType="text"
                             disabled={canEditProfile}
-                            value={user.website ? user.website : '-'}
+                            value={user.website ? user.website : "-"}
                             placement="bottom"
                             mode="popup"
                             handleSubmit={this.updateProfileValue}
@@ -161,41 +207,20 @@ class AboutPage extends React.Component {
                       <li>
                         <p className="info-title">Country </p>
                         <span className="info-details">
-                        <Editable
+                          <Editable
                             name="country"
                             dataType="text"
                             disabled={canEditProfile}
-                            value={user.country ? user.country : '-'}
+                            value={user.country ? user.country : "-"}
                             placement="bottom"
                             mode="popup"
                             handleSubmit={this.updateProfileValue}
                           />
-                          </span>
+                        </span>
                       </li>
                     </ul>
                   </div>
-                  <div className="col-md-12 no-padding-left">
-                    <ul>
-                      <li className="social-media">
-                        <p className="info-title">Social Links</p>
-                      </li>
-                      <li className="social-media icons">
-                        <a href="#" target="_blank">
-                          <i className="fa fa-github" />
-                        </a>
-                      </li>                      
-                      <li className="social-media icons">
-                        <a href="#" target="_blank">
-                          <i className="fa fa-linkedin" />
-                        </a>
-                      </li>
-                      <li className="social-media icons">
-                        <a href="#" target="_blank">
-                          <i className="fa fa-facebook" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  {socialLinksBlock}
                 </div>
               </div>
             </div>

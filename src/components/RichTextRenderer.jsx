@@ -21,7 +21,7 @@ const styles = {
 // just a helper to add a <br /> after a block
 const addBreaklines = children => children.map((child, key) => [child, <br key={key}/>]);
 
-const blockQuote = (children, { keys }) => <blockQuote key={keys[0]}>{ addBreaklines(children) }</blockQuote>;
+const Blockquote = (children, { keys }) => <blockquote key={keys[0]}>{ addBreaklines(children) }</blockquote>;
 
 /**
  * Define the renderers
@@ -32,10 +32,10 @@ const renderers = {
    */
   inline: {
     // The key passed here is just an index based on rendering order inside a block
-    BOLD: (children, { key }) => <strong key={key}>{children}</strong>,
-    ITALIC: (children, { key }) => <em key={key}>{children}</em>,
-    UNDERLINE: (children, { key }) => <u key={key}>{children}</u>,
-    CODE: (children, { key }) => (
+    BOLD: (children, { key }) => <strong key={key}>{children}</strong>, // eslint-disable-line react/display-name
+    ITALIC: (children, { key }) => <em key={key}>{children}</em>, // eslint-disable-line react/display-name
+    UNDERLINE: (children, { key }) => <u key={key}>{children}</u>, // eslint-disable-line react/display-name
+    CODE: (children, { key }) => ( // eslint-disable-line react/display-name
       <span key={key} style={styles.code}>
         {children}
       </span>
@@ -50,13 +50,11 @@ const renderers = {
     unstyled: children => children.map((child, key) => {
       return <p key={key}>{child}</p>
     }),
-     blockquote: (children, { keys }) => {
-       return <blockQuote key={keys[0]}>{ addBreaklines(children) }</blockQuote>
-    },
+    blockquote: Blockquote,
     "header-three": children => children.map((child, key) => { return <h3 key={key}>{child}</h3>}),
     "header-four": children => children.map((child, key) => { return <h4 key={key}>{child}</h4>}),
     "header-five": children => children.map((child, key) => { return <h5 key={key}>{child}</h5>}),
-    "code-block": (children, { keys }) => (
+    "code-block": (children, { keys }) => ( // eslint-disable-line react/display-name
       <pre style={styles.codeBlock} key={keys[0]}>
         {addBreaklines(children)}
       </pre>
@@ -77,7 +75,7 @@ const renderers = {
    */
   // key is the entity key value from raw
   entities: {
-    LINK: (children, data, { key }) => (
+    LINK: (children, data, { key }) => ( // eslint-disable-line react/display-name
       <Link key={key} to={data.url}>
         {children}
       </Link>
