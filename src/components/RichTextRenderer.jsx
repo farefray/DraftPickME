@@ -19,7 +19,9 @@ const styles = {
 };
 
 // just a helper to add a <br /> after a block
-const addBreaklines = children => children.map(child => [child, <br/>]);
+const addBreaklines = children => children.map((child, key) => [child, <br key={key}/>]);
+
+const blockQuote = (children, { keys }) => <blockQuote key={keys[0]}>{ addBreaklines(children) }</blockQuote>;
 
 /**
  * Define the renderers
@@ -45,16 +47,21 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    unstyled: children => children.map(child => <p>{child}</p>),
-    blockquote: children => <blockquote>{addBreaklines(children)}</blockquote>,
-    "header-one": children => children.map(child => <h1>{child}</h1>),
-    "header-two": children => children.map(child => <h2>{child}</h2>),
+    unstyled: children => children.map((child, key) => {
+      return <p key={key}>{child}</p>
+    }),
+     blockquote: (children, { keys }) => {
+       return <blockQuote key={keys[0]}>{ addBreaklines(children) }</blockQuote>
+    },
+    "header-three": children => children.map((child, key) => { return <h3 key={key}>{child}</h3>}),
+    "header-four": children => children.map((child, key) => { return <h4 key={key}>{child}</h4>}),
+    "header-five": children => children.map((child, key) => { return <h5 key={key}>{child}</h5>}),
     "code-block": (children, { keys }) => (
       <pre style={styles.codeBlock} key={keys[0]}>
         {addBreaklines(children)}
       </pre>
     ),
-    "unordered-list-item": (children, { depth, keys }) => (
+    /*"unordered-list-item": (children, { depth, keys }) => (
       <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>
         {children.map(child => <li>{child}</li>)}
       </ul>
@@ -63,7 +70,7 @@ const renderers = {
       <ol key={keys.join("|")} className={`ol-level-${depth}`}>
         {children.map((child, index) => <li key={keys[index]}>{child}</li>)}
       </ol>
-    )
+    )*/
   },
   /**
    * Entities receive children and the entity data
