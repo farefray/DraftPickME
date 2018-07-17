@@ -714,6 +714,13 @@ about
 experience
 ========== */
 
+#experience {
+  background: "url('/images/about.png') no-repeat top center fixed";
+  background-size: "cover";
+  background-color: "#e6e6e6";
+  background-blend-mode: "overlay";
+  height: "100%";
+}
 #experience .skill-bar {
   height: 15px;
   width: 100%;
