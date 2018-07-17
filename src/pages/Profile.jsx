@@ -7,7 +7,7 @@ import { userActions } from '../actions';
 
 import {
   AboutPage,
-  EducationPage,
+  SkillsPage,
   ExperiencePage,
   ContactPage,
   Home
@@ -38,8 +38,8 @@ const ProfilePage = props => {
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/education'}
-          component={EducationPage}
+          path={'/p/' + props.match.params.username + '/skills'}
+          component={SkillsPage}
           user={props.user}
         />
         <RouteWithProps

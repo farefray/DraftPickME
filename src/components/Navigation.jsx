@@ -32,19 +32,19 @@ function Navigation(props) {
               about
             </div>
           </Link>
-        </li>
+        </li>        
         <li id="tt3">
-          <Link className="smooth" to={url + "/education"}>
-            <i className="menu zmdi zmdi-graduation-cap" />
-            <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt3">
-              education
+          <Link className="smooth" to={url + "/skills"}>
+            <i className="menu fa fa-trophy" />
+            <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt4">
+              skills
             </div>
           </Link>
         </li>
         <li id="tt4">
           <Link className="smooth" to={url + "/experience"}>
-            <i className="menu fa fa-trophy" />
-            <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt4">
+            <i className="menu zmdi zmdi-graduation-cap" />
+            <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt3">
               experience
             </div>
           </Link>

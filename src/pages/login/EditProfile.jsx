@@ -114,7 +114,7 @@ class EditProfile extends React.Component {
                   type="text"
                   className="form-control"
                   id="titleInput"
-                  placeholder="experienced IT Engineer / Webdeveloper"
+                  placeholder="Job title"
                   name="title"
                   value={this.state.user.title}
                   onChange={this.handleInputChange}
