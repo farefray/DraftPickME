@@ -7,6 +7,7 @@ import { userActions } from '../actions';
 
 import {
   AboutPage,
+  EducationPage,
   ExperiencePage,
   PortfolioPage,
   ContactPage,
@@ -34,6 +35,12 @@ const ProfilePage = props => {
         <RouteWithProps
           path={'/p/' + props.match.params.username + '/about'}
           component={AboutPage}
+          user={props.user}
+        />
+        <RouteWithProps
+          exact
+          path={'/p/' + props.match.params.username + '/education'}
+          component={EducationPage}
           user={props.user}
         />
         <RouteWithProps

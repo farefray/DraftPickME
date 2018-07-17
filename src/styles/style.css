@@ -15,6 +15,7 @@ Table Of contents:
 - navigation bar
 - Home page
 - About
+- Education
 - Experience
 - Portfolio
 - Hire Me
@@ -711,6 +712,77 @@ about
 }
 
 /* ==========
+education
+========== */
+
+#education .container {
+  max-width: 1000px;
+}
+
+#education ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#education ul li {
+  font-weight: bold;
+  color: #999;
+  font-size: 15px;
+}
+
+#education .single-education {
+  -webkit-box-shadow: -6px 6px 10px #ddd;
+  box-shadow: -6px 6px 10px #ddd;
+  padding: 20px;
+  margin: 15px auto;
+  position: relative;
+}
+
+#education .education-history p {
+  margin-bottom: 0;
+  font-weight: bold;
+  padding-right: 0;
+  padding-top: 5px;
+}
+
+#education .education-history {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: #0487cc;
+  border-radius: 3px;
+  color: #fff;
+}
+
+#education .education-history:before {
+  content: "";
+  border: 10px solid transparent;
+  border-right-color: #0487cc;
+  border-bottom-color: #0487cc;
+  left: -19px;
+  position: absolute;
+}
+
+#education .education-history:after {
+  content: "";
+  border: 50px solid transparent;
+  border-bottom-color: #fff;
+  top: 1px;
+  left: 0;
+  position: absolute;
+}
+
+#education p {
+  font-size: 13px;
+}
+
+#education ul li:last-of-type {
+  margin-bottom: 20px;
+}
+
+/* ==========
 experience
 ========== */
 
@@ -1363,7 +1435,10 @@ Footer
   nav p {
     bottom: 5px;
   }
-
+  /* Education */
+  #education ul li {
+    font-size: 14px;
+  }
   /* Footer */
   .footer {
     width: 200px;
