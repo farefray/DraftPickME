@@ -9,7 +9,6 @@ import {
   AboutPage,
   EducationPage,
   ExperiencePage,
-  PortfolioPage,
   ContactPage,
   Home
 } from './profile';
@@ -47,12 +46,6 @@ const ProfilePage = props => {
           exact
           path={'/p/' + props.match.params.username + '/experience'}
           component={ExperiencePage}
-          user={props.user}
-        />
-        <RouteWithProps
-          exact
-          path={'/p/' + props.match.params.username + '/portfolio'}
-          component={PortfolioPage}
           user={props.user}
         />
         <RouteWithProps
