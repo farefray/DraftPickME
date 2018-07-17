@@ -1,79 +1,127 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-
-let educationBlock = (
-  <div className="col-md-4">
-    <div className="single-education">
-      <div className="education-history text-center">
-        <p>
-          <i className="fa fa-graduation-cap" />
-          <br /> 2014 - 2016
-        </p>
-      </div>
-      <div className="degree">
-        <ul>
-          <li>
-            <i className="fa fa-file-text" /> Software Engneering
-          </li>
-          <li>
-            <i className="fa fa-university" /> Oxford University
-          </li>
-        </ul>
-      </div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper lacus
-        tortor, quis bibendum odio mattis vitae. Cras porta massa pretium auctor
-        congue. Suspendisse ante massa, euismod sit amet sem sed, viverra
-        tristique diam.
-      </p>
-    </div>
-  </div>
-);
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userActions } from '../../actions';
 
 class EducationPage extends Component {
-  state = {
-    educationBlocks: []
-  };
+  constructor(props) {
+    super(props);
+
+    console.log('EducationPage');
+    console.log(this.props.user.education);
+    this.state = {
+      educationBlocks: [],
+      profileOwner: true // TODO check if thats current user
+    };
+  }
 
   static propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.shape({
+      education: PropTypes.array
+    }),
     dispatch: PropTypes.func.isRequired
   };
 
-  addEducationBlock = () => {
-    const { educationBlocks } = this.state;
-    educationBlocks.push(educationBlock);
-    this.setState({
-      educationBlocks
+  updateUserEducation = () => {
+    let { user } = this.props;
+    user['education'] = this.state.educationBlocks;
+    this.props.dispatch(userActions.edit(user));
+  };
+
+  removeEducationBlock = key => {
+    let { educationBlocks } = this.state;
+
+    educationBlocks = educationBlocks.filter(function(element) {
+      return parseInt(element.key) !== key;
     });
-  }
+
+    this.setState(
+      {
+        educationBlocks
+      },
+      () => {
+        this.updateUserEducation();
+      }
+    );
+  };
+
+  addEducationBlock = () => {
+
+    const { educationBlocks } = this.state;
+    educationBlocks.push(
+      this.educationBlock(this.state.profileOwner, educationBlocks.length)
+    );
+    
+    this.setState(
+      {
+        educationBlocks
+      },
+      () => {
+        this.updateUserEducation();
+      }
+    );
+  };
+
+  educationBlock = (canEdit, key) => (
+    <div className="col-md-4" key={key}>
+      {canEdit ? (
+        <button
+          className="educationRemove"
+          key={key}
+          onClick={() => this.removeEducationBlock(key)}
+        >
+          Remove
+        </button>
+      ) : (
+        ''
+      )}
+      <div className="single-education">
+        <div className="education-history text-center">
+          <p>
+            <i className="fa fa-graduation-cap" />
+            <br /> {Math.random(0, 1) * 2018}
+          </p>
+        </div>
+        <div className="degree">
+          <ul>
+            <li>
+              <i className="fa fa-file-text" /> Software Engneering
+            </li>
+            <li>
+              <i className="fa fa-university" /> Oxford University
+            </li>
+          </ul>
+        </div>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper
+          lacus tortor, quis bibendum odio mattis vitae. Cras porta massa
+          pretium auctor congue. Suspendisse ante massa, euismod sit amet sem
+          sed, viverra tristique diam.
+        </p>
+      </div>
+    </div>
+  );
 
   render() {
     let sectionStyle = {
       background: "url('/images/education.png') no-repeat top center fixed",
-      backgroundSize: "cover",
-      backgroundColor: "#fff",
-      backgroundBlendMode: "overlay",
-      height: "100%"
+      backgroundSize: 'cover',
+      backgroundColor: '#fff',
+      backgroundBlendMode: 'overlay',
+      height: '100%'
     };
 
-    let canEditProfile = true; // TODO check if thats current user
-
     let educationBlocksRender = this.state.educationBlocks.map((block, key) => {
-      console.log(key);
       return <div key={key}>{block}</div>;
     });
 
     let editEducation;
-    if (canEditProfile && this.state.educationBlocks.length <= 5) {
+    if (this.state.profileOwner && this.state.educationBlocks.length <= 5) {
       editEducation = (
         <div className="col-md-4">
-          <button
-            onClick={this.addEducationBlock}
-            className="btn btn-primary">
+          <button onClick={this.addEducationBlock} className="btn btn-primary">
             Add my education
           </button>
         </div>
