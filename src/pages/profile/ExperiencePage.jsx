@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Editable from 'react-x-editable';
 import { userActions } from '../../actions';
 
 class ExperiencePage extends Component {
@@ -9,99 +10,63 @@ class ExperiencePage extends Component {
     super(props);
 
     console.log('ExperiencePage');
-    console.log(this.props.user.education);
+    console.log(this.props.user.projects);
     this.state = {
-      educationBlocks: [],
+      projectsBlocks: [],
       profileOwner: true // TODO check if thats current user
     };
   }
 
   static propTypes = {
     user: PropTypes.shape({
-      education: PropTypes.array
+      projects: PropTypes.array
     }),
     dispatch: PropTypes.func.isRequired
   };
 
-  updateUserEducation = () => {
+  updateUserProjects = () => {
     let { user } = this.props;
-    user['education'] = this.state.educationBlocks;
+    user['projects'] = this.state.projectsBlocks;
     this.props.dispatch(userActions.edit(user));
   };
 
-  removeEducationBlock = key => {
-    let { educationBlocks } = this.state;
+  removeProjectBlock = key => {
+    let { projectsBlocks } = this.state;
 
-    educationBlocks = educationBlocks.filter(function(element) {
+    projectsBlocks = projectsBlocks.filter(function(element) {
       return parseInt(element.key) !== key;
     });
 
     this.setState(
       {
-        educationBlocks
+        projectsBlocks
       },
       () => {
-        this.updateUserEducation();
+        this.updateUserProjects();
       }
     );
   };
 
-  addEducationBlock = () => {
-
-    const { educationBlocks } = this.state;
-    educationBlocks.push(
-      this.educationBlock(this.state.profileOwner, educationBlocks.length)
+  addProjectBlock = () => {
+    const { projectsBlocks } = this.state;
+    projectsBlocks.push(
+      {
+        'period': '1 year',
+        'name': 'CRM',
+        'stack': 'PHP',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper lacus tortor, quis bibendum odio mattis vitae. Cras porta massa pretium auctor congue. Suspendisse ante massa, euismod sit amet sem sed, viverra tristique diam.'
+      }
     );
-    
+
     this.setState(
       {
-        educationBlocks
+        projectsBlocks
       },
       () => {
-        this.updateUserEducation();
+        this.updateUserProjects();
       }
     );
   };
-
-  educationBlock = (canEdit, key) => (
-    <div className="col-md-4" key={key}>
-      {canEdit ? (
-        <button
-          className="educationRemove"
-          key={key}
-          onClick={() => this.removeEducationBlock(key)}
-        >
-          Remove
-        </button>
-      ) : (
-        ''
-      )}
-      <div className="single-education">
-        <div className="education-history text-center">
-          <p>
-            <i className="fa fa-graduation-cap" />
-            <br /> {Math.random(0, 1) * 2018}
-          </p>
-        </div>
-        <div className="degree">
-          <ul>
-            <li>
-              <i className="fa fa-file-text" /> Software Engneering
-            </li>
-            <li>
-              <i className="fa fa-university" /> Oxford University
-            </li>
-          </ul>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper
-          lacus tortor, quis bibendum odio mattis vitae. Cras porta massa
-          pretium auctor congue. Suspendisse ante massa, euismod sit amet sem
-          sed, viverra tristique diam.
-        </p>
-      </div>
-    </div>
-  );
 
   render() {
     let sectionStyle = {
@@ -112,20 +77,77 @@ class ExperiencePage extends Component {
       height: '100%'
     };
 
-    let educationBlocksRender = this.state.educationBlocks.map((block, key) => {
-      return <div key={key}>{block}</div>;
-    });
-
-    let editEducation;
-    if (this.state.profileOwner && this.state.educationBlocks.length <= 5) {
-      editEducation = (
+    let editProject;
+    if (this.state.profileOwner && this.state.projectsBlocks.length <= 5) {
+      editProject = (
         <div className="col-md-4">
-          <button onClick={this.addEducationBlock} className="btn btn-primary">
-            Add my education
+          <button onClick={this.addProjectBlock} className="btn btn-primary">
+            Add project
           </button>
         </div>
       );
     }
+
+    const disabledEditing = false;
+    let ProjectBlock = ({ data, index }) => {
+      return (
+        <div className="col-md-4" key={index}>
+          {!disabledEditing ? (
+            <button
+              className="projectRemove"
+              key={index}
+              onClick={() => this.removeProjecteBlock(index)}
+            >
+              Remove
+            </button>
+          ) : (
+            ''
+          )}
+          <div className="single-education">
+            <div className="education-history text-center">
+              <p>
+                <i className="fa fa-graduation-cap" />
+                <br />
+                <Editable
+                  name="skill"
+                  index={index}
+                  dataType="text"
+                  disabled={disabledEditing}
+                  value={data.period}
+                  placement="bottom"
+                  mode="popup"
+                  handleSubmit={e => {
+                    console.log(e);
+                    console.log(this);
+                  }}
+                />
+              </p>
+            </div>
+            <div className="degree">
+              <ul>
+                <li>
+                  <i className="fa fa-file-text" /> Software Engneering
+                </li>
+                <li>
+                  <i className="fa fa-university" /> Oxford University
+                </li>
+              </ul>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper
+              lacus tortor, quis bibendum odio mattis vitae. Cras porta massa
+              pretium auctor congue. Suspendisse ante massa, euismod sit amet
+              sem sed, viverra tristique diam.
+            </p>
+          </div>
+        </div>
+      );
+    };
+
+    let projectsBlocksRender = this.state.projectsBlocks.map((blockData, index) => {
+      console.log(blockData);
+      return <ProjectBlock key={index} index={index} data={blockData} />;
+    });
 
     return (
       <section id="education" style={sectionStyle}>
@@ -133,8 +155,8 @@ class ExperiencePage extends Component {
           <div className="row animated fadeInUp">
             <h2 className="none">Education</h2>
           </div>
-          {educationBlocksRender}
-          {editEducation}
+          {projectsBlocksRender}
+          {editProject}
         </div>
       </section>
     );

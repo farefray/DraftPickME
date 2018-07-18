@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Editable from 'react-x-editable';
 import { userActions } from '../../actions';
 
-class SkillsPage extends React.Component {
+class SkillsPage extends Component {
   constructor(props) {
     super(props);
     const { user } = this.props;
