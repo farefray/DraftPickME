@@ -720,6 +720,32 @@ experience
 ========== */
 
 #experience {
+  background: url('/images/experience.png') no-repeat top center fixed;
+  background-size: cover;
+  background-color: #fff;
+  background-blend-mode: overlay;
+  height: 100%;
+  
+  #project_add_button {
+    font-size: 28px;
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+    margin: auto;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    color: #caa669;
+    display: block;
+    &:hover {
+      .fa {
+        color: #000;
+      }
+    }
+    .fa {
+      color: currentColor;
+    }
+  }
   .container {
     max-width: 1000px;
   }
@@ -727,21 +753,22 @@ experience
     color: #444444;
   }
   .projectRemove {
-    color: #fffffb;
+    color: #ffffff;
     position: absolute;
     z-index: 150;
-    right: 6px;
-    top: 6px;
-    width: 18px;
-    height: 18px;
-    font-size: 8px;
-    line-height: 8px;
-    border-radius: 0;
-    padding: 0;
-    background: #0487cc;
-    &:hover {
-      background: rgb(253, 77, 77);
+    right: 4px;
+    top: 0px;
+    font-size: 28px;
+    line-height: 28px;
+    background: transparent;
+    i {
+      cursor: pointer;
+      color: #6e6e6e;
+      &:hover {
+        color: rgb(196, 36, 36);
+      }
     }
+    
   }
   p {
     font-size: 13px;
@@ -761,51 +788,54 @@ experience
       padding-left: 10px;
     }
   }
-  .single-project {
-    -webkit-box-shadow: -6px 6px 10px #ddd;
-    box-shadow: -6px 6px 10px #ddd;
-    padding: 20px;
-    margin: 15px auto;
-    position: relative;
-    border: 1px solid rgb(200, 200, 200);
-    .project-description, a {
-      color: #5d5d5d;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-  .project-history {
-    position: absolute;
-    top: -20px;
-    right: 10px;
-    width: 80px;
-    height: 65px;
-    background-color: #0487cc;
-    border-radius: 3px;
-    color: #fff;
-    display: block;
-    > div {
-      display: block;
-      margin-top: 5px;
-    }
-    i {
-      font-size: 1.5em;
-      color: currentColor;
-    }
-    .editable-container {
-      margin-bottom: 0;
-      font-weight: bold;
-      padding-right: 0;
-      padding-top: 5px;
-      z-index: 150;
+  .project-block {
+    height: 320px;
+    .single-project {
+      -webkit-box-shadow: -6px 6px 10px #ddd;
+      box-shadow: -6px 6px 10px #ddd;
+      padding: 20px;
+      margin: 15px auto;
+      position: relative;
+      border: 1px solid rgb(200, 200, 200);
+      .project-description,
       a {
+        color: #5d5d5d;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      .project-history {
+        position: absolute;
+        top: -20px;
+        right: 10px;
+        width: 80px;
+        height: 65px;
+        background-color: #0487cc;
+        border-radius: 3px;
+        color: #fff;
         display: block;
-        color: currentColor;
+        >div {
+          display: block;
+          margin-top: 5px;
+        }
+        i {
+          font-size: 1.5em;
+          color: currentColor;
+        }
+        .editable-container {
+          margin-bottom: 0;
+          font-weight: bold;
+          padding-right: 0;
+          padding-top: 5px;
+          z-index: 150;
+          a {
+            display: block;
+            color: currentColor;
+          }
+        }
       }
     }
   }
-  
 }
 
 /* ==========
@@ -813,11 +843,11 @@ experience
 ========== */
 
 #skills {
-  background: "url('/images/about.png') no-repeat top center fixed";
-  background-size: "cover";
-  background-color: "#e6e6e6";
-  background-blend-mode: "overlay";
-  height: "100%";
+  background: url('/images/experience.png') no-repeat top center fixed;
+  background-size: cover;
+  background-color: #e6e6e6;
+  background-blend-mode: overlay;
+  height: 100%;
 }
 
 #skills .skill-bar {
