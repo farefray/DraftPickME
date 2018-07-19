@@ -15,8 +15,8 @@ Table Of contents:
 - navigation bar
 - Home page
 - About
-- Education
 - Experience
+- Skills
 - Hire Me
 - Contact
 - Footer
@@ -68,7 +68,12 @@ h4 {
   line-height: 25px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-shadow: -1px -1px 0.5px rgba(0, 0, 0, 0.3);
 }
 
@@ -618,7 +623,8 @@ about
 
 #about a {
   text-decoration: none;
-  color: currentColor; /* ???? */
+  color: currentColor;
+  /* ???? */
 }
 
 #about .profile-img img {
@@ -694,7 +700,6 @@ about
 #about .about-info {
   max-height: 600px;
   overflow-y: auto;
-  
 }
 
 #about .about-info h2 {
@@ -711,88 +716,111 @@ about
 }
 
 /* ==========
-education
+experience
 ========== */
 
-#education .container {
-  max-width: 1000px;
-}
-
-#education ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-#education ul li {
-  font-weight: bold;
-  color: #999;
-  font-size: 15px;
-}
-
-#education .single-education {
-  -webkit-box-shadow: -6px 6px 10px #ddd;
-  box-shadow: -6px 6px 10px #ddd;
-  padding: 20px;
-  margin: 15px auto;
-  position: relative;
-}
-
-#education .education-history p {
-  margin-bottom: 0;
-  font-weight: bold;
-  padding-right: 0;
-  padding-top: 5px;
-}
-
-#education .education-history {
-  position: absolute;
-  top: -20px;
-  right: 10px;
-  width: 100px;
-  height: 100px;
-  background-color: #0487cc;
-  border-radius: 3px;
-  color: #fff;
-}
-
-#education .education-history:before {
-  content: "";
-  border: 10px solid transparent;
-  border-right-color: #0487cc;
-  border-bottom-color: #0487cc;
-  left: -19px;
-  position: absolute;
-}
-
-#education .education-history:after {
-  content: "";
-  border: 50px solid transparent;
-  border-bottom-color: #fff;
-  top: 1px;
-  left: 0;
-  position: absolute;
-}
-
-#education p {
-  font-size: 13px;
-}
-
-#education ul li:last-of-type {
-  margin-bottom: 20px;
+#experience {
+  .container {
+    max-width: 1000px;
+  }
+  .fa {
+    color: #444444;
+  }
+  .projectRemove {
+    color: #fffffb;
+    position: absolute;
+    z-index: 150;
+    right: 6px;
+    top: 6px;
+    width: 18px;
+    height: 18px;
+    font-size: 8px;
+    line-height: 8px;
+    border-radius: 0;
+    padding: 0;
+    background: #0487cc;
+    &:hover {
+      background: rgb(253, 77, 77);
+    }
+  }
+  p {
+    font-size: 13px;
+    margin-top: 20px;
+    color: #5d5d5d;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+    li,
+    a {
+      font-weight: bold;
+      color: #999;
+      font-size: 15px;
+    }
+    a {
+      padding-left: 10px;
+    }
+  }
+  .single-project {
+    -webkit-box-shadow: -6px 6px 10px #ddd;
+    box-shadow: -6px 6px 10px #ddd;
+    padding: 20px;
+    margin: 15px auto;
+    position: relative;
+    border: 1px solid rgb(200, 200, 200);
+    .project-description, a {
+      color: #5d5d5d;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .project-history {
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    width: 80px;
+    height: 65px;
+    background-color: #0487cc;
+    border-radius: 3px;
+    color: #fff;
+    display: block;
+    > div {
+      display: block;
+      margin-top: 5px;
+    }
+    i {
+      font-size: 1.5em;
+      color: currentColor;
+    }
+    .editable-container {
+      margin-bottom: 0;
+      font-weight: bold;
+      padding-right: 0;
+      padding-top: 5px;
+      z-index: 150;
+      a {
+        display: block;
+        color: currentColor;
+      }
+    }
+  }
+  
 }
 
 /* ==========
 experience
 ========== */
 
-#experience {
+#skills {
   background: "url('/images/about.png') no-repeat top center fixed";
   background-size: "cover";
   background-color: "#e6e6e6";
   background-blend-mode: "overlay";
   height: "100%";
 }
-#experience .skill-bar {
+
+#skills .skill-bar {
   height: 15px;
   width: 100%;
   background-color: #999;
@@ -803,32 +831,32 @@ experience
   box-shadow: 0 0 2px #666;
 }
 
-#experience .skill-bar .skill-percent {
+#skills .skill-bar .skill-percent {
   height: 15px;
   background-color: #0487cc;
 }
 
-#experience .single-skill {
+#skills .single-skill {
   margin-top: 10px;
 }
 
-#experience p.skill-name,
-#experience p.percent {
+#skills p.skill-name,
+#skills p.percent {
   font-weight: bold;
   display: inline-block;
   margin-bottom: 0;
   padding-bottom: 2px;
 }
 
-#experience p.percent {
+#skills p.percent {
   float: right;
 }
 
-#experience .jobs {
+#skills .jobs {
   position: relative;
 }
 
-#experience .jobs hr.timeline {
+#skills .jobs hr.timeline {
   border: 2px solid #999;
   background-color: #fff;
   height: 2px;
@@ -841,12 +869,12 @@ experience
   margin-top: 43px;
 }
 
-#experience .jobs .single-job,
-#experience .jobs .single-job .job-date {
+#skills .jobs .single-job,
+#skills .jobs .single-job .job-date {
   position: relative;
 }
 
-#experience .jobs .single-job .job-date .job-circle {
+#skills .jobs .single-job .job-date .job-circle {
   position: absolute;
   top: -36px;
   left: -5px;
@@ -858,7 +886,7 @@ experience
   background-color: #0487cc;
 }
 
-#experience .jobs .single-job .job-date .job-date-p {
+#skills .jobs .single-job .job-date .job-date-p {
   display: inline-block;
   position: absolute;
   left: 20px;
@@ -869,7 +897,7 @@ experience
   color: #fff;
 }
 
-#experience .jobs .single-job .job-date .job-date-p:before {
+#skills .jobs .single-job .job-date .job-date-p:before {
   content: "";
   border: 10px solid transparent;
   border-right-color: #0487cc;
@@ -878,7 +906,7 @@ experience
   top: 6px;
 }
 
-#experience .jobs .single-job .job-details {
+#skills .jobs .single-job .job-details {
   padding: 5px 20px;
   -webkit-box-shadow: 0 0 10px #ddd;
   box-shadow: 0 0 10px #ddd;
@@ -887,19 +915,19 @@ experience
   margin-bottom: 65px;
 }
 
-#experience .jobs .single-job .job-details h3 {
+#skills .jobs .single-job .job-details h3 {
   font-size: 16px;
   color: #fff;
   margin-bottom: 10px;
   margin-top: 10px;
 }
 
-#experience .jobs .single-job .job-details p,
-#experience .specialities p {
+#skills .jobs .single-job .job-details p,
+#skills .specialities p {
   font-size: 13px;
 }
 
-#experience .single-hobby i {
+#skills .single-hobby i {
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -914,14 +942,14 @@ experience
   margin: 10px auto;
 }
 
-#experience .hoppies p {
+#skills .hoppies p {
   font-size: 12px;
   font-weight: bold;
   padding: 0;
 }
 
-#experience .single-skill:first-of-type,
-#experience .single-speciality:first-of-type {
+#skills .single-skill:first-of-type,
+#skills .single-speciality:first-of-type {
   margin-top: 20px;
 }
 
@@ -929,17 +957,15 @@ experience
   margin-bottom: 67px;
 }
 
-#experience .fa {
+#skills .fa {
   color: #caa669;
 }
 
-#experience h2 {
+#skills h2 {
   color: #fff;
 }
 
-#experience .company {}
-
-#experience .jobs .single-job .job-details .company h3 {
+#skills .jobs .single-job .job-details .company h3 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 15px;

@@ -11,8 +11,9 @@ class ExperiencePage extends Component {
 
     console.log('ExperiencePage');
     console.log(this.props.user.projects);
+    const { user } = this.props;
     this.state = {
-      projectsBlocks: [],
+      projectsBlocks: user && user.projects ? user.projects : [],
       profileOwner: true // TODO check if thats current user
     };
   }
@@ -33,9 +34,10 @@ class ExperiencePage extends Component {
   removeProjectBlock = key => {
     let { projectsBlocks } = this.state;
 
-    projectsBlocks = projectsBlocks.filter(function(element) {
-      return parseInt(element.key) !== key;
-    });
+    console.log('remove block ' + key);
+    console.log(projectsBlocks);
+    // TOdo
+    console.log(projectsBlocks);
 
     this.setState(
       {
@@ -49,14 +51,13 @@ class ExperiencePage extends Component {
 
   addProjectBlock = () => {
     const { projectsBlocks } = this.state;
-    projectsBlocks.push(
-      {
-        'period': '1 year',
-        'name': 'CRM',
-        'stack': 'PHP',
-        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper lacus tortor, quis bibendum odio mattis vitae. Cras porta massa pretium auctor congue. Suspendisse ante massa, euismod sit amet sem sed, viverra tristique diam.'
-      }
-    );
+    projectsBlocks.push({
+      period: '1 year',
+      name: 'CRM',
+      stack: 'PHP',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper lacus tortor, quis bibendum odio mattis vitae. Cras porta massa pretium auctor congue. Suspendisse ante massa, euismod sit amet sem sed, viverra tristique diam.'
+    });
 
     this.setState(
       {
@@ -77,16 +78,16 @@ class ExperiencePage extends Component {
       height: '100%'
     };
 
-    let editProject;
-    if (this.state.profileOwner && this.state.projectsBlocks.length <= 5) {
-      editProject = (
+    let addNewProjectBlock =
+      this.state.profileOwner && this.state.projectsBlocks.length <= 5 ? (
         <div className="col-md-4">
-          <button onClick={this.addProjectBlock} className="btn btn-primary">
-            Add project
+          <button onClick={this.addProjectBlock} className="btn btn-success">
+            <i className="fa fa-plus-square" aria-hidden="true" />
           </button>
         </div>
+      ) : (
+        ''
       );
-    }
 
     const disabledEditing = false;
     let ProjectBlock = ({ data, index }) => {
@@ -94,69 +95,105 @@ class ExperiencePage extends Component {
         <div className="col-md-4" key={index}>
           {!disabledEditing ? (
             <button
-              className="projectRemove"
+              className="projectRemove btn btn-small"
               key={index}
-              onClick={() => this.removeProjecteBlock(index)}
+              onClick={() => this.removeProjectBlock(index)}
             >
-              Remove
+              <i className="fa fa-times" aria-hidden="true" />
             </button>
           ) : (
             ''
           )}
-          <div className="single-education">
-            <div className="education-history text-center">
-              <p>
-                <i className="fa fa-graduation-cap" />
-                <br />
-                <Editable
-                  name="skill"
-                  index={index}
-                  dataType="text"
-                  disabled={disabledEditing}
-                  value={data.period}
-                  placement="bottom"
-                  mode="popup"
-                  handleSubmit={e => {
-                    console.log(e);
-                    console.log(this);
-                  }}
-                />
-              </p>
+          <div className="single-project">
+            <div className="project-history text-center">
+              <div>
+                <i className="fa fa-calendar-o" />
+              </div>
+              <Editable
+                name="period"
+                index={index}
+                dataType="text"
+                disabled={disabledEditing}
+                value={data.period}
+                placement="bottom"
+                mode="popup"
+                handleSubmit={e => {
+                  console.log(e);
+                  console.log(this);
+                }}
+              />
             </div>
             <div className="degree">
               <ul>
                 <li>
-                  <i className="fa fa-file-text" /> Software Engneering
+                  <i className="fa fa-file-text" />
+                  <Editable
+                    name="name"
+                    index={index}
+                    dataType="text"
+                    disabled={disabledEditing}
+                    value={data.name}
+                    placement="bottom"
+                    mode="popup"
+                    handleSubmit={e => {
+                      console.log(e);
+                      console.log(this);
+                    }}
+                  />
                 </li>
                 <li>
-                  <i className="fa fa-university" /> Oxford University
+                  <i className="fa fa-stack-overflow" />
+                  <Editable
+                    name="stack"
+                    index={index}
+                    dataType="text"
+                    disabled={disabledEditing}
+                    value={data.stack}
+                    placement="bottom"
+                    mode="popup"
+                    handleSubmit={e => {
+                      console.log(e);
+                      console.log(this);
+                    }}
+                  />
                 </li>
               </ul>
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In semper
-              lacus tortor, quis bibendum odio mattis vitae. Cras porta massa
-              pretium auctor congue. Suspendisse ante massa, euismod sit amet
-              sem sed, viverra tristique diam.
-            </p>
+            <div className="project-description">
+              <Editable
+                name="description"
+                index={index}
+                dataType="textarea"
+                disabled={disabledEditing}
+                value={data.description}
+                placement="bottom"
+                mode="popup"
+                handleSubmit={e => {
+                  console.log(e);
+                  console.log(this);
+                }}
+              />
+            </div>
           </div>
         </div>
       );
     };
 
-    let projectsBlocksRender = this.state.projectsBlocks.map((blockData, index) => {
-      console.log(blockData);
-      return <ProjectBlock key={index} index={index} data={blockData} />;
-    });
+    let projectsBlocksRender = this.state.projectsBlocks.map(
+      (blockData, index) => {
+        console.log(blockData);
+        return <ProjectBlock key={index} index={index} data={blockData} />;
+      }
+    );
 
     return (
-      <section id="education" style={sectionStyle}>
+      <section id="experience" style={sectionStyle}>
         <div className="container">
           <div className="row animated fadeInUp">
-            <h2 className="none">Education</h2>
+            <h2 className="none">Projects</h2>
           </div>
           {projectsBlocksRender}
-          {editProject}
+          {addNewProjectBlock}
         </div>
       </section>
     );

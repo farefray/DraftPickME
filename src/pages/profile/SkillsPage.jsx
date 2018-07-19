@@ -88,7 +88,7 @@ class SkillsPage extends Component {
     });
 
     return (
-      <section id="experience">
+      <section id="skills">
         <div className="container">
           <div className="row">
             <div className="col-md-4">

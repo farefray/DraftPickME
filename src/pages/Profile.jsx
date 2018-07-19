@@ -97,7 +97,7 @@ class Profile extends React.Component {
             />
           </Drilldown>
         ) : (
-          <div> Loading... </div>
+          <div> </div>
         )}
       </div>
     );
