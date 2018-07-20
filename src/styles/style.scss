@@ -411,6 +411,12 @@ nav {
   transition: all .5s ease-in-out;
 }
 
+#drilldown {
+  > div:first-child {
+    background: #fff;
+  }
+}
+
 nav ul {
   padding-top: 30px;
   list-style: none;
@@ -725,8 +731,8 @@ experience
   background-color: #fff;
   background-blend-mode: overlay;
   height: 100%;
-  
   #project_add_button {
+    transition: all 300ms ease-in-out;
     font-size: 28px;
     position: relative;
     background-color: transparent;
@@ -757,7 +763,7 @@ experience
     position: absolute;
     z-index: 150;
     right: 4px;
-    top: 0px;
+    top: 25%;
     font-size: 28px;
     line-height: 28px;
     background: transparent;
@@ -768,7 +774,6 @@ experience
         color: rgb(196, 36, 36);
       }
     }
-    
   }
   p {
     font-size: 13px;
@@ -839,7 +844,7 @@ experience
 }
 
 /* ==========
-experience
+skills
 ========== */
 
 #skills {

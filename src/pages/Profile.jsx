@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
-import Drilldown from 'react-router-drilldown';
-import { Navigation } from '../components/Navigation';
-import { userActions } from '../actions';
+import React from "react";
+import PropTypes from "prop-types";
+import { Route } from "react-router-dom";
+import Drilldown from "react-router-drilldown";
+import { Navigation } from "../components/Navigation";
+import { userActions } from "../actions";
 
 import {
   AboutPage,
@@ -11,7 +11,7 @@ import {
   ExperiencePage,
   ContactPage,
   Home
-} from './profile';
+} from "./profile";
 
 const RouteWithProps = ({ component: Component, path, user, ...rest }) => (
   <Route
@@ -32,25 +32,25 @@ const ProfilePage = props => {
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
         <RouteWithProps
-          path={'/p/' + props.match.params.username + '/about'}
+          path={"/p/" + props.match.params.username + "/about"}
           component={AboutPage}
           user={props.user}
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/skills'}
+          path={"/p/" + props.match.params.username + "/skills"}
           component={SkillsPage}
           user={props.user}
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/experience'}
+          path={"/p/" + props.match.params.username + "/experience"}
           component={ExperiencePage}
           user={props.user}
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/contact'}
+          path={"/p/" + props.match.params.username + "/contact"}
           component={ContactPage}
           user={props.user}
         />
@@ -66,7 +66,7 @@ class Profile extends React.Component {
     this.state = {
       username: this.props.match.params.username
         ? this.props.match.params.username
-        : '',
+        : "",
       user: {},
       loaded: false
     };
@@ -83,21 +83,23 @@ class Profile extends React.Component {
       <div>
         <Navigation username={this.state.username} />
         {this.state.loaded ? (
-          <Drilldown animateHeight={true} fillParent={true}>
-            <RouteWithProps
-              exact
-              path="/p/:username"
-              user={this.state.user}
-              component={Home}
-            />
-            <RouteWithProps
-              path="/p/:username/:page"
-              user={this.state.user}
-              component={ProfilePage}
-            />
-          </Drilldown>
+          <div id="drilldown">
+            <Drilldown animateHeight={true} fillParent={true}>
+              <RouteWithProps
+                exact
+                path="/p/:username"
+                user={this.state.user}
+                component={Home}
+              />
+              <RouteWithProps
+                path="/p/:username/:page"
+                user={this.state.user}
+                component={ProfilePage}
+              />
+            </Drilldown>
+          </div>
         ) : (
-          <div> </div>
+          <div />
         )}
       </div>
     );
