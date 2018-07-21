@@ -113,8 +113,8 @@ input[type="checkbox"],
   //width: 400px;
   max-width: 400px;
   .popover-content {
-    input {
-      text-indent: 0;
+    input, textarea {
+      text-indent: 0px;
     }
   }
 }

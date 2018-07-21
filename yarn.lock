@@ -1884,7 +1884,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@2.2.6, classnames@^2.2.5:
+classnames@^2.2.5:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
@@ -7046,6 +7046,10 @@ react-filepond@2.0.7:
   resolved "https://registry.yarnpkg.com/react-filepond/-/react-filepond-2.0.7.tgz#149cd28cc1d72f61dcd4bd60efb61a55863b3e00"
   dependencies:
     filepond "^1.8.0"
+
+react-flip-move@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-3.0.2.tgz#2f6f16ca6cb0a8490fba15a98b3440a76127e825"
 
 react-is@^16.3.2, react-is@^16.4.0:
   version "16.4.1"

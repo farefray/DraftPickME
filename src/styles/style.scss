@@ -412,7 +412,7 @@ nav {
 }
 
 #drilldown {
-  > div:first-child {
+  >div:first-child {
     background: #fff;
   }
 }
@@ -731,26 +731,34 @@ experience
   background-color: #fff;
   background-blend-mode: overlay;
   height: 100%;
+
+  #projects_save_button,
   #project_add_button {
-    transition: all 300ms ease-in-out;
-    font-size: 28px;
+    transition: all 500ms ease-in-out;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    padding: 0 5px;
+    margin: 5px 15px;
     position: relative;
     background-color: transparent;
     cursor: pointer;
-    margin: auto;
     outline: none;
-    border: none;
     text-decoration: none;
     color: #caa669;
-    display: block;
+    font-size: 22px;
+    width: 90px;
+    display: inline-block;
     &:hover {
-      .fa {
-        color: #000;
-      }
+      color: #000;
     }
     .fa {
       color: currentColor;
+      margin-right: 5px;
     }
+  }
+  #projects_save_button {
+    color: #0a7243;
+    border: 1px solid #0a7243;
   }
   .container {
     max-width: 1000px;
@@ -813,7 +821,7 @@ experience
         position: absolute;
         top: -20px;
         right: 10px;
-        width: 80px;
+        width: 85px;
         height: 65px;
         background-color: #0487cc;
         border-radius: 3px;
@@ -831,8 +839,9 @@ experience
           margin-bottom: 0;
           font-weight: bold;
           padding-right: 0;
-          padding-top: 5px;
+          padding-top: 4px;
           z-index: 150;
+          line-height: 100%;
           a {
             display: block;
             color: currentColor;
