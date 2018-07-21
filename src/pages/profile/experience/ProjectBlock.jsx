@@ -2,17 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import Editable from "react-x-editable";
 
-export default class ProjectBlock extends React.Component {
+export default class ProjectBlock extends React.PureComponent {
   static propTypes = {
     data: PropTypes.object,
     index: PropTypes.number.isRequired,
     removeAction: PropTypes.func.isRequired,
-    editAction: PropTypes.func.isRequired
+    editAction: PropTypes.func.isRequired,
+    canEdit: PropTypes.bool.isRequired
   };
 
   render() {
-    const { data, index } = this.props;
-    const disabledEditing = false;
+    const { data, index, canEdit } = this.props;
+    const disabledEditing = !canEdit;
 
     if (!data && data === null) {
       return <div />;

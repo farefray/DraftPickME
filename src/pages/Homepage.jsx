@@ -72,17 +72,8 @@ class Homepage extends React.Component {
       </div>
     );
 
-    let backgroundImageStyle = {
-      background:
-        "darkgray no-repeat center center fixed",
-      backgroundSize: "cover",
-      backgroundColor: "#333",
-      backgroundBlendMode: "overlay",
-      height: "100%"
-    };
-
     return (
-      <div id="home" className="large-header" style={backgroundImageStyle}>
+      <div id="home" className="large-header">
         <canvas id="demo-canvas" />
         <div id="large-header">
           <div className="relative-table">

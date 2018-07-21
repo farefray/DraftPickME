@@ -1,6 +1,7 @@
 import redraft from 'redraft';
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 /**
  *  You can use inline styles or classNames inside your callbacks

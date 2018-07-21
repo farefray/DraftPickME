@@ -13,17 +13,18 @@ import {
   Home
 } from "./profile";
 
-const RouteWithProps = ({ component: Component, path, user, ...rest }) => (
+const RouteWithProps = ({ component: Component, path, user, canEdit, ...rest }) => (
   <Route
     {...rest}
-    render={props => <Component path={path} user={user} {...props} />}
+    render={props => <Component path={path} user={user} canEdit={canEdit} {...props} />}
   />
 );
 
 RouteWithProps.propTypes = {
   component: PropTypes.func.isRequired,
+  canEdit: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object
 };
 
 const ProfilePage = props => {
@@ -35,24 +36,28 @@ const ProfilePage = props => {
           path={"/p/" + props.match.params.username + "/about"}
           component={AboutPage}
           user={props.user}
+          canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
           path={"/p/" + props.match.params.username + "/skills"}
           component={SkillsPage}
           user={props.user}
+          canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
           path={"/p/" + props.match.params.username + "/experience"}
           component={ExperiencePage}
           user={props.user}
+          canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
           path={"/p/" + props.match.params.username + "/contact"}
           component={ContactPage}
           user={props.user}
+          canEdit={props.canEdit}
         />
       </Drilldown>
     </div>
@@ -68,13 +73,18 @@ class Profile extends React.Component {
         ? this.props.match.params.username
         : "",
       user: {},
-      loaded: false
+      loaded: false,
+      canEdit: false
     };
 
-    // TODO Fixme
-    // Can't call setState (or forceUpdate) on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
+    console.log('Profile');
+    console.log(props);
     userActions.getByName(this.state.username).then(data => {
-      this.setState({ user: data.response.user, loaded: true });
+      // todo case when no such user!
+      let { user } = data.response;
+      console.log(user);
+      console.log(props);
+      this.setState({ user: user, loaded: true, canEdit: !!(props.auth.user && user.id === props.auth.user.id) });
     });
   }
 
@@ -89,11 +99,13 @@ class Profile extends React.Component {
                 exact
                 path="/p/:username"
                 user={this.state.user}
+                canEdit={this.state.canEdit}
                 component={Home}
               />
               <RouteWithProps
                 path="/p/:username/:page"
                 user={this.state.user}
+                canEdit={this.state.canEdit}
                 component={ProfilePage}
               />
             </Drilldown>
@@ -105,5 +117,13 @@ class Profile extends React.Component {
     );
   }
 }
+
+Profile.propTypes = {
+  match: PropTypes.any,
+  auth: PropTypes.shape({
+    loggedIn: PropTypes.bool,
+    user: PropTypes.object
+  })
+};
 
 export { Profile };

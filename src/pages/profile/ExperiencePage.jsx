@@ -15,8 +15,7 @@ class ExperiencePage extends Component {
     const { user } = this.props;
     this.state = {
       projectsBlocks: user && user.projects ? user.projects : [],
-      unsaved: false,
-      profileOwner: true // TODO check if thats current user
+      unsaved: false
     };
 
     console.log(this.state);
@@ -26,6 +25,7 @@ class ExperiencePage extends Component {
     user: PropTypes.shape({
       projects: PropTypes.array
     }),
+    canEdit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -77,7 +77,7 @@ class ExperiencePage extends Component {
 
   render() {
     let addProjectButton =
-      this.state.profileOwner && this.state.projectsBlocks.length <= 15 ? (
+      this.props.canEdit && this.state.projectsBlocks.length <= 15 ? (
         <button onClick={this.addProjectBlock} id="project_add_button">
           <i className="fa fa-plus-circle" aria-hidden="true" />
           Add
@@ -104,6 +104,7 @@ class ExperiencePage extends Component {
                 <ProjectBlock
                   key={index}
                   index={index}
+                  canEdit={this.props.canEdit}
                   data={blockData}
                   removeAction={this.removeProjectBlock}
                   editAction={this.editProjectBlock}

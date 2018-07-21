@@ -1,18 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { PrivateRoute } from "../components/PrivateRoute";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import { NProgress } from 'redux-nprogress';
+import { NProgress } from "redux-nprogress";
 
 import { Homepage } from "./Homepage";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { Profile } from "./Profile";
 import { EditProfile } from "./login/EditProfile";
-import { Alerts }  from "../components/Alerts";
+import { Alerts } from "../components/Alerts";
 import history from "../helpers/history";
 
 const PageFade = props => (
@@ -25,15 +26,26 @@ const PageFade = props => (
   />
 );
 
-const Layout = ({ children }) => (
-  <div id="root">
-    {children}
-  </div>
+const Layout = ({ children }) => <div id="root">{children}</div>;
+
+const AuthRoute = ({ component: Component, path, auth, ...rest }) => (
+  <Route
+    {...rest}
+    path={path}
+    render={props => <Component auth={auth} {...props} />}
+  />
 );
 
+AuthRoute.propTypes = {
+  component: PropTypes.any.isRequired,
+  auth: PropTypes.shape({
+    loggedIn: PropTypes.bool,
+    user: PropTypes.object
+  }),
+  path: PropTypes.string.isRequired
+};
+
 const Main = props => {
-  console.log('Main:');
-  console.log(props);
   const locationKey = props.location.pathname;
 
   return (
@@ -45,46 +57,56 @@ const Main = props => {
             <Route path="/login" component={Login} />
             <PrivateRoute
               path="/editprofile"
-              isAuthenticated={props.auth}
+              isAuthenticated={props.auth.loggedIn}
               component={EditProfile}
             />
             <Route path="/register" component={Register} />
           </Switch>
         </PageFade>
       </TransitionGroup>
-      <Route path="/p/:username" component={Profile} />
+      <AuthRoute path="/p/:username" component={Profile} auth={props.auth} />
     </Layout>
   );
 };
 
-const AuthRoute = ({ component: Component, path, auth, ...rest }) =>
-  <Route
-    {...rest}
-    render={props => <Component path={path}
-    auth={auth} {...props} />}
-  />;
+Main.propTypes = {
+  auth: PropTypes.shape({
+    loggedIn: PropTypes.bool,
+    user: PropTypes.object
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
+};
 
 class App extends React.Component {
   render() {
-    console.log('App');
+    console.log("App");
     console.log(this.props);
     return (
       <div>
         <NProgress color="#78cc78" />
-        <Alerts/>
+        <Alerts />
         <Router history={history}>
-          <AuthRoute path="/" component={Main} auth={this.props.auth}/>
+          <AuthRoute path="/" component={Main} auth={this.props.auth} />
         </Router>
       </div>
     );
   }
 }
 
+App.propTypes = {
+  auth: PropTypes.shape({
+    loggedIn: PropTypes.bool,
+    user: PropTypes.object
+  }).isRequired,
+};
+
 function mapStateToProps(state) {
   const { authentication, app } = state;
   return {
     app,
-    auth: authentication.loggedIn
+    auth: authentication ? authentication : {}
   };
 }
 
