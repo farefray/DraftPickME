@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Editable from "react-x-editable";
+import ButtonRemove from "../../components/ButtonRemove";
 
 export default class SingleSkill extends React.PureComponent {
   static propTypes = {
@@ -21,7 +22,8 @@ export default class SingleSkill extends React.PureComponent {
 
     return (
       <div className="single-skill">
-        <a href="#" onClick={this.props.removeAction}> del </a>
+        <ButtonRemove index={index}
+            removeAction={() => this.props.removeAction(index)}/>
         <div className="skill-name">
           <Editable
             name="skill"

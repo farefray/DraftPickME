@@ -14,7 +14,7 @@ class ExperiencePage extends Component {
     const { user } = this.props;
     this.state = {
       projectsBlocks: user && user.projects ? user.projects : [],
-      unsaved: false
+      unsaved: false // todo probably warn about unsaved page on route and also move this to HOC
     };
   }
 

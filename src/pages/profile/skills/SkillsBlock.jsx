@@ -68,7 +68,7 @@ export default class SkillsBlock extends React.Component {
       <div>
         <div className="skills">
         <h2>
-            {noResults ? <div/> : <div><i className="fa fa-trophy" key="mainSkillsHeader"/> Main Skills</div>}
+            {noResults ? <div/> : <div className="animated fadeInDown"><i className="fa fa-trophy" key="mainSkillsHeader"/> Main Skills</div>}
         </h2>
         <FlipMove>
             {data.map((blockData, index) => (

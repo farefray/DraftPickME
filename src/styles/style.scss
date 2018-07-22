@@ -704,24 +704,7 @@ experience
   height: 100%;
   .container {
     max-width: 1000px;
-  }
-  .projectRemove {
-    color: #ffffff;
-    position: absolute;
-    z-index: 150;
-    right: 4px;
-    top: 25%;
-    font-size: 28px;
-    line-height: 28px;
-    background: transparent;
-    i {
-      cursor: pointer;
-      color: #6e6e6e;
-      &:hover {
-        color: rgb(196, 36, 36);
-      }
-    }
-  }
+  }  
   p {
     font-size: 13px;
     margin-top: 20px;

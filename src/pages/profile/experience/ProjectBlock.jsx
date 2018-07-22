@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Editable from "react-x-editable";
+import ButtonRemove from "../components/ButtonRemove";
 
 export default class ProjectBlock extends React.PureComponent {
   static propTypes = {
@@ -22,12 +23,9 @@ export default class ProjectBlock extends React.PureComponent {
     return (
       <div className="col-md-4 project-block" key={index}>
         {!disabledEditing ? (
-          <div
-            className="projectRemove"
-            key={index}
-            onClick={() => this.props.removeAction(index)}>
-            <i className="fa fa-times" aria-hidden="true" />
-          </div>
+          <ButtonRemove
+            index={index}
+            removeAction={() => this.props.removeAction(index)}/>
         ) : (
           ""
         )}

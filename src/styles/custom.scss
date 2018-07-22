@@ -155,3 +155,22 @@ input[type="checkbox"],
     margin-right: 5px;
   }
 }
+
+.buttonRemove {
+  color: #ffffff;
+  border: none;
+  position: absolute;
+  z-index: 150;
+  right: -1px;
+  top: 25%;
+  font-size: 28px;
+  line-height: 28px;
+  background: transparent;
+  i {
+    cursor: pointer;
+    color: #6e6e6e;
+    &:hover {
+      color: rgb(196, 36, 36);
+    }
+  }
+}
