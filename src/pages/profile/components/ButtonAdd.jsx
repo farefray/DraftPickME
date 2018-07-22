@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ButtonAdd = ({ onClick, entityName }) => {
   return (
-    <button onClick={onClick} className="buttonAdd">
+    <button onClick={onClick} className="actionButton">
       <i className="fa fa-plus-circle" aria-hidden="true" />
       Add {entityName ? " " + entityName : ""}
     </button>

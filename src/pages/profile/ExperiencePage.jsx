@@ -81,7 +81,7 @@ class ExperiencePage extends Component {
       );
 
     let saveButton = this.state.unsaved ? (
-      <button id="projects_save_button" className="animated fadeIn" onClick={this.updateUserProjects}>
+      <button className="actionButton animated fadeIn" onClick={this.updateUserProjects}>
         <i className="fa fa-check-circle-o" aria-hidden="true" />
         Save
       </button>

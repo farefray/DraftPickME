@@ -63,31 +63,27 @@ export default class SkillsBlock extends React.Component {
   render() {
     const { data } = this.state;
 
-    let noResults = !data || !data.length ? <div /> : false;
+    let noResults = !data || !data.length ? true : false;
     return (
       <div>
-        {noResults ? (
-          noResults
-        ) : (
-          <div className="skills">
-            <h2>
-              <i className="fa fa-trophy" /> Main Skills
-            </h2>
-            <FlipMove>
-              {data.map((blockData, index) => (
-                <SingleSkill
-                  key={index}
-                  index={index}
-                  canEdit={this.props.canEdit}
-                  data={blockData}
-                  removeAction={this.removeSingleBlockPart}
-                  editAction={this.editSingleBlockPart}
-                />
-              ))}
-            </FlipMove>
-          </div>
-        )}
-        <ButtonAdd onClick={this.addNewBlock} entityName="skill"/>
+        <div className="skills">
+        <h2>
+            {noResults ? <div/> : <div><i className="fa fa-trophy" key="mainSkillsHeader"/> Main Skills</div>}
+        </h2>
+        <FlipMove>
+            {data.map((blockData, index) => (
+            <SingleSkill
+                key={index}
+                index={index}
+                canEdit={this.props.canEdit}
+                data={blockData}
+                removeAction={this.removeSingleBlockPart}
+                editAction={this.editSingleBlockPart}
+            />
+            ))}
+            <div key="buttonAddContainer"><ButtonAdd onClick={this.addNewBlock} entityName="skill"/></div>
+        </FlipMove>
+        </div>
       </div>
     );
   }
