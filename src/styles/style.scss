@@ -43,7 +43,7 @@ body {
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   overflow: hidden;
 }
 
@@ -117,8 +117,8 @@ a.button {
   border-radius: 30px;
   font-size: 12px;
   border: 1px solid #0487cc;
-  -webkit-transition: all .36s ease-in-out;
-  transition: all .36s ease-in-out;
+  -webkit-transition: all 0.36s ease-in-out;
+  transition: all 0.36s ease-in-out;
 }
 
 a.button:hover {
@@ -139,8 +139,8 @@ a.button-style-2 {
   border-radius: 30px;
   font-size: 12px;
   border: 1px solid #0487cc;
-  -webkit-transition: all .36s ease-in-out;
-  transition: all .36s ease-in-out;
+  -webkit-transition: all 0.36s ease-in-out;
+  transition: all 0.36s ease-in-out;
 }
 
 a.button-style-2:hover {
@@ -149,7 +149,7 @@ a.button-style-2:hover {
 
 p {
   line-height: 1.7;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   padding-right: 7px;
 }
 
@@ -184,7 +184,7 @@ section {
 /* scroll */
 
 body::-webkit-scrollbar {
-  width: .6em;
+  width: 0.6em;
 }
 
 body::-webkit-scrollbar-track {
@@ -193,7 +193,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: rgba(1, 1, 1, .6);
+  background-color: rgba(1, 1, 1, 0.6);
   outline: 1px solid #333;
 }
 
@@ -322,6 +322,7 @@ ul {
   animation-name: flipInY;
 }
 
+
 /* ==========
 Nav Menu
 ========== */
@@ -400,15 +401,15 @@ nav {
   position: absolute;
   left: 0;
   top: 0;
-  background-color: rgba(1, 1, 1, .6);
+  background-color: rgba(1, 1, 1, 0.6);
   color: #fff;
   width: 100px;
   text-align: center;
   height: 100%;
   box-shadow: 0 0 25px #333;
   z-index: 10000;
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   ul {
     padding-top: 30px;
     list-style: none;
@@ -438,7 +439,7 @@ nav {
         font-size: 24px;
         padding: 10px;
         position: relative;
-        background-color: rgba(3, 3, 3, .6);
+        background-color: rgba(3, 3, 3, 0.6);
         box-shadow: 0 0 20px #333;
         cursor: pointer;
         border-radius: 10px;
@@ -451,8 +452,8 @@ nav {
         text-decoration: none;
         color: #caa669;
         display: block;
-        -webkit-transition: all .35s ease-in-out;
-        transition: all .35s ease-in-out;
+        -webkit-transition: all 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
       }
     }
   }
@@ -477,14 +478,14 @@ nav {
     margin-left: 30px;
   }
   .scroll {
-    background-color: rgba(1, 1, 1, .9);
+    background-color: rgba(1, 1, 1, 0.9);
   }
   &:before {
     position: absolute;
     content: "";
     border: 30px solid transparent;
-    border-left-color: rgba(3, 3, 3, .6);
-    border-top-color: rgba(3, 3, 3, .6);
+    border-left-color: rgba(3, 3, 3, 0.6);
+    border-top-color: rgba(3, 3, 3, 0.6);
     top: 0;
     left: 100px;
     cursor: pointer;
@@ -497,8 +498,8 @@ nav {
     font-size: 16px;
     left: 108px;
     top: 6px;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     cursor: pointer;
   }
   .nav-controller {
@@ -520,7 +521,7 @@ nav {
 }
 
 #drilldown {
-  >div:first-child {
+  > div:first-child {
     background: #fff;
   }
 }
@@ -539,7 +540,7 @@ nav ul li a.active {
   left: -16px;
   top: 9px;
   border: 8px solid transparent;
-  border-right-color: rgba(3, 3, 3, .9);
+  border-right-color: rgba(3, 3, 3, 0.9);
   width: 10px;
   height: 10px;
 }
@@ -550,7 +551,7 @@ nav ul li a.active {
   letter-spacing: 1px;
   padding: 10px;
   text-transform: capitalize;
-  background: rgba(3, 3, 3, .9);
+  background: rgba(3, 3, 3, 0.9);
 }
 
 /* ==========
@@ -600,7 +601,7 @@ about
 #about {
   max-width: 100%;
   height: auto;
-  background: url('/images/about.png') no-repeat top center fixed;
+  background: url("/images/about.png") no-repeat top center fixed;
   background-size: cover;
   background-color: #e6e6e6;
   background-blend-mode: overlay;
@@ -609,7 +610,7 @@ about
   font-size: 14px;
   div {
     line-height: 1.7;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
   }
   a {
     text-decoration: none;
@@ -633,8 +634,8 @@ about
     text-decoration: none;
     color: rgb(4, 135, 204);
     letter-spacing: 1px;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
   a.black-button:hover {
     -webkit-box-shadow: 0 0 20px #222;
@@ -667,8 +668,8 @@ about
     display: inline-block;
     border: 1px solid #999;
     color: #000;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
   .info .icons a:hover {
     background-color: #0487cc;
@@ -696,44 +697,40 @@ experience
 ========== */
 
 #experience {
-  background: url('/images/experience.png') no-repeat top center fixed;
+  background: url("/images/experience.png") no-repeat top center fixed;
   background-size: cover;
   background-color: #fff;
   background-blend-mode: overlay;
   height: 100%;
-  #projects_save_button,
-  #project_add_button {
-    transition: all 500ms ease-in-out;
-    border: 1px solid currentColor;
-    border-radius: 5px;
-    padding: 0 5px;
+  #projects_save_button {
+    transition: all 300ms ease-in-out;
+    background-color: #0487cc;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    border: 1px solid #fff;
+    padding: 4px 14px;
     margin: 5px 15px;
     position: relative;
-    background-color: transparent;
     cursor: pointer;
     outline: none;
     text-decoration: none;
-    color: #caa669;
-    font-size: 22px;
-    width: 90px;
+    color: rgb(221, 221, 221);
+    font-size: 16px;
     display: inline-block;
     &:hover {
-      color: #000;
+      color: rgb(0, 116, 62);
+      .fa {
+        color: rgb(0, 116, 62) !important;
+      }
     }
     .fa {
-      color: currentColor;
+      transition: all 300ms ease-in-out;
+      color: rgb(221, 221, 221) !important;
       margin-right: 5px;
     }
   }
-  #projects_save_button {
-    color: #0a7243;
-    border: 1px solid #0a7243;
-  }
   .container {
     max-width: 1000px;
-  }
-  .fa {
-    color: #444444;
   }
   .projectRemove {
     color: #ffffff;
@@ -796,7 +793,7 @@ experience
         border-radius: 3px;
         color: #fff;
         display: block;
-        >div {
+        > div {
           display: block;
           margin-top: 5px;
         }
@@ -826,139 +823,127 @@ skills
 ========== */
 
 #skills {
-  background: url('/images/experience.png') no-repeat top center fixed;
+  background: url("/images/experience.png") no-repeat top center fixed;
   background-size: cover;
-  background-color: #e6e6e6;
+  background-color: #4b4b4b;
   background-blend-mode: overlay;
   height: 100%;
-}
 
-#skills .skill-bar {
-  height: 15px;
-  width: 100%;
-  background-color: #999;
-  overflow: hidden;
-  outline: 2px solid #fff;
-  outline-offset: -2px;
-  -webkit-box-shadow: 0 0 2px #666;
-  box-shadow: 0 0 2px #666;
-}
+  .skill-bar {
+    height: 15px;
+    width: 100%;
+    background-color: #999;
+    overflow: hidden;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    -webkit-box-shadow: 0 0 2px #666;
+    box-shadow: 0 0 2px #666;
 
-#skills .skill-bar .skill-percent {
-  height: 15px;
-  background-color: #0487cc;
-}
+    .skill-percent {
+      height: 15px;
+      background-color: #0487cc;
+    }
+  }
 
-#skills .single-skill {
-  margin-top: 10px;
-}
+  .single-skill {
+    margin-top: 10px;
+    .skill-name {
+      display: inline;
+    }
+  }
 
-#skills p.skill-name,
-#skills p.percent {
-  font-weight: bold;
-  display: inline-block;
-  margin-bottom: 0;
-  padding-bottom: 2px;
-}
+  .percent {
+    float: right;
+  }
 
-#skills p.percent {
-  float: right;
-}
+  .jobs {
+    position: relative;
 
-#skills .jobs {
-  position: relative;
-}
+    .single-job {
+      .job-details {
+        padding: 5px 20px;
+        -webkit-box-shadow: 0 0 10px #ddd;
+        box-shadow: 0 0 10px #ddd;
+        margin-left: 20px;
+        margin-top: 50px;
+        margin-bottom: 65px;
+        .company h3 {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 15px;
+          color: #0487cc;
+        }
 
-#skills .jobs hr.timeline {
-  border: 2px solid #999;
-  background-color: #fff;
-  height: 2px;
-  width: 550px;
-  position: absolute;
-  left: -275px;
-  top: 285px;
-  -webkit-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-  margin-top: 43px;
-}
+        h3 {
+          font-size: 16px;
+          color: #fff;
+          margin-bottom: 10px;
+          margin-top: 10px;
+        }
+      }
+    }
+    .single-job,
+    .job-date {
+      position: relative;
+    }
 
-#skills .jobs .single-job,
-#skills .jobs .single-job .job-date {
-  position: relative;
-}
+    .single-job .job-date {
+      .job-date-p {
+        display: inline-block;
+        position: absolute;
+        left: 20px;
+        top: -45px;
+        font-weight: bold;
+        padding: 5px 14px;
+        background-color: #0487cc;
+        color: #fff;
+      }
+      .job-date-p:before {
+        content: "";
+        border: 10px solid transparent;
+        border-right-color: #0487cc;
+        position: absolute;
+        left: -19px;
+        top: 6px;
+      }
+      .job-circle {
+        position: absolute;
+        top: -36px;
+        left: -5px;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #fff;
+        box-shadow: inset 0 0 5px #fff;
+        border-radius: 50%;
+        background-color: #0487cc;
+      }
+    }
+  }
 
-#skills .jobs .single-job .job-date .job-circle {
-  position: absolute;
-  top: -36px;
-  left: -5px;
-  width: 15px;
-  height: 15px;
-  border: 2px solid #FFF;
-  box-shadow: inset 0 0 5px #fff;
-  border-radius: 50%;
-  background-color: #0487cc;
-}
+  .jobs hr.timeline {
+    border: 2px solid #999;
+    background-color: #fff;
+    height: 2px;
+    width: 550px;
+    position: absolute;
+    left: -275px;
+    top: 285px;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    margin-top: 43px;
+  }
 
-#skills .jobs .single-job .job-date .job-date-p {
-  display: inline-block;
-  position: absolute;
-  left: 20px;
-  top: -45px;
-  font-weight: bold;
-  padding: 5px 14px;
-  background-color: #0487cc;
-  color: #fff;
-}
+  .specialities p {
+    font-size: 13px;
+  }
 
-#skills .jobs .single-job .job-date .job-date-p:before {
-  content: "";
-  border: 10px solid transparent;
-  border-right-color: #0487cc;
-  position: absolute;
-  left: -19px;
-  top: 6px;
-}
+  .fa {
+    color: #caa669;
+  }
 
-#skills .jobs .single-job .job-details {
-  padding: 5px 20px;
-  -webkit-box-shadow: 0 0 10px #ddd;
-  box-shadow: 0 0 10px #ddd;
-  margin-left: 20px;
-  margin-top: 50px;
-  margin-bottom: 65px;
-}
-
-#skills .jobs .single-job .job-details h3 {
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-#skills .jobs .single-job .job-details p,
-#skills .specialities p {
-  font-size: 13px;
-}
-
-#skills .single-hobby i {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  padding: 10px;
-  border-radius: 50%;
-  background-color: #0487cc;
-  text-align: center;
-  line-height: 1.8;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  margin: 10px auto;
-}
-
-#skills .hoppies p {
-  font-size: 12px;
-  font-weight: bold;
-  padding: 0;
+  h2 {
+    color: #fff;
+  }
 }
 
 #skills .single-skill:first-of-type,
@@ -970,33 +955,18 @@ skills
   margin-bottom: 67px;
 }
 
-#skills .fa {
-  color: #caa669;
-}
-
-#skills h2 {
-  color: #fff;
-}
-
-#skills .jobs .single-job .job-details .company h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #0487cc;
-}
-
 /* ==========
 Hire
 ========== */
 
 .hire .hire-wrapper {
-  background-color: rgba(1, 1, 1, .9);
+  background-color: rgba(1, 1, 1, 0.9);
   border-radius: 10px;
   -webkit-box-shadow: 0 0 5px #555;
   box-shadow: 0 0 5px #555;
   top: -80px;
-  -webkit-transition: all .35s ease-in-out;
-  transition: all .35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
   overflow: hidden;
   color: #eee;
   padding: 30px 10px;
@@ -1022,9 +992,9 @@ Hire
   top: -56px;
   -webkit-transform: rotate(36deg);
   transform: rotate(36deg);
-  opacity: .2;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
+  opacity: 0.2;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .hire a {
@@ -1037,8 +1007,8 @@ Hire
   font-size: 12px;
   padding: 10px;
   border: 1px solid #0487cc;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   float: right;
   margin-right: 20px;
   display: inline-block;
@@ -1063,8 +1033,8 @@ Contact
 ========== */
 
 #contact {
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 input,
@@ -1113,8 +1083,8 @@ textarea {
   font-size: 12px;
   padding: 10px;
   border: 1px solid #0487cc;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 #contact div.btn:hover {
@@ -1130,14 +1100,14 @@ textarea {
 }
 
 #contact .contact-card {
-  background-color: rgba(1, 1, 1, .9);
+  background-color: rgba(1, 1, 1, 0.9);
   height: 500px;
   border-radius: 10px;
   -webkit-box-shadow: 0 0 5px #555;
   box-shadow: 0 0 5px #555;
   top: -80px;
-  -webkit-transition: all .35s ease-in-out;
-  transition: all .35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
   overflow: hidden;
   color: #eee;
 }
@@ -1214,7 +1184,7 @@ textarea {
 }
 
 #contact .contact-card .contact-social ul li a.behance {
-  background-color: #1769FF;
+  background-color: #1769ff;
 }
 
 #map {
@@ -1263,7 +1233,7 @@ Footer
 ========== */
 
 .footer {
-  background-color: rgba(1, 1, 1, .9);
+  background-color: rgba(1, 1, 1, 0.9);
   color: #fff;
   text-align: center;
   margin-top: 50px;
@@ -1289,9 +1259,9 @@ Footer
 .footer:before {
   content: "";
   border: 20px solid transparent;
-  border-right-color: rgba(1, 1, 1, .9);
+  border-right-color: rgba(1, 1, 1, 0.9);
   position: absolute;
-  border-bottom-color: rgba(1, 1, 1, .9);
+  border-bottom-color: rgba(1, 1, 1, 0.9);
   left: -40px;
   top: 0;
 }
@@ -1299,9 +1269,9 @@ Footer
 .footer:after {
   content: "";
   border: 20px solid transparent;
-  border-left-color: rgba(1, 1, 1, .9);
+  border-left-color: rgba(1, 1, 1, 0.9);
   position: absolute;
-  border-bottom-color: rgba(1, 1, 1, .9);
+  border-bottom-color: rgba(1, 1, 1, 0.9);
   right: -40px;
   top: 0;
 }
@@ -1310,13 +1280,13 @@ Footer
  Responsive
 ========== */
 
-@media (max-width:412px) {
+@media (max-width: 412px) {
   /* nav */
   nav ul li a {
     font-size: 20px;
     padding: 10px;
     position: relative;
-    background-color: rgba(3, 3, 3, .6);
+    background-color: rgba(3, 3, 3, 0.6);
     box-shadow: 0 0 20px #333;
     cursor: pointer;
     border-radius: 10px;
@@ -1339,13 +1309,13 @@ Footer
   }
 }
 
-@media (max-width:320px) {
+@media (max-width: 320px) {
   /* nav */
   nav ul li a {
     font-size: 20px;
     padding: 10px;
     position: relative;
-    background-color: rgba(3, 3, 3, .6);
+    background-color: rgba(3, 3, 3, 0.6);
     box-shadow: 0 0 20px #333;
     cursor: pointer;
     border-radius: 10px;
@@ -1378,18 +1348,18 @@ Footer
     content: "";
     border: 30px solid transparent;
     left: -59px;
-    border-right-color: rgba(1, 1, 1, .9);
+    border-right-color: rgba(1, 1, 1, 0.9);
     position: absolute;
-    border-bottom-color: rgba(1, 1, 1, .9);
+    border-bottom-color: rgba(1, 1, 1, 0.9);
     top: 0;
   }
   .footer:after {
     content: "";
     border: 30px solid transparent;
     right: -59px;
-    border-left-color: rgba(1, 1, 1, .9);
+    border-left-color: rgba(1, 1, 1, 0.9);
     position: absolute;
-    border-bottom-color: rgba(1, 1, 1, .9);
+    border-bottom-color: rgba(1, 1, 1, 0.9);
     top: 0;
   }
 }
