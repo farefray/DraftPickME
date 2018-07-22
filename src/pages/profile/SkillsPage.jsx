@@ -1,107 +1,69 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Editable from 'react-x-editable';
-import { userActions } from '../../actions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { userActions } from "../../actions";
+import SkillsBlock from "./skills/SkillsBlock";
 
 class SkillsPage extends Component {
   constructor(props) {
     super(props);
     const { user } = this.props;
 
-    console.log('SkillsPage');
+    console.log("SkillsPage");
     this.state = {
-      experience: user.experience
-        ? user.experience
-        : {
-            skills: [
-              {
-                name: 'ReactJS',
-                value: '6 months'
-              },
-              {
-                name: 'VueJS',
-                value: '1 year'
-              },
-              {
-                name: 'PHP',
-                value: '4 years'
-              }
-            ],
-            language: [],
-            jobs: [],
-            specialities: [],
-            hobbies: []
-          },
-      profileOwner: true // TODO check if thats current user
+      skills: user.skills ? user.skills : [],
+      languages: user.languages,
+      jobs: user.jobs,
+      specialities: user.specialities,
+      unsaved: false
     };
   }
 
   static propTypes = {
     user: PropTypes.shape({
-      experience: PropTypes.array
+      skills: PropTypes.array,
+      languages: PropTypes.array,
+      jobs: PropTypes.array,
+      specialities: PropTypes.array
     }),
+    canEdit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
-  updateUserExperience = () => {
+  // Actually this can be moved to higher order component to keep it DRY
+  updateUserProfile = (field, value) => {
+    console.log("updating");
+    console.log(field, value);
     let { user } = this.props;
+    // todo update
     this.props.dispatch(userActions.edit(user));
   };
 
-  render() {
-    const { experience } = this.state;
-    let skillPercent = {
-      width: Math.floor(Math.random() * 31) + 50 + '%'
-    };
-
-    const disabledEditing = false;
-    let SkillBlock = ({ data, index }) => {
-      return (
-        <div className="single-skill">
-          <div className="skill-name">
-            <Editable
-              name="skill"
-              index={index}
-              dataType="text"
-              disabled={disabledEditing}
-              value={data.name}
-              placement="bottom"
-              mode="popup"
-              handleSubmit={e => {
-                console.log(e);
-                console.log(this);
-              }}
-            />
-          </div>
-          <p className="percent">{data.value}</p>
-          <div className="skill-bar">
-            <div className="skill-percent" style={skillPercent} />
-          </div>
-        </div>
-      );
-    };
-
-    let skillsBlockRender = experience.skills.map((blockData, index) => {
-      return <SkillBlock key={index} index={index} data={blockData} />;
+  onBlockChange = (blockName, value) => {
+    console.log("onChange");
+    console.log(blockName, value);
+    let { unsaved } = this.state;
+    unsaved = true;
+    this.setState({
+      unsaved
     });
+  };
+
+  render() {
+    const { skills } = this.state;
 
     return (
       <section id="skills">
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-              {experience && experience.skills && experience.skills.length ? (
-                <div className="skills">
-                  <h2>
-                    <i className="fa fa-trophy" /> Main Skills
-                  </h2>
-                  {skillsBlockRender}
-                </div>
-              ) : (
-                <div />
-              )}
+              <SkillsBlock
+                data={skills}
+                canEdit={this.props.canEdit}
+                name="skills"
+                onChange={this.onBlockChange}
+              />
 
               <div className="skills margin-top">
                 <h2>
@@ -111,21 +73,21 @@ class SkillsPage extends Component {
                   <p className="skill-name">English</p>
                   <p className="percent">100%</p>
                   <div className="skill-bar">
-                    <div className="skill-percent" style={skillPercent} />
+                    <div className="skill-percent" />
                   </div>
                 </div>
                 <div className="single-skill">
                   <p className="skill-name">Arabic</p>
                   <p className="percent">100%</p>
                   <div className="skill-bar">
-                    <div className="skill-percent" style={skillPercent} />
+                    <div className="skill-percent" />
                   </div>
                 </div>
                 <div className="single-skill">
                   <p className="skill-name">German</p>
                   <p className="percent">85%</p>
                   <div className="skill-bar">
-                    <div className="skill-percent" style={skillPercent} />
+                    <div className="skill-percent" />
                   </div>
                 </div>
               </div>
@@ -134,7 +96,7 @@ class SkillsPage extends Component {
             <div className="col-md-4">
               <div className="jobs">
                 <h2 className="special-margin">
-                  {' '}
+                  {" "}
                   <i className="fa fa-briefcase" /> My Jobs
                 </h2>
                 <hr className="timeline" />
@@ -210,29 +172,6 @@ class SkillsPage extends Component {
                   <p>modern and compatible with all devices.</p>
                 </div>
                 <hr />
-              </div>
-              <div className="hoppies margin-top">
-                <h2>
-                  <i className="fa fa-heart" /> My Hobbies
-                </h2>
-                <div className="col-md-4 text-center">
-                  <div className="single-hobby">
-                    <i className="fa fa-video-camera" />
-                    <p>Photography</p>
-                  </div>
-                </div>
-                <div className="col-md-4 text-center">
-                  <div className="single-hobby">
-                    <i className="zmdi zmdi-brush" />
-                    <p>Paint</p>
-                  </div>
-                </div>
-                <div className="col-md-4 text-center">
-                  <div className="single-hobby">
-                    <i className="fa fa-map" />
-                    <p>Travel</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

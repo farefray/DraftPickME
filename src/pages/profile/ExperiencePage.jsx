@@ -5,20 +5,17 @@ import { connect } from "react-redux";
 import FlipMove from "react-flip-move";
 import { userActions } from "../../actions";
 import ProjectBlock from "./experience/ProjectBlock";
+import ButtonAdd from "./components/ButtonAdd";
 
 class ExperiencePage extends Component {
   constructor(props) {
     super(props);
 
-    console.log("ExperiencePage");
-    console.log(this.props.user.projects);
     const { user } = this.props;
     this.state = {
       projectsBlocks: user && user.projects ? user.projects : [],
       unsaved: false
     };
-
-    console.log(this.state);
   }
 
   static propTypes = {
@@ -78,10 +75,7 @@ class ExperiencePage extends Component {
   render() {
     let addProjectButton =
       this.props.canEdit && this.state.projectsBlocks.length <= 15 ? (
-        <button onClick={this.addProjectBlock} id="project_add_button">
-          <i className="fa fa-plus-circle" aria-hidden="true" />
-          Add
-        </button>
+        <ButtonAdd onClick={this.addProjectBlock}/>
       ) : (
         <div key="add_button" />
       );
