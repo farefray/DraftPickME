@@ -12,8 +12,7 @@ function Navigation(props) {
     <nav id="nav">
       <div className="logo">
         <Link to="/">
-          <img className="img-responsive" alt="logo" src="/images/deco.svg" />
-          <span>DraftPickIT</span>
+          <img className="img-responsive" alt="logo" src="/images/logo.png" />
         </Link>
       </div>
       <ul>
