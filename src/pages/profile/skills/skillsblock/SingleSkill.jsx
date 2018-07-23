@@ -21,9 +21,7 @@ export default class SingleSkill extends React.PureComponent {
     }
 
     return (
-      <div className="single-skill">
-        <ButtonRemove index={index}
-            removeAction={() => this.props.removeAction(index)}/>
+      <div className="single-skill">        
         <div className="skill-name">
           <Editable
             name="skill"
@@ -51,6 +49,11 @@ export default class SingleSkill extends React.PureComponent {
         <div className="skill-bar">
           <div className="skill-percent" />
         </div>
+        <ButtonRemove
+          index={index}
+          subclass="left relative"
+          removeAction={() => this.props.removeAction(index)}
+        />
       </div>
     );
   }
