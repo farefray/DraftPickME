@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { userActions } from "../../../actions";
 import Skills from "./qualification/Skills";
 import Languages from "./qualification/Languages";
+import Specialities from "./qualification/Specialities";
 
 class Qualification extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Qualification extends Component {
       skills: user.skills ? user.skills : [],
       languages: user.languages ? user.languages : [],
       jobs: user.jobs,
-      specialities: user.specialities,
+      specialities: user.specialities ? user.specialities : [],
       unsaved: false
     };
   }
@@ -49,7 +50,7 @@ class Qualification extends Component {
   };
 
   render() {
-    const { skills, languages } = this.state;
+    const { skills, languages, specialities } = this.state;
 
     return (
       <section id="skills">
@@ -129,26 +130,12 @@ class Qualification extends Component {
               </div>
             </div>
             <div className="col-md-4">
-              <div className="specialities">
-                <h2>
-                  <i className="fa fa-keyboard-o" /> My Specialities
-                </h2>
-                <div className="single-speciality">
-                  <h3>Responsive Web</h3>
-                  <p>modern and compatible with all devices.</p>
-                </div>
-                <hr />
-                <div className="single-speciality">
-                  <h3>Website Production</h3>
-                  <p>modern and compatible with all devices.</p>
-                </div>
-                <hr />
-                <div className="single-speciality">
-                  <h3>Web Development</h3>
-                  <p>modern and compatible with all devices.</p>
-                </div>
-                <hr />
-              </div>
+            <Specialities
+              data={specialities}
+              canEdit={this.props.canEdit}
+              name="specialities"
+              onChange={this.onChange}
+            />
             </div>
           </div>
         </div>

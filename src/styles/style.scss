@@ -499,6 +499,13 @@ Shared components
     left: -30px;
     top: 11px;
   }
+  &.right {
+    right: 0px;
+    top: -40px;
+  }
+  &.relative {
+    position: relative;
+  }
   i {
     cursor: pointer;
     color: #6e6e6e;

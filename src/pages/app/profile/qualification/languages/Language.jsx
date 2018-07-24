@@ -20,12 +20,12 @@ export default class Language extends React.Component {
     }
 
     const knowledgeOptions = [
-      { value: 1, text: "Beginner", letter: 'A1'},
+      { value: 1, text: "Beginner", letter: 'A1' },
       { value: 2, text: "Elementary", letter: 'A2' },
       { value: 3, text: "Intermediate", letter: 'B1' },
       { value: 4, text: "Upper Intermediate", letter: 'B2' },
       { value: 5, text: "Advanced", letter: 'C1' },
-      { value: 6, text: "Native", letter: 'C2'}
+      { value: 6, text: "Native", letter: 'C2' }
     ];
     let letterValue = knowledgeOptions.filter(opt => opt.text == data.percent)[0].letter;
     return (
@@ -40,18 +40,17 @@ export default class Language extends React.Component {
               value={data.value}
               placement="bottom"
               mode="popup"
-              handleSubmit={newBlock =>
-                this.props.editAction(
-                  newBlock.props.index,
-                  newBlock.props.name,
-                  newBlock.newValue
-                )
+              handleSubmit={newBlock => this.props.editAction(
+                newBlock.props.index,
+                newBlock.props.name,
+                newBlock.newValue
+              )
               }
             />
           </h3>
         </div>
         <div className="skill-power">
-        {letterValue}
+          {letterValue}
         </div>
         <div className="skill-description">
           <Editable
@@ -63,14 +62,11 @@ export default class Language extends React.Component {
             placement="bottom"
             mode="popup"
             options={knowledgeOptions}
-            handleSubmit={newBlock => {
-              console.log(newBlock);
-              
-              return this.props.editAction(
-                newBlock.props.index,
-                newBlock.props.name,
-                newBlock.newValue
-              )}
+            handleSubmit={newBlock => this.props.editAction(
+              newBlock.props.index,
+              newBlock.props.name,
+              newBlock.newValue
+            )
             }
           />
         </div>
@@ -79,7 +75,7 @@ export default class Language extends React.Component {
         </div>
         <ButtonRemove
           index={index}
-          subclass="left relative"
+          subclass="left"
           removeAction={() => this.props.removeAction(index)}
         />
       </div>

@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Editable from "react-x-editable";
 import ButtonRemove from "../../components/ButtonRemove";
-import StarRatingComponent from "react-star-rating-component";
 
 export default class Skill extends React.Component {
   static propTypes = {
@@ -21,8 +20,7 @@ export default class Skill extends React.Component {
     }
 
     return (
-      <div className="single-skill">
-        <div className="skill-name">
+      <div className="single-speciality">
           <h3>
             <Editable
               name="value"
@@ -41,34 +39,13 @@ export default class Skill extends React.Component {
               }
             />
           </h3>
-        </div>
-        <div className="skill-power">
-          <StarRatingComponent
-            editing={canEdit}
-            name={"" + index}
-            starCount={5}
-            value={data.power}
-            renderStarIcon={(index, value) => {
-              return (
-                <span>
-                  <i
-                    className={index <= value ? "fa fa-star" : "fa fa-star-o"}
-                  />
-                </span>
-              );
-            }}
-            onStarClick={(newValue, oldValue, index) => {
-              this.props.editAction(index, "power", newValue);
-            }}
-          />
-        </div>
         <div className="skill-description">
           <Editable
-            name="percent"
+            name="description"
             index={index}
             dataType="textarea"
             disabled={!canEdit}
-            value={data.percent}
+            value={data.description}
             placement="bottom"
             mode="popup"
             handleSubmit={newBlock =>
@@ -85,10 +62,12 @@ export default class Skill extends React.Component {
         </div>
         <ButtonRemove
           index={index}
-          subclass="left"
+          subclass="right relative"
           removeAction={() => this.props.removeAction(index)}
         />
+        <hr />
       </div>
     );
   }
 }
+                
