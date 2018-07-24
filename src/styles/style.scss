@@ -871,13 +871,20 @@ about
   .about-info {
     max-height: 600px;
     overflow-y: auto;
-  }
-  .about-info h2 {
-    color: #0487cc;
-    margin-top: 0;
-  }
-  .about-info h2 span {
-    color: #333;
+    .editable-rich-container {
+      .editable-container {
+        max-width: 600px;
+        word-wrap: break-word;
+      }
+    }
+    h2 {
+      color: #0487cc;
+      margin-top: 0;
+
+      span {
+        color: #333;
+      }
+    }
   }
   .strong-p {
     font-size: 16px;
@@ -975,7 +982,6 @@ skills
   background-size: cover;
   background-color: #4b4b4b;
   background-blend-mode: overlay;
-  height: 100%;
   .fa {
     text-shadow: 1px 1px 1px black;
   }

@@ -116,16 +116,16 @@ export default class UserProfile extends React.PureComponent {
               />
             </div>
             <hr />
-            <div>
+            <div class="editable-rich-container">
               <EditableRichComponent
                 name="description"
                 disabled={disabledEditing}
                 value={user.description}
                 defaultValue="Describe your profile more detailed."
-                handleSubmit={editedField => {
-                  this.props.updateUserProfileValue(
-                    editedField.state.name,
-                    editedField.newValue
+                handleSubmit={(name, newValue) => {
+                  return this.props.updateUserProfileValue(
+                    name,
+                    newValue
                   );
                 }}
               />
