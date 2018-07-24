@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FlipMove from "react-flip-move";
-import SingleSkill from "./skillsblock/SingleSkill";
+import Language from "./languages/Language";
 import ButtonAdd from "../components/ButtonAdd";
 
-export default class SkillsBlock extends React.Component {
+export default class Languages extends React.Component {
   constructor(props) {
     super(props);
     const { data } = this.props;
 
-    console.log("SkillsBlock");
     this.state = {
       data: data
     };
@@ -51,9 +50,8 @@ export default class SkillsBlock extends React.Component {
   addNewBlock = () => {
     const { data } = this.state;
     data.push({
-      value: "Skill name",
-      percent: "Optional description",
-      power: 3
+      value: "Language",
+      percent: 'Beginner'
     });
 
     this.updateBlocks(data);
@@ -65,13 +63,13 @@ export default class SkillsBlock extends React.Component {
     let noResults = !data || !data.length ? true : false;
     return (
       <div>
-        <div className="skills">
+        <div className="skills languages margin-top">
         <h2>
-            {noResults ? <div/> : <div className="animated fadeInDown"><i className="fa fa-trophy" key="mainSkillsHeader"/> Main Skills</div>}
+            {noResults ? <div/> : <div className="animated fadeInDown"><i className="fa fa-globe" key="mainSkillsHeader"/> Languages</div>}
         </h2>
         <FlipMove>
             {data.map((blockData, index) => (
-            <SingleSkill
+            <Language
                 key={index}
                 index={index}
                 canEdit={this.props.canEdit}
@@ -80,7 +78,7 @@ export default class SkillsBlock extends React.Component {
                 editAction={this.editSingleBlockPart}
             />
             ))}
-            <div key="buttonAddContainer"><ButtonAdd onClick={this.addNewBlock} entityName="skill" key="addSkills"/></div>
+            <div key="buttonAddContainer"><ButtonAdd onClick={this.addNewBlock} entityName="language" key="addLanguages"/></div>
         </FlipMove>
         </div>
       </div>

@@ -972,7 +972,7 @@ skills
   .fa {
     text-shadow: 1px 1px 1px black;
   }
-  .single-skill {
+  .single-skill, .single-language {
     position: relative;
     margin-top: 10px;
     .skill-name {
@@ -991,6 +991,12 @@ skills
     }
     .fa-star {
       color: #0487cc;
+    }
+  }
+  .single-language {
+    .skill-power {
+      font-weight: bold;
+      margin-right: 20px;
     }
   }
   .jobs {
@@ -1077,6 +1083,7 @@ skills
 }
 
 #skills .single-skill:first-of-type,
+#skills .single-language:first-of-type,
 #skills .single-speciality:first-of-type {
   margin-top: 20px;
 }

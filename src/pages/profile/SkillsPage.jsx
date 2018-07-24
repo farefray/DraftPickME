@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { userActions } from "../../actions";
 import SkillsBlock from "./skills/SkillsBlock";
+import Languages from "./skills/Languages";
 
 class SkillsPage extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class SkillsPage extends Component {
     console.log("SkillsPage");
     this.state = {
       skills: user.skills ? user.skills : [],
-      languages: user.languages,
+      languages: user.languages ? user.languages : [],
       jobs: user.jobs,
       specialities: user.specialities,
       unsaved: false
@@ -51,7 +52,7 @@ class SkillsPage extends Component {
   };
 
   render() {
-    const { skills } = this.state;
+    const { skills, languages } = this.state;
 
     return (
       <section id="skills">
@@ -64,123 +65,101 @@ class SkillsPage extends Component {
                 name="skills"
                 onChange={this.onBlockChange}
               />
-
-              <div className="skills margin-top">
-                <h2>
-                  <i className="fa fa-globe" /> Language Skills
+              <Languages
+                data={languages}
+                canEdit={this.props.canEdit}
+                name="languages"
+                onChange={this.onBlockChange}
+              />
+              </div>
+              <div className="col-md-4">
+                <div className="jobs">
+                  <h2 className="special-margin">
+                    {" "}
+                    <i className="fa fa-briefcase" /> My Jobs
                 </h2>
-                <div className="single-skill">
-                  <p className="skill-name">English</p>
-                  <p className="percent">100%</p>
-                  <div className="skill-bar">
-                    <div className="skill-percent" />
+                  <hr className="timeline" />
+                  <div className="single-job">
+                    <div className="job-date">
+                      <div className="job-circle" />
+                      <p className="job-date-p">2010 - recent</p>
+                    </div>
+                    <div className="job-details">
+                      <h3>Front End Developer</h3>
+                      <div className="company">
+                        <h3>Google</h3>
+                      </div>
+                      <p>
+                        Lorem ipsum dolor sit amet, sector adipiscing elit. quis
+                        bibendum odio mattis vitae.
+                    </p>
+                    </div>
                   </div>
-                </div>
-                <div className="single-skill">
-                  <p className="skill-name">Arabic</p>
-                  <p className="percent">100%</p>
-                  <div className="skill-bar">
-                    <div className="skill-percent" />
+
+                  <div className="single-job">
+                    <div className="job-date">
+                      <div className="job-circle" />
+                      <p className="job-date-p">2004 - 2010</p>
+                    </div>
+                    <div className="job-details">
+                      <h3>Front End Developer</h3>
+                      <div className="company">
+                        <h3>FaceBook</h3>
+                      </div>
+                      <p>
+                        Lorem ipsum dolor sit amet, sector adipiscing elit. quis
+                        bibendum odio mattis vitae.
+                    </p>
+                    </div>
                   </div>
-                </div>
-                <div className="single-skill">
-                  <p className="skill-name">German</p>
-                  <p className="percent">85%</p>
-                  <div className="skill-bar">
-                    <div className="skill-percent" />
+
+                  <div className="single-job">
+                    <div className="job-date">
+                      <div className="job-circle" />
+                      <p className="job-date-p">2000 - 2004</p>
+                    </div>
+                    <div className="job-details">
+                      <h3>Front End Developer</h3>
+                      <div className="company">
+                        <h3>LinkedIn</h3>
+                      </div>
+                      <p>
+                        Lorem ipsum dolor sit amet, sector adipiscing elit. quis
+                        bibendum odio mattis vitae.
+                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="col-md-4">
-              <div className="jobs">
-                <h2 className="special-margin">
-                  {" "}
-                  <i className="fa fa-briefcase" /> My Jobs
+              <div className="col-md-4">
+                <div className="specialities">
+                  <h2>
+                    <i className="fa fa-keyboard-o" /> My Specialities
                 </h2>
-                <hr className="timeline" />
-                <div className="single-job">
-                  <div className="job-date">
-                    <div className="job-circle" />
-                    <p className="job-date-p">2010 - recent</p>
+                  <div className="single-speciality">
+                    <h3>Responsive Web</h3>
+                    <p>modern and compatible with all devices.</p>
                   </div>
-                  <div className="job-details">
-                    <h3>Front End Developer</h3>
-                    <div className="company">
-                      <h3>Google</h3>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, sector adipiscing elit. quis
-                      bibendum odio mattis vitae.
-                    </p>
+                  <hr />
+                  <div className="single-speciality">
+                    <h3>Website Production</h3>
+                    <p>modern and compatible with all devices.</p>
                   </div>
-                </div>
-
-                <div className="single-job">
-                  <div className="job-date">
-                    <div className="job-circle" />
-                    <p className="job-date-p">2004 - 2010</p>
+                  <hr />
+                  <div className="single-speciality">
+                    <h3>Web Development</h3>
+                    <p>modern and compatible with all devices.</p>
                   </div>
-                  <div className="job-details">
-                    <h3>Front End Developer</h3>
-                    <div className="company">
-                      <h3>FaceBook</h3>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, sector adipiscing elit. quis
-                      bibendum odio mattis vitae.
-                    </p>
-                  </div>
+                  <hr />
                 </div>
-
-                <div className="single-job">
-                  <div className="job-date">
-                    <div className="job-circle" />
-                    <p className="job-date-p">2000 - 2004</p>
-                  </div>
-                  <div className="job-details">
-                    <h3>Front End Developer</h3>
-                    <div className="company">
-                      <h3>LinkedIn</h3>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, sector adipiscing elit. quis
-                      bibendum odio mattis vitae.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="specialities">
-                <h2>
-                  <i className="fa fa-keyboard-o" /> My Specialities
-                </h2>
-                <div className="single-speciality">
-                  <h3>Responsive Web</h3>
-                  <p>modern and compatible with all devices.</p>
-                </div>
-                <hr />
-                <div className="single-speciality">
-                  <h3>Website Production</h3>
-                  <p>modern and compatible with all devices.</p>
-                </div>
-                <hr />
-                <div className="single-speciality">
-                  <h3>Web Development</h3>
-                  <p>modern and compatible with all devices.</p>
-                </div>
-                <hr />
               </div>
             </div>
           </div>
-        </div>
       </section>
-    );
-  }
-}
-
-const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
-const connectedSkillsPage = connect(mapDispatchToProps)(SkillsPage);
-export { connectedSkillsPage as SkillsPage };
+        );
+      }
+    }
+    
+    const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
+    const connectedSkillsPage = connect(mapDispatchToProps)(SkillsPage);
+export {connectedSkillsPage as SkillsPage};
