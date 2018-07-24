@@ -12,15 +12,17 @@ A draft is a process used in some countries and sports to allocate certain playe
 ├── .istanbul.yml             # Configure istanbul code coverage
 ├── .npmrc                    # Configures npm to save exact by default
 ├── README.md                 # This file.
-├── dist                      # Folder where the build script places the built app. Use this in prod.
+├── dist                      # Folder where the build script places the built app.
 ├── package.json              # Package configuration. The list of 3rd party libraries and utilities
 ├── src                       # Source code
 │   ├── actions               # Flux/Redux actions. List of distinct actions that can occur in the app.
-│   ├── components            # Contains shared React components that can be used anywhere in the application.
 │   ├── constants             # Application constants including constants for Redux
+│   ├── factories             # factories pattern (just tiny alerts factoria, but planning to extend)
 │   ├── helpers               # All the bits and pieces that don't fit into other folders but don't justify having a folder of their own.
+│   ├── images                # Images :)
 │   ├── js                    # Vanilla JS which is used by App
 │   ├── pages                 # Fractal structure. Root level components, ones which are directly mounted on level 1 routes.
+│   ├───── components         # Contains shared React components that can be used anywhere in the application.
 │   ├───── ~                  # Components and their nested components. All components are CamelCased. The sub components of Component.js are present in a folder called component. All components required by a page go to it’s node folder. 
 │   ├── reducers              # Redux reducers. Your state is altered here based on actions
 │   ├── services              # Handles all http communication with backend apis for the application, can also have methods that don't wrap http calls.

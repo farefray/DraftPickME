@@ -20,7 +20,7 @@ function Navigation(props) {
           <Link className="smooth" to={url}>
             <i className="menu fa fa-home" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt1">
-              home
+              Home
             </div>
           </Link>
         </li>
@@ -28,15 +28,15 @@ function Navigation(props) {
           <Link className="smooth" to={url + "/about"}>
             <i className="menu zmdi zmdi-account-box-o" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt2">
-              about
+              About
             </div>
           </Link>
-        </li>        
+        </li>
         <li id="tt3">
-          <Link className="smooth" to={url + "/skills"}>
+          <Link className="smooth" to={url + "/qualification"}>
             <i className="menu fa fa-trophy" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt4">
-              skills
+              Qualification
             </div>
           </Link>
         </li>
@@ -44,7 +44,7 @@ function Navigation(props) {
           <Link className="smooth" to={url + "/experience"}>
             <i className="menu zmdi zmdi-graduation-cap" />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt3">
-              experience
+              Experience
             </div>
           </Link>
         </li>
@@ -52,7 +52,7 @@ function Navigation(props) {
           <Link className="smooth" to={url + "/contact"}>
             <i className="menu zmdi zmdi-email " />
             <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt6">
-              contact
+              Contact
             </div>
           </Link>
         </li>

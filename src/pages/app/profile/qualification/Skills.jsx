@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FlipMove from "react-flip-move";
-import SingleSkill from "./skillsblock/SingleSkill";
+import Skill from "./skills/Skill";
 import ButtonAdd from "../components/ButtonAdd";
 
-export default class SkillsBlock extends React.Component {
+export default class Skills extends React.Component {
   constructor(props) {
     super(props);
     const { data } = this.props;
 
-    console.log("SkillsBlock");
     this.state = {
       data: data
     };
@@ -22,14 +21,14 @@ export default class SkillsBlock extends React.Component {
     canEdit: PropTypes.bool.isRequired
   };
 
-  removeSingleBlockPart = key => {
+  removeSkill = key => {
     let { data } = this.state;
     delete data[key]; // such deleting creates 'null' record instead, but thats required for animation. Tho, we need to care about that null later.
     // projectsBlocks.splice(key, 1);
-    this.updateBlocks(data);
+    this.update(data);
   };
 
-  updateBlocks(data) {
+  update(data) {
     this.setState({
       data
     });
@@ -42,13 +41,13 @@ export default class SkillsBlock extends React.Component {
     );
   }
 
-  editSingleBlockPart = (index, name, newValue) => {
+  editSkill = (index, name, newValue) => {
     const { data } = this.state;
     data[index][name] = newValue;
-    this.updateBlocks(data);
+    this.update(data);
   };
 
-  addNewBlock = () => {
+  addSkill = () => {
     const { data } = this.state;
     data.push({
       value: "Skill name",
@@ -56,7 +55,7 @@ export default class SkillsBlock extends React.Component {
       power: 3
     });
 
-    this.updateBlocks(data);
+    this.update(data);
   };
 
   render() {
@@ -70,17 +69,17 @@ export default class SkillsBlock extends React.Component {
             {noResults ? <div/> : <div className="animated fadeInDown"><i className="fa fa-trophy" key="mainSkillsHeader"/> Main Skills</div>}
         </h2>
         <FlipMove>
-            {data.map((blockData, index) => (
-            <SingleSkill
+            {data.map((data, index) => (
+            <Skill
                 key={index}
                 index={index}
                 canEdit={this.props.canEdit}
-                data={blockData}
-                removeAction={this.removeSingleBlockPart}
-                editAction={this.editSingleBlockPart}
+                data={data}
+                removeAction={this.removeSkill}
+                editAction={this.editSkill}
             />
             ))}
-            <div key="buttonAddContainer"><ButtonAdd onClick={this.addNewBlock} entityName="skill" key="addSkills"/></div>
+            <div key="buttonAddContainer"><ButtonAdd onClick={this.addSkill} entityName="skill" key="addSkills"/></div>
         </FlipMove>
         </div>
       </div>

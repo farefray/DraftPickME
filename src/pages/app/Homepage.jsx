@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { userActions } from "../actions";
+import { userActions } from "../../actions";
 
 import {
   initHeader,
   initAnimation,
   addListeners
-} from "../js/homepageAnimation";
+} from "../../js/homepageAnimation";
 
 class Homepage extends React.Component {
   componentDidMount() {

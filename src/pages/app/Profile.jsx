@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
-import { userActions } from "../actions";
+import { userActions } from "../../actions";
 
 import {
-  AboutPage,
-  SkillsPage,
-  ExperiencePage,
-  ContactPage,
+  About,
+  Qualification,
+  Experience,
+  Contact,
   Home
 } from "./profile";
 
@@ -27,35 +27,34 @@ RouteWithProps.propTypes = {
   user: PropTypes.object
 };
 
-const ProfilePage = props => {
-  console.log(props);
+const ProfileHandler = props => {
   return (
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
         <RouteWithProps
           path={"/p/" + props.match.params.username + "/about"}
-          component={AboutPage}
+          component={About}
           user={props.user}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + props.match.params.username + "/skills"}
-          component={SkillsPage}
+          path={"/p/" + props.match.params.username + "/qualification"}
+          component={Qualification}
           user={props.user}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
           path={"/p/" + props.match.params.username + "/experience"}
-          component={ExperiencePage}
+          component={Experience}
           user={props.user}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
           path={"/p/" + props.match.params.username + "/contact"}
-          component={ContactPage}
+          component={Contact}
           user={props.user}
           canEdit={props.canEdit}
         />
@@ -106,7 +105,7 @@ class Profile extends React.Component {
                 path="/p/:username/:page"
                 user={this.state.user}
                 canEdit={this.state.canEdit}
-                component={ProfilePage}
+                component={ProfileHandler}
               />
             </Drilldown>
           </div>

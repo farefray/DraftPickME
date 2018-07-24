@@ -20,9 +20,9 @@ const styles = {
 };
 
 // just a helper to add a <br /> after a block
-const addBreaklines = children => children.map((child, key) => [child, <br key={key}/>]);
+const addBreaklines = children => children.map((child, key) => [child, <br key={key} />]);
 
-const Blockquote = (children, { keys }) => <blockquote key={keys[0]}>{ addBreaklines(children) }</blockquote>;
+const Blockquote = (children, { keys }) => <blockquote key={keys[0]}>{addBreaklines(children)}</blockquote>;
 
 /**
  * Define the renderers
@@ -52,9 +52,9 @@ const renderers = {
       return <p key={key}>{child}</p>
     }),
     blockquote: Blockquote,
-    "header-three": children => children.map((child, key) => { return <h3 key={key}>{child}</h3>}),
-    "header-four": children => children.map((child, key) => { return <h4 key={key}>{child}</h4>}),
-    "header-five": children => children.map((child, key) => { return <h5 key={key}>{child}</h5>}),
+    "header-three": children => children.map((child, key) => { return <h3 key={key}>{child}</h3> }),
+    "header-four": children => children.map((child, key) => { return <h4 key={key}>{child}</h4> }),
+    "header-five": children => children.map((child, key) => { return <h5 key={key}>{child}</h5> }),
     "code-block": (children, { keys }) => ( // eslint-disable-line react/display-name
       <pre style={styles.codeBlock} key={keys[0]}>
         {addBreaklines(children)}
@@ -95,13 +95,13 @@ export default class RichTextRenderer extends React.PureComponent {
   }
 
   isEmpty(jsonData) {
-    if(!jsonData.blocks) {
+    if (!jsonData.blocks) {
       return true;
     }
 
     let isEmpty = true;
     jsonData.blocks.forEach(block => {
-      if(block.text.trim() !== "") {
+      if (block.text.trim() !== "") {
         isEmpty = false;
         return;
       }
@@ -117,12 +117,12 @@ export default class RichTextRenderer extends React.PureComponent {
     }
 
     raw = JSON.parse(raw);
-    
-    if(this.isEmpty(raw)) {
+
+    if (this.isEmpty(raw)) {
       console.log('rendeder is empty')
       return this.renderWarning();
     }
-    
+
     const rendered = redraft(raw, renderers);
     // redraft returns a null if there's nothing to render
     if (!rendered) {

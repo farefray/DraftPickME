@@ -4,7 +4,7 @@ import {
   initHeader,
   initAnimation,
   addListeners
-} from "../../js/homepageAnimation.js";
+} from "../../../js/homepageAnimation.js";
 
 class Home extends React.Component {
   componentDidMount() {

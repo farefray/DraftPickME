@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Editable from "react-x-editable";
 import ButtonRemove from "../components/ButtonRemove";
 
-export default class ProjectBlock extends React.PureComponent {
+export default class Project extends React.PureComponent {
   static propTypes = {
     data: PropTypes.object,
     index: PropTypes.number.isRequired,

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { hideAlert } from "../actions";
+import { hideAlert } from "../../actions";
 
 class Alert extends React.Component {
   render() {

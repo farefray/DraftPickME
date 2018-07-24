@@ -1,6 +1,6 @@
 import React from "react";
 
-class ContactPage extends React.Component {
+class Contact extends React.Component {
   render() {
     return (
       <section id="contact">
@@ -134,4 +134,4 @@ class ContactPage extends React.Component {
   }
 }
 
-export { ContactPage };
+export { Contact };

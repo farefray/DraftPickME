@@ -4,7 +4,7 @@ import Editable from "react-x-editable";
 import ButtonRemove from "../../components/ButtonRemove";
 import StarRatingComponent from "react-star-rating-component";
 
-export default class SingleSkill extends React.Component {
+export default class Skill extends React.Component {
   static propTypes = {
     data: PropTypes.object,
     index: PropTypes.number.isRequired,

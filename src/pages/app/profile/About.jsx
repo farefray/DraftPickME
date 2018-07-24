@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import UserProfile from "./about/UserProfile";
-import { userActions } from "../../actions";
+import { userActions } from "../../../actions";
 
-class AboutPage extends React.PureComponent {
+class About extends React.PureComponent {
   updateUserProfileValue = (name, value) => {
     let { user } = this.props;
     user[name] = value;
@@ -32,7 +32,7 @@ class AboutPage extends React.PureComponent {
   }
 }
 
-AboutPage.propTypes = {
+About.propTypes = {
   user: PropTypes.object,
   canEdit: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
@@ -40,5 +40,5 @@ AboutPage.propTypes = {
 
 const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
 
-const connectedAboutPage = connect(mapDispatchToProps)(AboutPage);
-export { connectedAboutPage as AboutPage };
+const connectedAbout = connect(mapDispatchToProps)(About);
+export { connectedAbout as About };

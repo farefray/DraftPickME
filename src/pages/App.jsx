@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import { PrivateRoute } from "../components/PrivateRoute";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { NProgress } from "redux-nprogress";
 
-import { Homepage } from "./Homepage";
-import { Login } from "./Login";
-import { Register } from "./Register";
-import { Profile } from "./Profile";
-import { EditProfile } from "./login/EditProfile";
-import { Alerts } from "../components/Alerts";
+import { Homepage } from "./app/Homepage";
+import { Login } from "./app/Login";
+import { Register } from "./app/Register";
+import { Profile } from "./app/Profile";
+import { EditProfile } from "./app/login/EditProfile";
+import { Alerts } from "./components/Alerts";
 import history from "../helpers/history";
 
 const PageFade = props => (

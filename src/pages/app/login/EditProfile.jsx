@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { userActions } from "../../actions";
+import { userActions } from "../../../actions";
 
 // Import React FilePond and file type validation for it
 import { FilePond, File, registerPlugin } from "react-filepond";

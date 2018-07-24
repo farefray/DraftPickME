@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import FlipMove from "react-flip-move";
-import { userActions } from "../../actions";
-import ProjectBlock from "./experience/ProjectBlock";
+import { userActions } from "../../../actions";
+import Project from "./experience/Project";
 import ButtonAdd from "./components/ButtonAdd";
 
-class ExperiencePage extends Component {
+class Experience extends Component {
   constructor(props) {
     super(props);
 
@@ -39,14 +39,14 @@ class ExperiencePage extends Component {
     this.props.dispatch(userActions.edit(user));
   };
 
-  removeProjectBlock = key => {
+  removeProject = key => {
     let { projectsBlocks } = this.state;
     delete projectsBlocks[key]; // such deleting creates 'null' record instead, but thats required for animation. Tho, we need to care about that null later.
     // projectsBlocks.splice(key, 1);
     this.setState({ projectsBlocks, unsaved: true });
   };
 
-  addProjectBlock = () => {
+  addProject = () => {
     const { projectsBlocks } = this.state;
     projectsBlocks.push({
       period: "Project time",
@@ -61,7 +61,7 @@ class ExperiencePage extends Component {
     });
   };
 
-  editProjectBlock = newBlock => {
+  editProject = newBlock => {
     const { projectsBlocks } = this.state;
 
     projectsBlocks[newBlock.props.index][newBlock.props.name] =
@@ -75,7 +75,7 @@ class ExperiencePage extends Component {
   render() {
     let addProjectButton =
       this.props.canEdit && this.state.projectsBlocks.length <= 15 ? (
-        <ButtonAdd onClick={this.addProjectBlock}/>
+        <ButtonAdd onClick={this.addProject}/>
       ) : (
         <div key="add_button" />
       );
@@ -95,13 +95,13 @@ class ExperiencePage extends Component {
           <div className="container animated fadeInDown">
             <FlipMove>
               {this.state.projectsBlocks.map((blockData, index) => (
-                <ProjectBlock
+                <Project
                   key={index}
                   index={index}
                   canEdit={this.props.canEdit}
                   data={blockData}
-                  removeAction={this.removeProjectBlock}
-                  editAction={this.editProjectBlock}
+                  removeAction={this.removeProject}
+                  editAction={this.editProject}
                 />
               ))}
               <div className="col-md-4" key="project_buttons">
@@ -118,5 +118,5 @@ class ExperiencePage extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
 
-const connectedExperiencePage = connect(mapDispatchToProps)(ExperiencePage);
-export { connectedExperiencePage as ExperiencePage };
+const connectedExperience = connect(mapDispatchToProps)(Experience);
+export { connectedExperience as Experience };
