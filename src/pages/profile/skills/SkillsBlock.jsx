@@ -42,10 +42,9 @@ export default class SkillsBlock extends React.Component {
     );
   }
 
-  editSingleBlockPart = newBlock => {
+  editSingleBlockPart = (index, name, newValue) => {
     const { data } = this.state;
-
-    data[newBlock.props.index][newBlock.props.name] = newBlock.newValue;
+    data[index][name] = newValue;
     this.updateBlocks(data);
   };
 
@@ -53,8 +52,8 @@ export default class SkillsBlock extends React.Component {
     const { data } = this.state;
     data.push({
       value: "Skill name",
-      percent: "period",
-      power: "3"
+      percent: "Optional description",
+      power: 3
     });
 
     this.updateBlocks(data);

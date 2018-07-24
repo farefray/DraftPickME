@@ -322,7 +322,6 @@ ul {
   animation-name: flipInY;
 }
 
-
 /* ==========
 Nav Menu
 ========== */
@@ -521,7 +520,7 @@ nav {
 }
 
 #drilldown {
-  > div:first-child {
+  >div:first-child {
     background: #fff;
   }
 }
@@ -704,7 +703,7 @@ experience
   height: 100%;
   .container {
     max-width: 1000px;
-  }  
+  }
   p {
     font-size: 13px;
     margin-top: 20px;
@@ -749,7 +748,7 @@ experience
         border-radius: 3px;
         color: #fff;
         display: block;
-        > div {
+        >div {
           display: block;
           margin-top: 5px;
         }
@@ -784,38 +783,32 @@ skills
   background-color: #4b4b4b;
   background-blend-mode: overlay;
   height: 100%;
-
-  .skill-bar {
-    height: 15px;
-    width: 100%;
-    background-color: #999;
-    overflow: hidden;
-    outline: 2px solid #fff;
-    outline-offset: -2px;
-    -webkit-box-shadow: 0 0 2px #666;
-    box-shadow: 0 0 2px #666;
-
-    .skill-percent {
-      height: 15px;
-      background-color: #0487cc;
-    }
+  .fa {
+    text-shadow: 1px 1px 1px black;
   }
-
   .single-skill {
     position: relative;
     margin-top: 10px;
     .skill-name {
       display: inline;
+      a {
+        color: #0487cc;
+        text-shadow: 1px 1px 1px black;
+      }
+    }
+    .skill-power {
+      float: right;
+      font-size: 20px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .fa-star {
+      color: #0487cc;
     }
   }
-
-  .percent {
-    float: right;
-  }
-
   .jobs {
     position: relative;
-
     .single-job {
       .job-details {
         padding: 5px 20px;
@@ -830,7 +823,6 @@ skills
           margin-bottom: 15px;
           color: #0487cc;
         }
-
         h3 {
           font-size: 16px;
           color: #fff;
@@ -843,7 +835,6 @@ skills
     .job-date {
       position: relative;
     }
-
     .single-job .job-date {
       .job-date-p {
         display: inline-block;
@@ -876,7 +867,6 @@ skills
       }
     }
   }
-
   .jobs hr.timeline {
     border: 2px solid #999;
     background-color: #fff;
@@ -889,15 +879,12 @@ skills
     transform: rotate(-90deg);
     margin-top: 43px;
   }
-
   .specialities p {
     font-size: 13px;
   }
-
   .fa {
     color: #caa669;
   }
-
   h2 {
     color: #fff;
   }
