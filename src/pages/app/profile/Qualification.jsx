@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { userActions } from "../../../actions";
-import Skills from "./qualification/Skills";
-import Languages from "./qualification/Languages";
-import Specialities from "./qualification/Specialities";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { userActions } from '../../../actions';
+import Skills from './qualification/Skills';
+import Languages from './qualification/Languages';
+import Specialities from './qualification/Specialities';
 
 class Qualification extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props;
+    const user = { ...this.props.user };
 
     this.state = {
       skills: user.skills ? user.skills : [],
@@ -33,15 +33,21 @@ class Qualification extends Component {
   };
 
   // Actually this can be moved to higher order component to keep it DRY
-  updateUserProfile = (field, value) => {
-    console.log("updating");
-    console.log(field, value);
+  updateUserProfile = () => {
+    console.log('updating');
     let { user } = this.props;
-    // todo update
+
     this.props.dispatch(userActions.edit(user));
+    this.setState({
+      unsaved: false
+    });
   };
 
   onChange = (name, value) => {
+    console.log('onChange');
+    console.log(name);
+    console.log(value);
+    console.log(this.state);
     let { unsaved } = this.state;
     unsaved = true;
     this.setState({
@@ -52,10 +58,23 @@ class Qualification extends Component {
   render() {
     const { skills, languages, specialities } = this.state;
 
+    let saveButton = this.state.unsaved ? (
+      <button
+        className="actionButton animated fadeIn"
+        onClick={this.updateUserProfile}
+      >
+        <i className="fa fa-check-circle-o" aria-hidden="true" />
+        Save
+      </button>
+    ) : (
+      <div key="save_button" />
+    );
+
     return (
       <section id="skills">
         <div className="container">
           <div className="row">
+            {saveButton}
             <div className="col-md-4">
               <Skills
                 data={skills}
@@ -73,7 +92,7 @@ class Qualification extends Component {
             <div className="col-md-4">
               <div className="jobs">
                 <h2 className="special-margin">
-                  {" "}
+                  {' '}
                   <i className="fa fa-briefcase" /> My Jobs
                 </h2>
                 <hr className="timeline" />
@@ -130,12 +149,12 @@ class Qualification extends Component {
               </div>
             </div>
             <div className="col-md-4">
-            <Specialities
-              data={specialities}
-              canEdit={this.props.canEdit}
-              name="specialities"
-              onChange={this.onChange}
-            />
+              <Specialities
+                data={specialities}
+                canEdit={this.props.canEdit}
+                name="specialities"
+                onChange={this.onChange}
+              />
             </div>
           </div>
         </div>
