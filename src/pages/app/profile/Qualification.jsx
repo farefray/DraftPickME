@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { userActions } from '../../../actions';
-import Skills from './qualification/Skills';
-import Languages from './qualification/Languages';
-import Specialities from './qualification/Specialities';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { userActions } from "../../../actions";
+import Skills from "./qualification/Skills";
+import Languages from "./qualification/Languages";
+import Specialities from "./qualification/Specialities";
+import Jobs from "./qualification/Jobs";
 
 class Qualification extends Component {
   constructor(props) {
@@ -13,10 +14,10 @@ class Qualification extends Component {
     const user = { ...this.props.user };
 
     this.state = {
-      skills: user.skills ? user.skills : [],
-      languages: user.languages ? user.languages : [],
-      jobs: user.jobs,
-      specialities: user.specialities ? user.specialities : [],
+      skills: user.skills || [],
+      languages: user.languages || [],
+      jobs: user.jobs || [],
+      specialities: user.specialities || [],
       unsaved: false
     };
   }
@@ -34,7 +35,7 @@ class Qualification extends Component {
 
   // Actually this can be moved to higher order component to keep it DRY
   updateUserProfile = () => {
-    console.log('updating');
+    console.log("updating");
     let { user } = this.props;
 
     this.props.dispatch(userActions.edit(user));
@@ -44,7 +45,7 @@ class Qualification extends Component {
   };
 
   onChange = (name, value) => {
-    console.log('onChange');
+    console.log("onChange");
     console.log(name);
     console.log(value);
     console.log(this.state);
@@ -56,13 +57,12 @@ class Qualification extends Component {
   };
 
   render() {
-    const { skills, languages, specialities } = this.state;
+    const { skills, languages, specialities, jobs } = this.state;
 
     let saveButton = this.state.unsaved ? (
       <button
         className="actionButton animated fadeIn"
-        onClick={this.updateUserProfile}
-      >
+        onClick={this.updateUserProfile}>
         <i className="fa fa-check-circle-o" aria-hidden="true" />
         Save
       </button>
@@ -90,63 +90,12 @@ class Qualification extends Component {
               />
             </div>
             <div className="col-md-4">
-              <div className="jobs">
-                <h2 className="special-margin">
-                  {' '}
-                  <i className="fa fa-briefcase" /> My Jobs
-                </h2>
-                <hr className="timeline" />
-                <div className="single-job">
-                  <div className="job-date">
-                    <div className="job-circle" />
-                    <p className="job-date-p">2010 - recent</p>
-                  </div>
-                  <div className="job-details">
-                    <h3>Front End Developer</h3>
-                    <div className="company">
-                      <h3>Google</h3>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, sector adipiscing elit. quis
-                      bibendum odio mattis vitae.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="single-job">
-                  <div className="job-date">
-                    <div className="job-circle" />
-                    <p className="job-date-p">2004 - 2010</p>
-                  </div>
-                  <div className="job-details">
-                    <h3>Front End Developer</h3>
-                    <div className="company">
-                      <h3>FaceBook</h3>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, sector adipiscing elit. quis
-                      bibendum odio mattis vitae.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="single-job">
-                  <div className="job-date">
-                    <div className="job-circle" />
-                    <p className="job-date-p">2000 - 2004</p>
-                  </div>
-                  <div className="job-details">
-                    <h3>Front End Developer</h3>
-                    <div className="company">
-                      <h3>LinkedIn</h3>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, sector adipiscing elit. quis
-                      bibendum odio mattis vitae.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <Jobs
+                data={jobs}
+                canEdit={this.props.canEdit}
+                name="jobs"
+                onChange={this.onChange}
+              />
             </div>
             <div className="col-md-4">
               <Specialities
