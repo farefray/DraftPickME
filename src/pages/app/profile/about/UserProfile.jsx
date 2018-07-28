@@ -116,7 +116,7 @@ export default class UserProfile extends React.PureComponent {
               />
             </div>
             <hr />
-            <div class="editable-rich-container">
+            <div className="editable-rich-container">
               <EditableRichComponent
                 name="description"
                 disabled={disabledEditing}

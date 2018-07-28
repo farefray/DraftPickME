@@ -16,6 +16,7 @@ class EditProfile extends React.Component {
   constructor(props) {
     super(props);
 
+    // todo better way descructing, ||?
     let { user } = props;
     this.state = {
       user: Object.assign({
@@ -23,6 +24,8 @@ class EditProfile extends React.Component {
         firstName: user.firstName ? user.firstName : "",
         lastName: user.lastName ? user.lastName : "",
         username: user.username ? user.username : "",
+        email: user.email || "",
+        phone: user.phone || "",
         title: user.title ? user.title : "",
         enabled: user.enabled ? user.enabled : false,
         cvFile: [],
@@ -67,7 +70,7 @@ class EditProfile extends React.Component {
     };
   }
 
-  saveProfile() {}
+  saveProfile() { }
 
   render() {
     const firstName = this.props.user.firstName;
@@ -147,7 +150,7 @@ class EditProfile extends React.Component {
                   value={this.state.user.github}
                   onChange={this.handleInputChange}
                 />
-              </div>             
+              </div>
 
               <div className="form-group">
                 <label htmlFor="LinkedInInput">LinkedIn</label>
@@ -213,6 +216,30 @@ class EditProfile extends React.Component {
             </form>
           </div>
           <div className="col-md-4">
+            <div className="form-group">
+              <label htmlFor="emailInput">Email</label>
+              <input
+                type="text"
+                className="form-control"
+                id="emailInput"
+                placeholder="john.doe@gmail.com"
+                name="email"
+                value={this.state.user.email}
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="phoneInput">Phone</label>
+              <input
+                type="text"
+                className="form-control"
+                id="phoneInput"
+                placeholder="+XXXXXXXXXXXX"
+                name="phone"
+                value={this.state.user.phone}
+                onChange={this.handleInputChange}
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="surnameInput">Upload your CV:</label>
               <FilePond

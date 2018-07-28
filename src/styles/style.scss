@@ -792,7 +792,6 @@ about
 
 #about {
   max-width: 100%;
-  height: auto;
   background: url("/images/about.png") no-repeat top center fixed;
   background-size: cover;
   background-color: #e6e6e6;
@@ -1181,9 +1180,34 @@ Contact
 ========== */
 
 #contact {
+  max-width: 100%;
+  height: 100%;
+  background-color: #888888;
+  background-blend-mode: overlay;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
+  
+  .contact-form-container {
+    background: rgba(75, 75, 75, 0.5);
+    border: 1px solid gray;
+    border-radius: 6px;
+
+  }
+
+  .contact-card {
+    background-color: rgba(1, 1, 1, 0.9);
+    height: auto;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 5px #555;
+    box-shadow: 0 0 5px #555;
+    top: -80px;
+    -webkit-transition: all 0.35s ease-in-out;
+    transition: all 0.35s ease-in-out;
+    overflow: hidden;
+    color: #eee;
+  }
 }
+
 
 input,
 textarea {
@@ -1247,19 +1271,6 @@ textarea {
   margin-left: 0;
 }
 
-#contact .contact-card {
-  background-color: rgba(1, 1, 1, 0.9);
-  height: 500px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 0 5px #555;
-  box-shadow: 0 0 5px #555;
-  top: -80px;
-  -webkit-transition: all 0.35s ease-in-out;
-  transition: all 0.35s ease-in-out;
-  overflow: hidden;
-  color: #eee;
-}
-
 #contact .contact-card h2,
 #contact .contact-card h3,
 #contact .contact-card p {
@@ -1277,6 +1288,10 @@ textarea {
 #contact .contact-card .fa {
   color: #eee;
   margin: auto;
+
+  &.fa-github {
+    color: rgb(56, 51, 51);
+  }
 }
 
 #contact .contact-card .fb-like {
@@ -1311,28 +1326,11 @@ textarea {
   background-color: #3b5998;
 }
 
-#contact .contact-card .contact-social ul li a.twitter {
-  background-color: #00aced;
-}
-
-#contact .contact-card .contact-social ul li a.google {
-  background-color: #dd4b39;
-}
-
 #contact .contact-card .contact-social ul li a.linkedin {
   background-color: #007bb6;
 }
-
-#contact .contact-card .contact-social ul li a.pinterest {
-  background-color: #cb2027;
-}
-
-#contact .contact-card .contact-social ul li a.dribbble {
-  background-color: #ea4c89;
-}
-
-#contact .contact-card .contact-social ul li a.behance {
-  background-color: #1769ff;
+#contact .contact-card .contact-social ul li a.github {
+  background-color: #fff;
 }
 
 #map {
