@@ -11,7 +11,8 @@ import Jobs from "./qualification/Jobs";
 class Qualification extends Component {
   constructor(props) {
     super(props);
-    const user = { ...this.props.user };
+    //const user = { ...this.props.user };
+    const {user} = this.props;
 
     this.state = {
       skills: user.skills || [],
@@ -34,10 +35,16 @@ class Qualification extends Component {
   };
 
   // Actually this can be moved to higher order component to keep it DRY
+  // TODO P1! The way current user is sent to props and saved is wrong, as we are actually mutating prop values in some cases.
+  // Should be reworked into some other way, probably having current userprofile in redux, 
+  // passing it with props, and dispatching edit actions on the later level components (skills, jobs, languages) wrapped into HOC
+  // and those edit actions will change user and pass updates user state via props. And then, saving user profile from redux to database on action.
   updateUserProfile = () => {
-    console.log("updating");
     let { user } = this.props;
-
+    user.skills = this.state.skills;
+    user.languages = this.state.languages;
+    user.jobs = this.state.jobs;
+    user.specialities = this.state.specialities;
     this.props.dispatch(userActions.edit(user));
     this.setState({
       unsaved: false
@@ -70,9 +77,13 @@ class Qualification extends Component {
       <div key="save_button" />
     );
 
+    const minHeight = {
+      minHeight: '150px'
+    }
+
     return (
       <section id="skills">
-        <div className="container">
+        <div className="container animated fadeInDown">
           <div className="row">
             {saveButton}
             <div className="col-md-4">
@@ -89,7 +100,7 @@ class Qualification extends Component {
                 onChange={this.onChange}
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4" style={minHeight}>
               <Jobs
                 data={jobs}
                 canEdit={this.props.canEdit}

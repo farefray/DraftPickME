@@ -5,15 +5,6 @@ import Skill from "./skills/Skill";
 import ButtonAdd from "../components/ButtonAdd";
 
 export default class Skills extends React.Component {
-  constructor(props) {
-    super(props);
-    const { data } = this.props;
-
-    this.state = {
-      data: data
-    };
-  }
-
   static propTypes = {
     data: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
@@ -22,64 +13,60 @@ export default class Skills extends React.Component {
   };
 
   removeSkill = key => {
-    let { data } = this.state;
+    let { data } = this.props;
     delete data[key];
     this.update(data);
   };
 
   update(data) {
-    this.setState({
-      data
-    });
-
     this.props.onChange(
       this.props.name,
-      data.filter(block => {
-        return block !== null;
-      })
+      data
     );
   }
 
   editSkill = (index, name, newValue) => {
-    const { data } = this.state;
+    let { data } = this.props;
     data[index][name] = newValue;
     this.update(data);
   };
 
   addSkill = () => {
-    const { data } = this.state;
+    let { data } = this.props;
     data.push({
       value: "Skill name",
       percent: "Optional description",
       power: 3
     });
-
+    data = data.filter(block => {
+      return block && block !== null;
+    })
     this.update(data);
   };
 
   render() {
-    const { data } = this.state;
-
+    const { data } = this.props;
+    console.log(data);
     let noResults = !data || !data.length ? true : false;
     return (
       <div>
         <div className="skills">
-        <h2>
-            {noResults ? <div/> : <div className="animated fadeInDown"><i className="fa fa-trophy" key="mainSkillsHeader"/> Main Skills</div>}
-        </h2>
-        <FlipMove>
+          <h2>
+            {noResults ? <div /> : <div><i className="fa fa-trophy" key="mainSkillsHeader" /> Main Skills</div>}
+          </h2>
+          <FlipMove>
             {data.map((data, index) => (
-            <Skill
+              <Skill
                 key={index}
                 index={index}
                 canEdit={this.props.canEdit}
                 data={data}
                 removeAction={this.removeSkill}
                 editAction={this.editSkill}
-            />
+              />
             ))}
-            <div key="buttonAddContainer"><ButtonAdd onClick={this.addSkill} entityName="skill" key="addSkills"/></div>
-        </FlipMove>
+            <div key="buttonAddContainer"><ButtonAdd onClick={this.addSkill} entityName="skill" key="addSkills" /></div>
+          </FlipMove>
         </div>
       </div>
     );

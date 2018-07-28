@@ -67,7 +67,7 @@ export default class Languages extends React.Component {
       <div>
         <div className="skills languages margin-top">
           <h2>
-            {noResults ? <div /> : <div className="animated fadeInDown"><i className="fa fa-globe" key="mainSkillsHeader" /> Languages</div>}
+            {noResults ? <div /> : <div><i className="fa fa-globe" key="mainSkillsHeader" /> Languages</div>}
           </h2>
           <FlipMove>
             {data.map((blockData, index) => (

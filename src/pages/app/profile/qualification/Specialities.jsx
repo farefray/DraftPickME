@@ -64,7 +64,7 @@ export default class Specialities extends React.Component {
       <div>
         <div className="specialities">
         <h2>
-            {noResults ? <div/> : <div className="animated fadeInDown"><h2><i className="fa fa-keyboard-o" /> My Specialities</h2></div>}
+            {noResults ? <div/> : <div><h2><i className="fa fa-keyboard-o" /> My Specialities</h2></div>}
         </h2>
         <FlipMove>
             {data.map((blockData, index) => (

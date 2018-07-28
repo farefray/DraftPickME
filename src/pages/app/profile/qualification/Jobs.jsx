@@ -69,7 +69,7 @@ export default class Jobs extends React.Component {
             <div />
           ) : (
               <React.Fragment>
-                <div className="animated fadeInDown">
+                <div>
                   <h2 className="special-margin">
                     {" "}
                     <i className="fa fa-briefcase" /> My Jobs
