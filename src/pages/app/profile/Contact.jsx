@@ -2,6 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class Contact extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.usernameField = React.createRef();
+    this.messageField = React.createRef();
+    this.emailField = React.createRef();
+  }
+  
   static propTypes = {
     user: PropTypes.shape({
       projects: PropTypes.array
@@ -9,9 +17,9 @@ class Contact extends React.Component {
   };
 
   focusContactForm = () => {
-    this.refs.username.nodeValue = "Your potencial rabotodatel";
-    this.refs.message.innerHTML = "Hello! We could hire you, are you still interested?";
-    this.refs.email.dispatchEvent('onFocus');
+    this.usernameField.current.value = "Your potencial rabotodatel";
+    this.messageField.current.value = "Hello! We could hire you, are you still interested?";
+    this.emailField.current.focus();
   }
 
   render() {
@@ -71,7 +79,7 @@ class Contact extends React.Component {
                       type="text"
                       name="username"
                       placeholder="Username"
-                      ref="username"
+                      ref={this.usernameField}
                     />
                   </div>
                   <div className="group-them">
@@ -81,10 +89,10 @@ class Contact extends React.Component {
                       type="email"
                       name="email"
                       placeholder="Email"
-                      ref="email"
+                      ref={this.emailField}
                     />
                   </div>
-                  <textarea id="message" placeholder="Your Message" ref="message" />
+                  <textarea id="message" placeholder="Your Message" ref={this.messageField} />
                   <div className="btn">
                     <span>
                       <i className="fa fa-location-arrow" /> Send Message
