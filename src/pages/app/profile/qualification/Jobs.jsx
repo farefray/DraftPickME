@@ -68,14 +68,16 @@ export default class Jobs extends React.Component {
           {noResults ? (
             <div />
           ) : (
-            <div className="animated fadeInDown">
-              <h2 className="special-margin">
-                {" "}
-                <i className="fa fa-briefcase" /> My Jobs
-              </h2>
-            </div>
-          )}
-          <hr className="timeline" />
+              <React.Fragment>
+                <div className="animated fadeInDown">
+                  <h2 className="special-margin">
+                    {" "}
+                    <i className="fa fa-briefcase" /> My Jobs
+                  </h2>
+                </div>
+                <div className="timeline" />
+              </React.Fragment>
+            )}
           <FlipMove>
             {jobs.map((jobData, index) => (
               <Job
