@@ -13,6 +13,7 @@ import {
   Contact,
   Home
 } from "./profile";
+import { FreeUsername } from './profile/FreeUsername';
 
 const RouteWithProps = ({ component: Component, path, user, canEdit, ...rest }) => (
   <Route
@@ -84,10 +85,10 @@ class Profile extends React.Component {
   render() {
     console.log('profile render')
     console.log(this.state);
-    console.log(this.props);
+    console.log(this.props.user);
     return (
       <div>
-        <Navigation username={this.state.username} />
+        <Navigation username={this.state.username} exist={this.props.profile !== null}/>
         {!this.props.loading && !!this.props.profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
@@ -107,7 +108,8 @@ class Profile extends React.Component {
             </Drilldown>
           </div>
         ) : (
-            this.props.user === null ? <div>Such username is free. Would you like to register?</div> :
+            this.props.profile === null ?
+              <FreeUsername username={this.state.username} /> :
               <div />
           )}
       </div>
@@ -134,7 +136,7 @@ function mapStateToProps(state) {
   console.log(state);
   const { user, loading } = state.profile;
   return {
-    profile: user, 
+    profile: user,
     loading
   };
 }
