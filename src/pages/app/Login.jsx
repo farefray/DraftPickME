@@ -17,6 +17,7 @@ class Login extends React.Component {
             submitted: false
         };
 
+        // todo get rid of bind
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }

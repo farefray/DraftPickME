@@ -116,25 +116,34 @@ function register(user) {
   };
 }
 
-function getByName(name) {
-  return userService.getByName(name)
-    .then(
-      response => success(response),
-      error => failure(error)
-    );
+function getByName(username) {
+  return dispatch => {
+    dispatch(beginTask()); // todo move this into middleware?
+    dispatch(request());
 
+    userService.getByName(username)
+      .then(
+        user => {
+          dispatch({
+            type: userConstants.GETBYNAME_SUCCESS,
+            user
+          });
+        },
+        error => {
+          dispatch({
+            type: userConstants.GETBYNAME_FAILURE,
+            error
+          });
+        }
+      )
+      .then(() => {
+        dispatch(endTask());
+      });
+  };
 
-  function success(response) {
+  function request() {
     return {
-      type: userConstants.GETBYNAME_SUCCESS,
-      response
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.GETBYNAME_FAILURE,
-      error
+      type: userConstants.GETBYNAME_REQUEST
     }
   }
 }

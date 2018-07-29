@@ -61,7 +61,12 @@ export function configureFakeBackend() {
                     let user = matchedUsers.length ? matchedUsers[0] : null;
 
                     // respond 200 OK with user
-                    resolve({ ok: true, user: user});
+                    if(user === null) {
+                        reject('Not found!');
+                        return;
+                    }
+
+                    resolve(user);
                     return;
                 }
 
