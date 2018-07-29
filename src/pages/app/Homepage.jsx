@@ -42,11 +42,11 @@ class Homepage extends React.Component {
         ) : user.deleteError ? (
           <span className="text-danger"> - ERROR: {user.deleteError}</span>
         ) : (
-          <span>
-            {" "}
-            - <a onClick={this.handleDeleteUser(user.id)}>Delete</a>
-          </span>
-        )}
+              <span>
+                {" "}
+                - <a onClick={this.handleDeleteUser(user.id)}>Delete</a>
+              </span>
+            )}
       </span>
     );
 
@@ -80,6 +80,12 @@ class Homepage extends React.Component {
             <div className="table-cell">
               <div className="container">
                 <div className="row">
+                  <div className="col-md-6">
+                    What does it mean to be a draft pick?
+      A draft is a process used in some countries and sports to allocate certain players to teams. In a draft, teams take turns selecting from a pool of eligible players. When a team selects a player, the team receives exclusive rights to sign that player to a contract, and no other team in the league may sign the player.
+                  </div>
+                </div>
+                <div className="row">
                   <div className="col-md-6 col-md-offset-3">
                     <h1>
                       <span className="thin">Hello </span>{" "}
@@ -94,14 +100,14 @@ class Homepage extends React.Component {
                         Login / Register
                       </Link>
                     ) : (
-                      <Link
-                        to="/"
-                        className="btn btn-primary right"
-                        onClick={this.handleLogout()}
-                      >
-                        Logout
+                        <Link
+                          to="/"
+                          className="btn btn-primary right"
+                          onClick={this.handleLogout()}
+                        >
+                          Logout
                       </Link>
-                    )}
+                      )}
                   </div>
                 </div>
               </div>

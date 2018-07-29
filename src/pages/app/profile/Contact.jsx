@@ -19,7 +19,11 @@ class Contact extends React.Component {
   focusContactForm = () => {
     this.usernameField.current.value = "Your potencial rabotodatel";
     this.messageField.current.value = "Hello! We could hire you, are you still interested?";
-    this.emailField.current.focus();
+    this.emailField.current.focus(); //todo fixme
+  }
+
+  submitContactForm = () => {
+    alert('todo');
   }
 
   render() {
@@ -93,7 +97,7 @@ class Contact extends React.Component {
                     />
                   </div>
                   <textarea id="message" placeholder="Your Message" ref={this.messageField} />
-                  <div className="btn">
+                  <div className="btn" onClick={() => this.submitContactForm}>
                     <span>
                       <i className="fa fa-location-arrow" /> Send Message
                     </span>
@@ -106,7 +110,7 @@ class Contact extends React.Component {
             <div className="col-md-5 right-section">
               <div className="contact-card flipInY">
                 <h2>
-                  <span className="thin">Please Feel free to </span> Contact Me
+                  Contact Me
                 </h2>
                 {!user.phone || <div className="contact-info">
                   <p>
