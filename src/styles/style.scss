@@ -21,6 +21,7 @@ Table Of contents:
 - Contact
 - Footer
 - Responsive
+- 404 Free Username
 ===============================================
  All rights Reserved -- Copyright (c) 2017
 - Yahya Essam
@@ -602,6 +603,24 @@ nav {
   z-index: 10000;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
+
+
+  display: flex;
+  box-sizing: border-box;
+  justify-content: flex-end;
+  flex-direction: column;
+
+  .logo {
+    margin-left: 13px;
+    justify-self: start;
+    height: 125px;
+  }
+  
+  .bottom {
+    justify-self: end;
+    display: flex;
+  }
+
   ul {
     padding-top: 30px;
     list-style: none;
@@ -647,20 +666,6 @@ nav {
         -webkit-transition: all 0.35s ease-in-out;
         transition: all 0.35s ease-in-out;
       }
-    }
-  }
-  .logo {
-    margin: 30px 10px 50px;
-    position: relative;
-    span {
-      position: absolute;
-      font-weight: bold;
-      font-family: cursive;
-      top: 29px;
-      left: 0px;
-      font-size: 15px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-      color: #caa669;
     }
   }
   p {
@@ -710,6 +715,7 @@ nav {
   .open {
     left: 0;
   }
+
 }
 
 #drilldown {
@@ -1504,4 +1510,34 @@ Footer
 
 .right {
   float: right;
+}
+
+
+
+/* ==========
+404 Free Username
+========== */
+
+#username_404 {
+  max-width: 100%;
+  min-height: 100%;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  
+  .container-404 {
+    background-color: rgba(1, 1, 1, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 5px #555;
+    -webkit-box-shadow: 0 0 5px #555;
+    font-size: 2rem;
+    padding: 0 1em;
+
+    a {
+      color: #caa669;
+    }
+    .container-404-hr {
+      background-color: #caa669;
+      height: 1px;
+    }
+  }
 }
