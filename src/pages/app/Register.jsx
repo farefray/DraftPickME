@@ -4,93 +4,123 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../../actions';
 
+import { auth } from '../../firebase';
+
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value
+});
+
+const INITIAL_STATE = {
+  username: '',
+  email: '',
+  passwordOne: '',
+  passwordTwo: '',
+  error: null,
+  registering: false
+};
+
 class Register extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            user: {
-                firstName: '',
-                lastName: '',
-                username: '',
-                password: ''
-            },
-            submitted: false
-        };
+    this.state = { ...INITIAL_STATE };
+  }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  handleSubmit = event => {
+    this.setState({ registering: true });
+    this.props.dispatch(userActions.register(user));
 
-    handleChange(event) {
-        const { name, value } = event.target;
-        const { user } = this.state;
-        this.setState({
-            user: {
-                ...user,
-                [name]: value
-            }
-        });
-    }
+    const { username, email, passwordOne } = this.state;
 
-    handleSubmit(event) {
-        event.preventDefault();
+    auth
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .then(authUser => {
+        this.setState({ ...INITIAL_STATE });
+      })
+      .catch(error => {
+        this.setState(byPropKey('error', error));
+      })
+      .finally(() => {
+        this.setState({ registering: false });
+      });
 
-        this.setState({ submitted: true });
-        const { user } = this.state;
-        const { dispatch } = this.props;
-        if (user.firstName && user.lastName && user.username && user.password) {
-            dispatch(userActions.register(user));
-        }
-    }
+    event.preventDefault();
+  };
 
-    render() {
-        const { registering  } = this.props;
-        const { user, submitted } = this.state;
-        return (
-            <div className="col-md-6 col-md-offset-3">
-                <h2>Register</h2>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !user.firstName ? ' has-error' : '')}>
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-                        {submitted && !user.firstName &&
-                            <div className="help-block">First Name is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !user.lastName ? ' has-error' : '')}>
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-                        {submitted && !user.lastName &&
-                            <div className="help-block">Last Name is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                        {submitted && !user.username &&
-                            <div className="help-block">Username is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                        {submitted && !user.password &&
-                            <div className="help-block">Password is required</div>
-                        }
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary">Register</button>
-                        {registering &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-                        <Link to="/login" className="btn btn-link">Cancel</Link>
-                    </div>
-                </form>
-            </div>
-        );
-    }
+  render() {
+    const { username, email, passwordOne, passwordTwo, error, registering } = this.state;
+
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === '' ||
+      email === '' ||
+      username === '';
+    return (
+      <div className="col-md-6 col-md-offset-3">
+        <h2>Register</h2>
+        <form name="form" onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              value={username}
+              onChange={event =>
+                this.setState(byPropKey('username', event.target.value))
+              }
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              className="form-control"
+              name="email"
+              value={email}
+              onChange={event =>
+                this.setState(byPropKey('email', event.target.value))
+              }
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              className="form-control"
+              value={passwordOne}
+              onChange={event =>
+                this.setState(byPropKey('passwordOne', event.target.value))
+              }
+              type="password"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Confirm Password</label>
+            <input
+              className="form-control"
+              value={passwordTwo}
+              onChange={event =>
+                this.setState(byPropKey('passwordTwo', event.target.value))
+              }
+              type="password"
+            />
+          </div>
+          <div className="form-group">{error && <p>{error.message}</p>}</div>
+          <div className="form-group">
+            <button className="btn btn-primary" disabled={isInvalid}>
+              Register
+            </button>
+            {registering && (
+              <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            )}
+            <Link to="/login" className="btn btn-link">
+              Cancel
+            </Link>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
 const connectedRegistration = connect()(Register);
-export {connectedRegistration as Register};
+export { connectedRegistration as Register };
