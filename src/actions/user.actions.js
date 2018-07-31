@@ -13,31 +13,25 @@ export const userActions = {
   getByName
 };
 
-function login(username, password) {
+function login(email, password) {
   return dispatch => {
     dispatch(beginTask()); // todo move this into middleware?
 
-    userService.login(username, password)
-      .then(
-        user => {
-          dispatch({
-            type: userConstants.LOGIN_SUCCESS,
-            user
-          });
-          history.push('/');
-        },
-        error => {
-          dispatch({
-            type: userConstants.LOGIN_FAILURE,
-            error
-          });
-          dispatch(addAlert({
-            text: error,
-            type: 'danger'
-          }));
-        }
-      )
+    auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
+        history.push('/');
+        dispatch(addAlert({
+          text: "Welcome!",
+          type: 'success'
+        }));
+      })
+      .catch(error => {
+        dispatch(addAlert({
+          text: error.message,
+          type: 'warning'
+        }));
+      })
+      .finally(() => {
         dispatch(endTask());
       });
   };
@@ -145,4 +139,3 @@ function getByName(username) {
     }
   }
 }
-
