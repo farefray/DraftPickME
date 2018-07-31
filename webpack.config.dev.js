@@ -10,6 +10,9 @@ const GLOBALS = {
 
 export default {
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
     extensions: ['*', '.js', '.jsx', '.json']
   },
   devtool: 'cheap-module-eval-source-map', // more info:https://webpack.js.org/guides/development/#using-source-maps and https://webpack.js.org/configuration/devtool/
@@ -42,8 +45,8 @@ export default {
     new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
       minify: {
-        removeComments: true,
-        collapseWhitespace: true
+        removeComments: false,
+        collapseWhitespace: false
       },
       inject: true
     })
