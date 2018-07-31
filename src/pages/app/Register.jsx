@@ -1,19 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { userActions } from '@/actions';
-
+import { userActions } from "@/actions";
 
 const INITIAL_STATE = {
   user: {
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirm: ''
+    username: "",
+    email: "",
+    password: "",
+    passwordConfirm: ""
   },
-  error: null,
+  error: null
 };
 
 class Register extends React.Component {
@@ -41,9 +40,9 @@ class Register extends React.Component {
 
     const cannotSubmit =
       password !== passwordConfirm ||
-      password === '' ||
-      email === '' ||
-      username === '';
+      password === "" ||
+      email === "" ||
+      username === "";
 
     return (
       <div className="col-md-6 col-md-offset-3">

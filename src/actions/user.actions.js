@@ -3,16 +3,14 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { addAlert } from './alert.actions';
 import history from '../helpers/history';
-import { auth } from '@/firebase';
+import { auth, db } from '@/firebase';
 
 export const userActions = {
   login,
   logout,
   register,
   edit,
-  getAll,
-  getByName,
-  remove: remove
+  getByName
 };
 
 function login(username, password) {
@@ -94,26 +92,25 @@ function register(user) {
   return dispatch => {
     dispatch(beginTask());
 
-    auth
-    .doCreateUserWithEmailAndPassword(user.email, user.password)
-    .then(authUser => {
+    auth.doCreateUserWithEmailAndPassword(user.email, user.password)
+      .then(authUser => {
+        // Create a user in your own accessible Firebase Database too
+        db.doCreateUser(authUser.user.uid, user.username, user.email)
         history.push('/login');
-        
-        console.log(authUser);
         dispatch(addAlert({
-          text: "Successfull registration for " + authUser.email,
+          text: "Successfull registration for " + user.username,
           type: 'success'
         }));
-    })
-    .catch(error => {
-      dispatch(addAlert({
-        text: error.message,
-        type: 'warning'
-      }));
-    })
-    .then(() => {
-      dispatch(endTask());
-    });
+      })
+      .catch(error => {
+        dispatch(addAlert({
+          text: error.message,
+          type: 'warning'
+        }));
+      })
+      .then(() => {
+        dispatch(endTask());
+      });
   };
 }
 
@@ -149,74 +146,3 @@ function getByName(username) {
   }
 }
 
-function getAll() {
-  return dispatch => {
-    dispatch(request());
-
-    userService.getAll()
-      .then(
-        users => dispatch(success(users)),
-        error => dispatch(failure(error))
-      );
-  };
-
-  function request() {
-    return {
-      type: userConstants.GETALL_REQUEST
-    }
-  }
-
-  function success(users) {
-    return {
-      type: userConstants.GETALL_SUCCESS,
-      users
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.GETALL_FAILURE,
-      error
-    }
-  }
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function remove(id) {
-  return dispatch => {
-    dispatch(request(id));
-
-    userService.remove(id)
-      .then(
-        // eslint-disable-next-line no-unused-vars
-        user => {
-          dispatch(success(id));
-        },
-        error => {
-          dispatch(failure(id, error));
-        }
-      );
-  };
-
-  function request(id) {
-    return {
-      type: userConstants.DELETE_REQUEST,
-      id
-    }
-  }
-
-  function success(id) {
-    return {
-      type: userConstants.DELETE_SUCCESS,
-      id
-    }
-  }
-
-  function failure(id, error) {
-    return {
-      type: userConstants.DELETE_FAILURE,
-      id,
-      error
-    }
-  }
-}

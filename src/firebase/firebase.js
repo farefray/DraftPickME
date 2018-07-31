@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 
 // Here we can split our configs by stages, to use separated accounts for development and prod.
 var config = {
@@ -15,8 +16,10 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
+const db = firebase.database();
 const auth = firebase.auth();
 
 export {
+  db,
   auth
 }
