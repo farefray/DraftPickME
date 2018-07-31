@@ -3,7 +3,6 @@ import { authHeader } from '../helpers';
 export const userService = {
     login,
     logout,
-    register,
     edit,
     getAll,
     getByName,
@@ -58,16 +57,6 @@ function getByName(name) {
     };
 
     return fetch('/users/' + name, requestOptions);
-}
-
-function register(user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    };
-
-    return fetch('/users/register', requestOptions).then(handleResponse);
 }
 
 function edit(user) {

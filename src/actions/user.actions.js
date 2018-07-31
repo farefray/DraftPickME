@@ -3,6 +3,7 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { addAlert } from './alert.actions';
 import history from '../helpers/history';
+import { auth } from '@/firebase';
 
 export const userActions = {
   login,
@@ -93,26 +94,26 @@ function register(user) {
   return dispatch => {
     dispatch(beginTask());
 
-    userService.register(user)
-      .then(
-        // eslint-disable-next-line no-unused-vars
-        user => {
-          history.push('/login');
-          dispatch(addAlert({
-            text: "Successfull registration!",
-            type: 'success'
-          }));
-        },
-        error => {
-          dispatch(addAlert({
-            text: error,
-            type: 'warning'
-          }));
-        }
-      )
-      .then(() => {
-        dispatch(endTask());
-      });
+    auth
+    .doCreateUserWithEmailAndPassword(user.email, user.password)
+    .then(authUser => {
+        history.push('/login');
+        
+        console.log(authUser);
+        dispatch(addAlert({
+          text: "Successfull registration for " + authUser.email,
+          type: 'success'
+        }));
+    })
+    .catch(error => {
+      dispatch(addAlert({
+        text: error.message,
+        type: 'warning'
+      }));
+    })
+    .then(() => {
+      dispatch(endTask());
+    });
   };
 }
 
