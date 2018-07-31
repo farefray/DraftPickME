@@ -1,20 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Router, Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { NProgress } from "redux-nprogress";
 
-import { Homepage } from "./app/Homepage";
+import Homepage from "./app/Homepage";
 import { Login } from "./app/Login";
 import { Register } from "./app/Register";
 import { Profile } from "./app/Profile";
 import { EditProfile } from "./app/login/EditProfile";
 import { Alerts } from "./components/Alerts";
 import history from "../helpers/history";
+import { firebase } from "@/firebase";
 
 const PageFade = props => (
   <CSSTransition
@@ -27,59 +27,84 @@ const PageFade = props => (
 );
 
 const Layout = ({ children }) => <div id="root">{children}</div>;
+Layout.propTypes = {
+  children: PropTypes.array.isRequired
+}
 
-const AuthRoute = ({ component: Component, path, auth, ...rest }) => (
+const RouteWithAuth = ({ component: Component, path, authUser, ...rest }) => (
   <Route
     {...rest}
     path={path}
-    render={props => <Component auth={auth} {...props} />}
+    render={props => <Component authUser={authUser} {...props} />}
   />
 );
 
-AuthRoute.propTypes = {
+RouteWithAuth.propTypes = {
   component: PropTypes.any.isRequired,
-  auth: PropTypes.shape({
-    loggedIn: PropTypes.bool,
-    user: PropTypes.object
-  }),
+  authUser: PropTypes.object,
   path: PropTypes.string.isRequired
 };
 
 const Main = props => {
   const locationKey = props.location.pathname;
 
+  console.log('main props');
+  console.log(props);
   return (
     <Layout>
       <TransitionGroup>
         <PageFade key={locationKey}>
           <Switch location={props.location}>
-            <Route exact path="/" component={Homepage} />
+            <RouteWithAuth
+              exact
+              path="/"
+              component={Homepage}
+              authUser={props.authUser}
+            />
             <Route path="/login" component={Login} />
             <PrivateRoute
               path="/editprofile"
-              isAuthenticated={props.auth.loggedIn}
+              isAuthenticated={props.authUser !== null}
               component={EditProfile}
             />
             <Route path="/register" component={Register} />
           </Switch>
         </PageFade>
       </TransitionGroup>
-      <AuthRoute path="/p/:username" component={Profile} auth={props.auth} />
+      <RouteWithAuth
+        path="/p/:username"
+        component={Profile}
+        authUser={props.authUser}
+      />
     </Layout>
   );
 };
 
 Main.propTypes = {
-  auth: PropTypes.shape({
-    loggedIn: PropTypes.bool,
-    user: PropTypes.object
-  }).isRequired,
+  authUser: PropTypes.object,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }).isRequired
 };
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authUser: null
+    };
+  }
+
+  componentDidMount() {
+    firebase.auth.onAuthStateChanged(authUser => {
+      console.log('auth changed');
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+
   render() {
     console.log("App");
     console.log(this.props);
@@ -88,26 +113,11 @@ class App extends React.Component {
         <NProgress color="#78cc78" />
         <Alerts />
         <Router history={history}>
-          <AuthRoute path="/" component={Main} auth={this.props.auth} />
+          <RouteWithAuth path="/" component={Main} authUser={this.state.authUser} />
         </Router>
       </div>
     );
   }
 }
 
-App.propTypes = {
-  auth: PropTypes.shape({
-    loggedIn: PropTypes.bool,
-    user: PropTypes.object
-  }).isRequired,
-};
-
-function mapStateToProps(state) {
-  const { authentication, app } = state;
-  return {
-    app,
-    auth: authentication ? authentication : {}
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

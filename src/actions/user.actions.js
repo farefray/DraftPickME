@@ -20,6 +20,7 @@ function login(email, password) {
     auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
         history.push('/');
+        
         dispatch(addAlert({
           text: "Welcome!",
           type: 'success'
@@ -61,11 +62,6 @@ function edit(user) {
           type: 'success'
         }));
 
-        // relogin user to update his storage for current customer
-        dispatch({
-          type: userConstants.LOGIN_SUCCESS,
-          user
-        });
 
         // update user in local storage in order to keep our changes.
         // TODO better way for auth and this part. Make it DRY and not that leakable.

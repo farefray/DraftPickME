@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { userActions } from "@/actions";
-import { db } from "@/firebase";
+import { db } from "@/firebase"; // move to service or action TODO
+import SignOutButton from "@/pages/components/SignOut";
 
 import {
   initHeader,
@@ -38,7 +37,7 @@ class Homepage extends React.Component {
   };
 
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
+    authUser: PropTypes.object
   };
 
   componentDidMount() {
@@ -46,19 +45,17 @@ class Homepage extends React.Component {
     initAnimation();
     addListeners();
 
+    // todo move to some service
     db.onceGetUsers().then(snapshot => {
       this.setState({ users: snapshot.val() });
     });
   }
 
-  handleLogout() {
-    return e => this.props.dispatch(userActions.logout());
-  }
-
   render() {
     const { users } = this.state;
-    const { auth } = this.props;
+    const { authUser } = this.props;
 
+    console.log(this.props);
     const usersBlock = (
       <div>
         {!users && <em>Loading users...</em>}
@@ -87,17 +84,12 @@ class Homepage extends React.Component {
                 <div className="row">
                   <div className="col-md-6 col-md-offset-3">
                     <div>{users && usersBlock}</div>
-                    {!auth ? (
+                    {authUser === null ? (
                       <Link to="/login" className="right">
                         Login / Register
                       </Link>
                     ) : (
-                      <Link
-                        to="/"
-                        className="btn btn-primary right"
-                        onClick={this.handleLogout()}>
-                        Logout
-                      </Link>
+                      <SignOutButton />
                     )}
                   </div>
                 </div>
@@ -110,14 +102,4 @@ class Homepage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  console.log(state);
-  const { users, authentication } = state;
-  return {
-    users,
-    auth: !!(authentication && authentication.loggedIn)
-  };
-}
-
-const connectedHomepage = connect(mapStateToProps)(Homepage);
-export { connectedHomepage as Homepage };
+export default Homepage;
