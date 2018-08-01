@@ -8,6 +8,8 @@ import { userActions } from "@/actions";
 const INITIAL_STATE = {
   user: {
     username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     passwordConfirm: ""
@@ -35,14 +37,16 @@ class Register extends React.Component {
   };
 
   render() {
-    const { username, email, password, passwordConfirm } = this.state.user;
+    const { firstName, lastName, username, email, password, passwordConfirm } = this.state.user;
     const { error } = this.state;
 
     const cannotSubmit =
       password !== passwordConfirm ||
       password === "" ||
       email === "" ||
-      username === "";
+      username === "" ||
+      firstName === "" ||
+      lastName === "";
 
     return (
       <div className="col-md-6 col-md-offset-3">
@@ -55,6 +59,32 @@ class Register extends React.Component {
               onChange={event => {
                 const { user } = this.state;
                 user.username = event.target.value;
+                this.setState({ user });
+              }}
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="firstName">First Name</label>
+            <input
+              value={firstName}
+              onChange={event => {
+                const { user } = this.state;
+                user.firstName = event.target.value;
+                this.setState({ user });
+              }}
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              value={lastName}
+              onChange={event => {
+                const { user } = this.state;
+                user.lastName = event.target.value;
                 this.setState({ user });
               }}
               type="text"

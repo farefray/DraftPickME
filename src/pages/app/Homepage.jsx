@@ -20,7 +20,7 @@ const UserList = ({ users }) => (
     {Object.keys(users).map(key => (
       <div key={key}>
         <Link to={profileLink(users[key].username)}>
-          {users[key].firstname + " " + users[key].lastname}
+          {users[key].firstName + " " + users[key].lastName}
         </Link>{" "}
       </div>
     ))}

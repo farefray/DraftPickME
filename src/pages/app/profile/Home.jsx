@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   initHeader,
@@ -7,8 +8,11 @@ import {
 } from "../../../js/homepageAnimation.js";
 
 class Home extends React.Component {
+  static propTypes = {
+    profile: PropTypes.object
+  };
+
   componentDidMount() {
-    // TODO configurable particles based on profile
     initHeader();
     initAnimation();
     addListeners();
@@ -24,6 +28,8 @@ class Home extends React.Component {
       height: "100%"
     };
 
+    console.log('profile');
+    console.log(this.props);
     return (
       <div id="home" className="large-header" style={backgroundImageStyle}>
         <canvas id="demo-canvas"></canvas>
@@ -33,8 +39,8 @@ class Home extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
-                    <h1><span className="thin">Hi! I'm {this.props.user.firstName} {this.props.user.lastName}</span></h1>
-                    <h4 className="sup-home">{this.props.user.title}</h4>
+                    <h1><span className="thin">Hi! I'm {this.props.profile.firstName} {this.props.profile.lastName}</span></h1>
+                    <h4 className="sup-home">{this.props.profile.title}</h4>
                     <a className="button text-center" href="downloads/cv.pdf"><i className="fa fa-download"></i> Download Cv</a>
                     <a className="button-style-2 text-center smooth" href="#about"><i className="fa fa-file-text"></i> More About Me</a>
                   </div>

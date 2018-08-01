@@ -1,23 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
-import Drilldown from "react-router-drilldown";
-import { Navigation } from "../components/Navigation";
-import { db } from "@/firebase";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
+import Drilldown from 'react-router-drilldown';
+import { Navigation } from '../components/Navigation';
+import { db } from '@/firebase';
 
-import {
-  About,
-  Qualification,
-  Experience,
-  Contact,
-  Home
-} from "./profile";
+import { About, Qualification, Experience, Contact, Home } from './profile';
 import { FreeUsername } from './profile/FreeUsername';
 
-const RouteWithProps = ({ component: Component, path, user, canEdit, ...rest }) => (
+const RouteWithProps = ({
+  component: Component,
+  path,
+  profile,
+  canEdit,
+  ...rest
+}) => (
   <Route
     {...rest}
-    render={props => <Component path={path} user={user} canEdit={canEdit} {...props} />}
+    render={props => (
+      <Component path={path} profile={profile} canEdit={canEdit} {...props} />
+    )}
   />
 );
 
@@ -25,7 +27,7 @@ RouteWithProps.propTypes = {
   component: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
-  user: PropTypes.object
+  profile: PropTypes.object
 };
 
 const ProfileHandler = props => {
@@ -33,35 +35,42 @@ const ProfileHandler = props => {
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
         <RouteWithProps
-          path={"/p/" + props.match.params.username + "/about"}
+          path={'/p/' + props.match.params.username + '/about'}
           component={About}
-          user={props.user}
+          user={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + props.match.params.username + "/qualification"}
+          path={'/p/' + props.match.params.username + '/qualification'}
           component={Qualification}
-          user={props.user}
+          user={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + props.match.params.username + "/experience"}
+          path={'/p/' + props.match.params.username + '/experience'}
           component={Experience}
-          user={props.user}
+          user={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + props.match.params.username + "/contact"}
+          path={'/p/' + props.match.params.username + '/contact'}
           component={Contact}
-          user={props.user}
+          user={props.profile}
           canEdit={props.canEdit}
         />
       </Drilldown>
     </div>
   );
+};
+
+ProfileHandler.propTypes = {
+  component: PropTypes.func.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  path: PropTypes.string.isRequired,
+  profile: PropTypes.object
 };
 
 class Profile extends React.Component {
@@ -81,40 +90,53 @@ class Profile extends React.Component {
 
     // todo move to some service
     db.onceGetUserByUsername(username).then(snapshot => {
-      this.setState({ profile: snapshot.val(), loading: false });
+      const value = snapshot.val();
+      let profileValue = null;
+      if (value && typeof value === 'object' && Object.keys(value).length >= 0) {
+        // there must be better way
+        profileValue = value[Object.keys(value)[0]];
+      }
+
+      this.setState({
+        profile: profileValue,
+        loading: false
+      });
     });
   }
 
   render() {
-    console.log('profile render')
+    console.log('profile render');
     console.log(this.state);
     console.log(this.props.authUser);
     return (
       <div>
-        <Navigation username={this.state.username} exist={this.state.profile !== null}/>
+        <Navigation
+          username={this.state.username}
+          exist={this.state.profile !== null}
+        />
         {this.state.profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
               <RouteWithProps
                 exact
                 path="/p/:username"
-                user={this.state.profile}
+                profile={this.state.profile}
                 canEdit={this.state.canEdit}
                 component={Home}
               />
               <RouteWithProps
                 path="/p/:username/:page"
-                user={this.state.profile}
+                profile={this.state.profile}
                 canEdit={this.state.canEdit}
                 component={ProfileHandler}
               />
             </Drilldown>
           </div>
+        ) : this.state.loading === false && this.state.profile === null ? (
+          <FreeUsername username={this.state.username} />
         ) : (
-            this.state.loading === false && this.state.profile === null ?
-              <FreeUsername username={this.state.username} /> :
-              <div />
-          )}
+          <div />
+        )}
       </div>
     );
   }
@@ -129,4 +151,4 @@ Profile.propTypes = {
   authUser: PropTypes.object
 };
 
-export {Profile};
+export { Profile };

@@ -84,7 +84,7 @@ function register(user) {
     auth.doCreateUserWithEmailAndPassword(user.email, user.password)
       .then(authUser => {
         // Create a user in your own accessible Firebase Database too
-        db.doCreateUser(authUser.user.uid, user.username, user.email)
+        db.doCreateUser(authUser.user.uid, user.username, user.email, user.firstName, user.lastName)
         history.push('/login');
         dispatch(addAlert({
           text: "Successfull registration for " + user.username,
