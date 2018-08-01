@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Router, Route, Switch } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { PrivateRoute } from "./components/PrivateRoute";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { NProgress } from "redux-nprogress";
 import { Alerts } from "./components/Alerts";
@@ -12,22 +11,8 @@ import { Homepage } from "./app/Homepage";
 import { Login } from "./app/Login";
 import { Register } from "./app/Register";
 import { Profile } from "./app/Profile";
-import { EditProfile } from "./app/login/EditProfile";
 import { userActions } from "@/actions";
 import { firebase } from "@/firebase";
-
-const RouteWithAuth = ({ component: Component, path, ...rest }) => (
-  <Route
-    {...rest}
-    path={path}
-    render={props => <Component {...props} />}
-  />
-);
-
-RouteWithAuth.propTypes = {
-  component: PropTypes.any.isRequired,
-  path: PropTypes.string.isRequired
-};
 
 const Main = props => {
   return (
@@ -41,22 +26,17 @@ const Main = props => {
             unmountOnExit={true}
           >
           <Switch location={props.location}>
-            <RouteWithAuth
+            <Route
               exact
               path="/"
               component={Homepage}
             />
-            <Route path="/login" component={Login} />
-            <PrivateRoute
-              path="/editprofile"
-              isAuthenticated={false}
-              component={EditProfile}
-            />
+            <Route path="/login" component={Login} />          
             <Route path="/register" component={Register} />
           </Switch>
         </CSSTransition>
       </TransitionGroup>
-      <RouteWithAuth
+      <Route
         path="/p/:username"
         component={Profile}
       />
@@ -88,7 +68,7 @@ class App extends React.Component {
         <NProgress color="#78cc78" />
         <Alerts />
         <Router history={history}>
-          <RouteWithAuth path="/" component={Main}/>
+          <Route path="/" component={Main}/>
         </Router>
       </div>
     );

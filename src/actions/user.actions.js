@@ -85,7 +85,7 @@ function register(user) {
 
     userService.register(user)
       .then(() => {
-        history.push('/login');
+        history.push('/');
         dispatch(addAlert({
           text: "Successfull registration for " + user.username,
           type: 'success'

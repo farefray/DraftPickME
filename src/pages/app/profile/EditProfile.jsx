@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { userActions } from "../../../actions";
+import withAuthorization from "@/pages/components/WithAuthorization";
+import { userActions } from "@/actions";
 
 // Import React FilePond and file type validation for it
 import { FilePond, File, registerPlugin } from "react-filepond";
-import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilepondPluginFileValidateType from "filepond-plugin-file-validate-type";
 registerPlugin(FilepondPluginFileValidateType);
 
 // Import FilePond styles
@@ -15,27 +16,25 @@ import "filepond/dist/filepond.min.css";
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-
     // todo better way descructing, ||?
-    let { user } = props;
+    let { profile } = props;
+    console.log(profile);
     this.state = {
-      user: Object.assign({
-        id: user.id,
-        firstName: user.firstName ? user.firstName : "",
-        lastName: user.lastName ? user.lastName : "",
-        username: user.username ? user.username : "",
-        email: user.email || "",
-        phone: user.phone || "",
-        title: user.title ? user.title : "",
-        enabled: user.enabled ? user.enabled : false,
+      profile: {
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        username: profile.username || "",
+        email: profile.email || "",
+        phone: profile.phone || "",
+        title: profile.title || "",
+        enabled: profile.enabled || false,
         cvFile: [],
         photo: [],
-        github: user.github ? user.github : '',
-        facebook: user.facebook ? user.facebook : '',
-        linkedin: user.linkedin ? user.linkedin : ''
-      }, user)
-    }
-    console.log(user);
+        github: profile.github || "",
+        facebook: profile.facebook || "",
+        linkedin: profile.linkedin || ""
+      }
+    };
     console.log(this.state);
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -70,16 +69,19 @@ class EditProfile extends React.Component {
     };
   }
 
-  saveProfile() { }
+  saveProfile() {}
 
   render() {
-    const firstName = this.props.user.firstName;
+    const { profile } = this.state;
     return (
-      <div>
+      <div id="profile_edit">
         <div className="row">
           <div className="col-md-6 col-md-offset-2">
             <h2>
-              <span className="thin">Hello</span> {firstName}<span className="thin">! Edit your profile before publishing!</span>
+              <span className="thin">Hello</span> {profile.firstName}
+              <span className="thin">
+                ! Edit your profile before publishing!
+              </span>
             </h2>
           </div>
         </div>
@@ -94,7 +96,7 @@ class EditProfile extends React.Component {
                   id="nameInput"
                   placeholder="Jane"
                   name="firstName"
-                  value={this.state.user.firstName}
+                  value={profile.firstName}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -106,7 +108,7 @@ class EditProfile extends React.Component {
                   id="surnameInput"
                   placeholder="Doe"
                   name="lastName"
-                  value={this.state.user.lastName}
+                  value={profile.lastName}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -119,7 +121,7 @@ class EditProfile extends React.Component {
                   id="titleInput"
                   placeholder="Job title"
                   name="title"
-                  value={this.state.user.title}
+                  value={profile.title}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -131,9 +133,10 @@ class EditProfile extends React.Component {
                     type="text"
                     className="form-control"
                     placeholder="Username"
-                    data-toggle="tooltip" title="Your login and profile URL"
+                    data-toggle="tooltip"
+                    title="Your login and profile URL"
                     name="username"
-                    value={this.state.user.username}
+                    value={profile.username}
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -147,7 +150,7 @@ class EditProfile extends React.Component {
                   id="githubInput"
                   placeholder="GitHub profile"
                   name="github"
-                  value={this.state.user.github}
+                  value={profile.github}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -160,7 +163,7 @@ class EditProfile extends React.Component {
                   id="LinkedInInput"
                   placeholder="LinkedIn profile"
                   name="linkedin"
-                  value={this.state.user.linkedin}
+                  value={profile.linkedin}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -173,7 +176,7 @@ class EditProfile extends React.Component {
                   id="facebookInput"
                   placeholder="Facebook profile"
                   name="facebook"
-                  value={this.state.user.facebook}
+                  value={profile.facebook}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -185,7 +188,7 @@ class EditProfile extends React.Component {
                     id="enabledCheckbox"
                     name="enabled"
                     type="checkbox"
-                    checked={this.state.user.enabled}
+                    checked={profile.enabled}
                     onChange={this.handleInputChange}
                   />
                 </label>
@@ -200,7 +203,7 @@ class EditProfile extends React.Component {
                     role="group"
                     aria-label="Basic example">
                     <Link
-                      to={"/p/" + this.state.user.username}
+                      to={"/p/" + profile.username}
                       className="btn btn-primary">
                       Back
                     </Link>
@@ -224,7 +227,7 @@ class EditProfile extends React.Component {
                 id="emailInput"
                 placeholder="john.doe@gmail.com"
                 name="email"
-                value={this.state.user.email}
+                value={profile.email}
                 onChange={this.handleInputChange}
               />
             </div>
@@ -236,7 +239,7 @@ class EditProfile extends React.Component {
                 id="phoneInput"
                 placeholder="+XXXXXXXXXXXX"
                 name="phone"
-                value={this.state.user.phone}
+                value={profile.phone}
                 onChange={this.handleInputChange}
               />
             </div>
@@ -244,14 +247,21 @@ class EditProfile extends React.Component {
               <label htmlFor="surnameInput">Upload your CV:</label>
               <FilePond
                 allowFileTypeValidation={true}
-                acceptedFileTypes={['application/msword', 'application/vnd.oasis.opendocument.text', 'application/rtf', 'text/plain', 'text/html', 'application/pdf']}
+                acceptedFileTypes={[
+                  "application/msword",
+                  "application/vnd.oasis.opendocument.text",
+                  "application/rtf",
+                  "text/plain",
+                  "text/html",
+                  "application/pdf"
+                ]}
                 allowMultiple={false}
                 maxFiles={1}
                 labelIdle={
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
                 server="/api/upload">
-                {this.state.user.cvFile.map(file => (
+                {profile.cvFile.map(file => (
                   <File key={file} source={file} />
                 ))}
               </FilePond>
@@ -260,14 +270,14 @@ class EditProfile extends React.Component {
               <label htmlFor="surnameInput">Upload your photo:</label>
               <FilePond
                 allowFileTypeValidation={true}
-                acceptedFileTypes={['image/jpeg', 'image/png']}
+                acceptedFileTypes={["image/jpeg", "image/png"]}
                 allowMultiple={false}
                 maxFiles={1}
                 labelIdle={
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
                 server="/api/upload">
-                {this.state.user.photo.map(file => (
+                {profile.photo.map(file => (
                   <File key={file} source={file} />
                 ))}
               </FilePond>
@@ -280,17 +290,10 @@ class EditProfile extends React.Component {
 }
 
 EditProfile.propTypes = {
-  user: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-  const { authentication } = state;
-  const { user } = authentication;
-  return {
-    user
-  };
-}
+const authCondition = (authUser) => !!authUser;
 
-const connectedEditProfile = connect(mapStateToProps)(EditProfile);
-export { connectedEditProfile as EditProfile };
+export default withAuthorization(authCondition)(EditProfile);

@@ -14,6 +14,7 @@ Table Of contents:
 - Loading Animation
 - navigation bar
 - Home page
+- Profile edit
 - About
 - Experience
 - Skills
@@ -789,6 +790,16 @@ Home
   height: 100%;
 }
 
+/* ==========
+about
+========== */
+#profile_edit {
+  background-color: #444;
+  color: #444;
+  font-size: 14px;
+  overflow-x: hidden;
+  color: #fff;
+}
 /* ==========
 about
 ========== */

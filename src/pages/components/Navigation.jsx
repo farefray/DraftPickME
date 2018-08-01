@@ -68,7 +68,7 @@ function Navigation(props) {
       </ul>
       <div className="bottom">&copy; {currentYear}</div>
       {props.canEdit ? (
-        <Link className="nav-controller" to="/editprofile" />
+        <Link className="nav-controller" to={url + "/edit"}/>
       ) : (
         ""
       )}

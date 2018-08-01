@@ -78,7 +78,7 @@ export default class UserProfile extends React.PureComponent {
     ) : (
       <div>
         {canEdit ? (
-          <Link to={"/editprofile"} className="black-button">
+          <Link to={"/" + user.username + "/edit"} className="black-button">
             Edit profile.
           </Link>
         ) : (

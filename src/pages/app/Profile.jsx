@@ -1,13 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Route } from 'react-router-dom';
-import Drilldown from 'react-router-drilldown';
-import { Navigation } from '../components/Navigation';
-import { db } from '@/firebase';
+import { Route } from "react-router-dom";
+import Drilldown from "react-router-drilldown";
+import { Navigation } from "../components/Navigation";
+import { db } from "@/firebase";
 
-import { About, Qualification, Experience, Contact, Home } from './profile';
-import { FreeUsername } from './profile/FreeUsername';
+import {
+  About,
+  Qualification,
+  Experience,
+  Contact,
+  Home,
+  EditProfile
+} from "./profile";
+import { FreeUsername } from "./profile/FreeUsername";
 
 const RouteWithProps = ({
   component: Component,
@@ -38,30 +45,37 @@ const ProfileHandler = props => {
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
         <RouteWithProps
-          path={'/p/' + username + '/about'}
+          path={"/p/" + username + "/about"}
           component={About}
           profile={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={'/p/' + username + '/qualification'}
+          path={"/p/" + username + "/qualification"}
           component={Qualification}
           profile={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={'/p/' + username + '/experience'}
+          path={"/p/" + username + "/experience"}
           component={Experience}
           profile={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={'/p/' + username + '/contact'}
+          path={"/p/" + username + "/contact"}
           component={Contact}
           profile={props.profile}
+          canEdit={props.canEdit}
+        />
+        <RouteWithProps
+          exact
+          path={"/p/" + username + "/edit"}
+          profile={props.profile}
+          component={EditProfile}
           canEdit={props.canEdit}
         />
       </Drilldown>
@@ -86,7 +100,7 @@ class Profile extends React.Component {
       profile: null
     };
 
-    console.log('Profile');
+    console.log("Profile");
     console.log(props);
   }
 
@@ -95,7 +109,11 @@ class Profile extends React.Component {
     db.onceGetUserByUsername(this.state.username).then(snapshot => {
       const value = snapshot.val();
       let profileValue = null;
-      if (value && typeof value === 'object' && Object.keys(value).length >= 0) {
+      if (
+        value &&
+        typeof value === "object" &&
+        Object.keys(value).length >= 0
+      ) {
         // there must be better way
         profileValue = value[Object.keys(value)[0]];
       }
@@ -111,7 +129,12 @@ class Profile extends React.Component {
     const { profile } = this.state;
     const { authUser } = this.props;
 
-    let canEditProfile = !!(authUser && profile && profile.email && profile.email == authUser.email)
+    let canEditProfile = !!(
+      authUser &&
+      profile &&
+      profile.email &&
+      profile.email == authUser.email
+    );
     return (
       <div>
         <Navigation
