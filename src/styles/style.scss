@@ -607,24 +607,25 @@ nav {
 
   display: flex;
   box-sizing: border-box;
-  justify-content: flex-end;
   flex-direction: column;
-
+  justify-content: space-between;
   .logo {
     margin-left: 13px;
     justify-self: start;
     height: 125px;
+    margin-top: 25px;
   }
   
   .bottom {
     justify-self: end;
-    display: flex;
+    height: 45px;
   }
 
   ul {
     padding-top: 30px;
     list-style: none;
     padding-left: 0;
+    overflow:hidden;
     li {
       outline: none;
       .home {

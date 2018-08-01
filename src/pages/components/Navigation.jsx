@@ -61,7 +61,7 @@ function Navigation(props) {
         {extendedPages}
       </ul>
       <div className="bottom">
-        <p>&copy; {currentYear}</p>
+        &copy; {currentYear}
       </div>
       <Link className="nav-controller" to="/editprofile" />
     </nav>
