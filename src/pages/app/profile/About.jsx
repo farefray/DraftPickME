@@ -13,8 +13,8 @@ class About extends React.PureComponent {
   };
 
   render() {
-    let { user } = this.props;
-    if (!user || !user.id) {
+    let { profile } = this.props;
+    if (!profile) {
       return <div>Loading...</div>;
     }
 
@@ -22,7 +22,7 @@ class About extends React.PureComponent {
       <section id="about">
         <div className="container">
           <UserProfile
-            user={user}
+            user={profile}
             canEdit={this.props.canEdit}
             updateUserProfileValue={this.updateUserProfileValue}
           />
@@ -33,7 +33,7 @@ class About extends React.PureComponent {
 }
 
 About.propTypes = {
-  user: PropTypes.object,
+  profile: PropTypes.object,
   canEdit: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 };

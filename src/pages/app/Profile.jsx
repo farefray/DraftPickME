@@ -31,34 +31,36 @@ RouteWithProps.propTypes = {
 };
 
 const ProfileHandler = props => {
+  let username = props.match.params.username;
+  console.log(props);
   return (
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
         <RouteWithProps
-          path={'/p/' + props.match.params.username + '/about'}
+          path={'/p/' + username + '/about'}
           component={About}
-          user={props.profile}
+          profile={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/qualification'}
+          path={'/p/' + username + '/qualification'}
           component={Qualification}
-          user={props.profile}
+          profile={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/experience'}
+          path={'/p/' + username + '/experience'}
           component={Experience}
-          user={props.profile}
+          profile={props.profile}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={'/p/' + props.match.params.username + '/contact'}
+          path={'/p/' + username + '/contact'}
           component={Contact}
-          user={props.profile}
+          profile={props.profile}
           canEdit={props.canEdit}
         />
       </Drilldown>
@@ -67,7 +69,6 @@ const ProfileHandler = props => {
 };
 
 ProfileHandler.propTypes = {
-  component: PropTypes.func.isRequired,
   canEdit: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   profile: PropTypes.object
@@ -105,9 +106,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log('profile render');
-    console.log(this.state);
-    console.log(this.props.authUser);
     return (
       <div>
         <Navigation
