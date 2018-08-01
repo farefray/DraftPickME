@@ -1,15 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-import { userActions } from "../../actions";
-
-const INITIAL_STATE = {
-  email: "",
-  password: "",
-  error: null
-};
+import { Link } from "react-router-dom";
+import { userActions } from "@/actions";
 
 class Login extends React.Component {
   static propTypes = {
@@ -20,25 +14,12 @@ class Login extends React.Component {
     super(props);
 
     // reset login status
-    this.state = { ...INITIAL_STATE };
-
-    // todo get rid of bind
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      email: "",
+      password: "",
+      error: null
+    };
   }
-
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-
-    const { email, password } = this.state;
-    if (email && password) {
-      this.props.dispatch(userActions.login(email, password));
-    }
-  };
 
   render() {
     const { email, password } = this.state;
@@ -47,7 +28,14 @@ class Login extends React.Component {
     return (
       <div className="col-md-6 col-md-offset-3">
         <h2>Authorize Yourself</h2>
-        <form name="form" onSubmit={e => this.handleSubmit(e)}>
+        <form name="form" onSubmit={(e) => {
+          e.preventDefault();
+
+          const { email, password } = this.state;
+          if (email && password) {
+            this.props.dispatch(userActions.login(email, password));
+          }
+        }}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -55,7 +43,11 @@ class Login extends React.Component {
               className="form-control"
               name="email"
               value={email}
-              onChange={e => this.handleChange(e)}
+              onChange={event => {
+                let { email } = this.state;
+                email = event.target.value;
+                this.setState({ email });
+              }}
             />
           </div>
           <div className="form-group">
@@ -65,7 +57,11 @@ class Login extends React.Component {
               className="form-control"
               name="password"
               value={password}
-              onChange={e => this.handleChange(e)}
+              onChange={event => {
+                let { password } = this.state;
+                password = event.target.value;
+                this.setState({ password });
+              }}
             />
           </div>
           <div className="form-group">
@@ -85,12 +81,7 @@ class Login extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { loggingIn } = state.authentication;
-  return {
-    loggingIn
-  };
-}
-
-const connectedLogin = connect(mapStateToProps)(Login);
+const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
+const connectedLogin = connect(mapDispatchToProps)(Login);
 export { connectedLogin as Login };
+

@@ -6,21 +6,13 @@ import {
 import { Provider } from 'react-redux';
 import store from './store'
 import './styles/main.scss'
-
-import {
-  configureFakeBackend
-} from './helpers';
-
-// setup fake backend [todo on dev only]
-configureFakeBackend();
+import { App } from "./pages/App";
 
 // Render Setup
 // ------------------------------------
 const MOUNT_NODE = document.getElementById('app')
 
 let myRender = () => {
-  const App = require('./pages/App').default
-
   render( <Provider store={store}>
     <App/>
     </Provider>,

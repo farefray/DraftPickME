@@ -88,9 +88,11 @@ class Profile extends React.Component {
 
     console.log('Profile');
     console.log(props);
+  }
 
+  componentDidMount() {
     // todo move to some service
-    db.onceGetUserByUsername(username).then(snapshot => {
+    db.onceGetUserByUsername(this.state.username).then(snapshot => {
       const value = snapshot.val();
       let profileValue = null;
       if (value && typeof value === 'object' && Object.keys(value).length >= 0) {

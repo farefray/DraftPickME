@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { db } from "@/firebase"; // move to service or action TODO
@@ -84,7 +85,7 @@ class Homepage extends React.Component {
                 <div className="row">
                   <div className="col-md-6 col-md-offset-3">
                     <div>{users && usersBlock}</div>
-                    {authUser === null ? (
+                    {!authUser ? (
                       <Link to="/login" className="right">
                         Login / Register
                       </Link>
@@ -102,4 +103,12 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage;
+function mapStateToProps(state) {
+  const { authUser } = state.authentication;
+  return {
+    authUser
+  };
+}
+
+const connectedHomepage = connect(mapStateToProps)(Homepage);
+export { connectedHomepage as Homepage };

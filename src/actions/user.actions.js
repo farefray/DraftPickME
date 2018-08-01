@@ -3,11 +3,10 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { addAlert } from './alert.actions';
 import history from '../helpers/history';
-import { auth, db } from '@/firebase';
 
 export const userActions = {
   login,
-  logout,
+  authChanged,
   register,
   edit
 };
@@ -16,10 +15,11 @@ function login(email, password) {
   return dispatch => {
     dispatch(beginTask()); // todo move this into middleware?
 
-    auth.doSignInWithEmailAndPassword(email, password)
+    userService.login(email, password)
       .then(() => {
+
         history.push('/');
-        
+
         dispatch(addAlert({
           text: "Welcome!",
           type: 'success'
@@ -37,16 +37,18 @@ function login(email, password) {
   };
 }
 
-function logout(redirect = true) {
-  console.log('Logging out...');
-  if (redirect === true) {
-    history.push('/');
-  }
-
-  userService.logout();
-
-  return {
-    type: userConstants.LOGOUT
+function authChanged(authUser) {
+  return dispatch => {
+    if (authUser !== null) {
+      dispatch({
+        type: userConstants.LOGIN_SUCCESS,
+        authUser
+      });
+    } else {
+      dispatch({
+        type: userConstants.LOGOUT
+      });
+    }
   };
 }
 
@@ -81,10 +83,8 @@ function register(user) {
   return dispatch => {
     dispatch(beginTask());
 
-    auth.doCreateUserWithEmailAndPassword(user.email, user.password)
-      .then(authUser => {
-        // Create a user in your own accessible Firebase Database too
-        db.doCreateUser(authUser.user.uid, user.username, user.email, user.firstName, user.lastName)
+    userService.register(user)
+      .then(() => {
         history.push('/login');
         dispatch(addAlert({
           text: "Successfull registration for " + user.username,
@@ -102,4 +102,3 @@ function register(user) {
       });
   };
 }
-
