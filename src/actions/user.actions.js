@@ -9,8 +9,7 @@ export const userActions = {
   login,
   logout,
   register,
-  edit,
-  getByName
+  edit
 };
 
 function login(email, password) {
@@ -104,34 +103,3 @@ function register(user) {
   };
 }
 
-function getByName(username) {
-  return dispatch => {
-    dispatch(beginTask()); // todo move this into middleware?
-    dispatch(request());
-
-    userService.getByName(username)
-      .then(
-        user => {
-          dispatch({
-            type: userConstants.GETBYNAME_SUCCESS,
-            user
-          });
-        },
-        error => {
-          dispatch({
-            type: userConstants.GETBYNAME_FAILURE,
-            error
-          });
-        }
-      )
-      .then(() => {
-        dispatch(endTask());
-      });
-  };
-
-  function request() {
-    return {
-      type: userConstants.GETBYNAME_REQUEST
-    }
-  }
-}

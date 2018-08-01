@@ -4,7 +4,6 @@ export const userService = {
     logout,
     edit,
     getAll,
-    getByName,
     update,
     remove: remove
 };
@@ -21,14 +20,6 @@ function getAll() {
     };
 
     return fetch('/users', requestOptions).then(handleResponse);
-}
-
-function getByName(name) {
-    const requestOptions = {
-        method: 'GET',
-    };
-
-    return fetch('/users/' + name, requestOptions);
 }
 
 function edit(user) {

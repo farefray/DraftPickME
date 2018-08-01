@@ -1,10 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
-import { userActions } from "../../actions";
+import { db } from "@/firebase";
 
 import {
   About,
@@ -72,43 +71,47 @@ class Profile extends React.Component {
     let username = props.match.params.username;
     this.state = {
       username: username,
-      canEdit: false
+      canEdit: false,
+      loading: true,
+      profile: null
     };
 
     console.log('Profile');
     console.log(props);
-    userActions.getByName(username);
 
-    this.props.dispatch(userActions.getByName(username));
+    // todo move to some service
+    db.onceGetUserByUsername(username).then(snapshot => {
+      this.setState({ profile: snapshot.val(), loading: false });
+    });
   }
 
   render() {
     console.log('profile render')
     console.log(this.state);
-    console.log(this.props.user);
+    console.log(this.props.authUser);
     return (
       <div>
-        <Navigation username={this.state.username} exist={this.props.profile !== null}/>
-        {!this.props.loading && !!this.props.profile ? (
+        <Navigation username={this.state.username} exist={this.state.profile !== null}/>
+        {this.state.profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
               <RouteWithProps
                 exact
                 path="/p/:username"
-                user={this.props.profile}
+                user={this.state.profile}
                 canEdit={this.state.canEdit}
                 component={Home}
               />
               <RouteWithProps
                 path="/p/:username/:page"
-                user={this.props.profile}
+                user={this.state.profile}
                 canEdit={this.state.canEdit}
                 component={ProfileHandler}
               />
             </Drilldown>
           </div>
         ) : (
-            this.props.profile === null ?
+            this.state.loading === false && this.state.profile === null ?
               <FreeUsername username={this.state.username} /> :
               <div />
           )}
@@ -123,23 +126,7 @@ Profile.propTypes = {
       username: PropTypes.string.isRequired
     })
   }),
-  auth: PropTypes.shape({
-    loggedIn: PropTypes.bool,
-    user: PropTypes.object
-  }),
-  dispatch: PropTypes.func.isRequired
+  authUser: PropTypes.object
 };
 
-
-function mapStateToProps(state) {
-  console.log('profile redux state');
-  console.log(state);
-  const { user, loading } = state.profile;
-  return {
-    profile: user,
-    loading
-  };
-}
-
-const connectedProfile = connect(mapStateToProps)(Profile);
-export { connectedProfile as Profile };
+export {Profile};
