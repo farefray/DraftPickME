@@ -334,7 +334,6 @@ ul {
   animation-name: flipInY;
 }
 
-
 /* ==========
 Shared components
 ========== */
@@ -603,8 +602,6 @@ nav {
   z-index: 10000;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-
-
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -615,17 +612,39 @@ nav {
     height: 125px;
     margin-top: 25px;
   }
-  
   .bottom {
     justify-self: end;
     height: 45px;
   }
-
+  &.is-editable-true {
+    &:before {
+      position: absolute;
+      content: "";
+      border: 30px solid transparent;
+      border-left-color: rgba(3, 3, 3, 0.6);
+      border-top-color: rgba(3, 3, 3, 0.6);
+      top: 0;
+      left: 100px;
+      cursor: pointer;
+    }
+    &:after {
+      position: absolute;
+      content: "\f013";
+      font-family: "fontawesome";
+      color: #caa669;
+      font-size: 16px;
+      left: 108px;
+      top: 6px;
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+    }
+  }
   ul {
     padding-top: 30px;
     list-style: none;
     padding-left: 0;
-    overflow:hidden;
+    overflow: hidden;
     li {
       outline: none;
       .home {
@@ -677,29 +696,7 @@ nav {
   }
   .scroll {
     background-color: rgba(1, 1, 1, 0.9);
-  }
-  &:before {
-    position: absolute;
-    content: "";
-    border: 30px solid transparent;
-    border-left-color: rgba(3, 3, 3, 0.6);
-    border-top-color: rgba(3, 3, 3, 0.6);
-    top: 0;
-    left: 100px;
-    cursor: pointer;
-  }
-  &:after {
-    position: absolute;
-    content: "\f013";
-    font-family: "fontawesome";
-    color: #caa669;
-    font-size: 16px;
-    left: 108px;
-    top: 6px;
-    -webkit-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
-  }
+  }  
   .nav-controller {
     position: absolute;
     width: 60px;
@@ -716,7 +713,6 @@ nav {
   .open {
     left: 0;
   }
-
 }
 
 #drilldown {
@@ -886,7 +882,6 @@ about
     h2 {
       color: #0487cc;
       margin-top: 0;
-
       span {
         color: #333;
       }
@@ -992,7 +987,8 @@ skills
   .fa {
     text-shadow: 1px 1px 1px black;
   }
-  .single-skill, .single-language {
+  .single-skill,
+  .single-language {
     position: relative;
     margin-top: 10px;
     .skill-name {
@@ -1193,18 +1189,17 @@ Contact
   background-blend-mode: overlay;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-  
   .contact-form-container,
   .contact-card {
     background-color: rgba(1, 1, 1, 0.9);
     border-radius: 10px;
     box-shadow: 0 0 5px #555;
     -webkit-box-shadow: 0 0 5px #555;
-    input, textarea {
+    input,
+    textarea {
       color: #000;
     }
   }
-
   .contact-card {
     height: auto;
     top: -80px;
@@ -1213,21 +1208,17 @@ Contact
     overflow: hidden;
     color: #eee;
   }
-
   .user-icon,
   .email-icon {
     position: absolute;
     z-index: 100;
     color: #777;
   }
-
   .user-icon,
   .email-icon {
     top: 12px;
     left: 12px;
   }
-
-
   div.btn {
     color: #fff;
     background-color: #0487cc;
@@ -1243,67 +1234,58 @@ Contact
       color: #0487cc;
     }
   }
-
-
-.contact-card h2,
-.contact-card h3,
-.contact-card p {
-  color: #eee;
-  text-transform: capitalize;
-  line-height: 2;
-  line-height: 1.5;
-  margin-left: 25px;
-}
-
-.contact-card p {
-  font-size: 12px;
-}
-
-.contact-card .fa {
-  color: #eee;
-  margin: auto;
-
-  &.fa-github {
-    color: rgb(56, 51, 51);
+  .contact-card h2,
+  .contact-card h3,
+  .contact-card p {
+    color: #eee;
+    text-transform: capitalize;
+    line-height: 2;
+    line-height: 1.5;
+    margin-left: 25px;
   }
-}
-
-.contact-card .fb-like {
-  margin-left: 25px;
-}
-
-.contact-card .contact-social ul {
-  list-style: none;
-  padding-left: 0;
-  margin-left: 25px;
-  li {
-    display: inline-block;
-    a {
+  .contact-card p {
+    font-size: 12px;
+  }
+  .contact-card .fa {
+    color: #eee;
+    margin: auto;
+    &.fa-github {
+      color: rgb(56, 51, 51);
+    }
+  }
+  .contact-card .fb-like {
+    margin-left: 25px;
+  }
+  .contact-card .contact-social ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 25px;
+    li {
       display: inline-block;
-      text-decoration: none;
-      width: 25px;
-      height: 25px;
-      margin-right: 10px;
-      border-radius: 50%;
-      background-color: #0487cc;
-      color: #eee;
-      text-align: center;
-      line-height: 25px;
-      margin-bottom: 5px;
-      &.facebook {
-        background-color: #3b5998;
-      }
-      &.linkedin {
-        background-color: #007bb6;
-
-      }
-      &.github {
-        background-color: #fff;
-
+      a {
+        display: inline-block;
+        text-decoration: none;
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: #0487cc;
+        color: #eee;
+        text-align: center;
+        line-height: 25px;
+        margin-bottom: 5px;
+        &.facebook {
+          background-color: #3b5998;
+        }
+        &.linkedin {
+          background-color: #007bb6;
+        }
+        &.github {
+          background-color: #fff;
+        }
       }
     }
   }
-}
 }
 
 input,
@@ -1325,7 +1307,6 @@ textarea {
 .group-them {
   position: relative;
 }
-
 
 textarea {
   height: 100px;
@@ -1513,8 +1494,6 @@ Footer
   float: right;
 }
 
-
-
 /* ==========
 404 Free Username
 ========== */
@@ -1524,7 +1503,6 @@ Footer
   min-height: 100%;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-  
   .container-404 {
     background-color: rgba(1, 1, 1, 0.9);
     border-radius: 10px;
@@ -1532,7 +1510,6 @@ Footer
     -webkit-box-shadow: 0 0 5px #555;
     font-size: 2rem;
     padding: 0 1em;
-
     a {
       color: #caa669;
     }

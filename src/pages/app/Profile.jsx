@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { Route } from 'react-router-dom';
 import Drilldown from 'react-router-drilldown';
 import { Navigation } from '../components/Navigation';
@@ -81,7 +82,6 @@ class Profile extends React.Component {
     let username = props.match.params.username;
     this.state = {
       username: username,
-      canEdit: false,
       loading: true,
       profile: null
     };
@@ -108,31 +108,36 @@ class Profile extends React.Component {
   }
 
   render() {
+    const { profile } = this.state;
+    const { authUser } = this.props;
+
+    let canEditProfile = !!(authUser && profile && profile.email && profile.email == authUser.email)
     return (
       <div>
         <Navigation
           username={this.state.username}
-          exist={this.state.profile !== null}
+          canEdit={canEditProfile}
+          exist={profile !== null}
         />
-        {this.state.profile ? (
+        {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
               <RouteWithProps
                 exact
                 path="/p/:username"
-                profile={this.state.profile}
-                canEdit={this.state.canEdit}
+                profile={profile}
+                canEdit={canEditProfile}
                 component={Home}
               />
               <RouteWithProps
                 path="/p/:username/:page"
-                profile={this.state.profile}
-                canEdit={this.state.canEdit}
+                profile={profile}
+                canEdit={canEditProfile}
                 component={ProfileHandler}
               />
             </Drilldown>
           </div>
-        ) : this.state.loading === false && this.state.profile === null ? (
+        ) : this.state.loading === false && !!profile ? (
           <FreeUsername username={this.state.username} />
         ) : (
           <div />
@@ -151,4 +156,12 @@ Profile.propTypes = {
   authUser: PropTypes.object
 };
 
-export { Profile };
+function mapStateToProps(state) {
+  const { authUser } = state.authentication;
+  return {
+    authUser
+  };
+}
+
+const connectedProfile = connect(mapStateToProps)(Profile);
+export { connectedProfile as Profile };
