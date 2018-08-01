@@ -3,42 +3,36 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { addAlert } from './alert.actions';
 import history from '../helpers/history';
+import { auth, db } from '@/firebase';
 
 export const userActions = {
   login,
   logout,
   register,
   edit,
-  getAll,
-  getByName,
-  remove: remove
+  getByName
 };
 
-function login(username, password) {
+function login(email, password) {
   return dispatch => {
     dispatch(beginTask()); // todo move this into middleware?
 
-    userService.login(username, password)
-      .then(
-        user => {
-          dispatch({
-            type: userConstants.LOGIN_SUCCESS,
-            user
-          });
-          history.push('/');
-        },
-        error => {
-          dispatch({
-            type: userConstants.LOGIN_FAILURE,
-            error
-          });
-          dispatch(addAlert({
-            text: error,
-            type: 'danger'
-          }));
-        }
-      )
+    auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
+        history.push('/');
+        
+        dispatch(addAlert({
+          text: "Welcome!",
+          type: 'success'
+        }));
+      })
+      .catch(error => {
+        dispatch(addAlert({
+          text: error.message,
+          type: 'warning'
+        }));
+      })
+      .finally(() => {
         dispatch(endTask());
       });
   };
@@ -68,11 +62,6 @@ function edit(user) {
           type: 'success'
         }));
 
-        // relogin user to update his storage for current customer
-        dispatch({
-          type: userConstants.LOGIN_SUCCESS,
-          user
-        });
 
         // update user in local storage in order to keep our changes.
         // TODO better way for auth and this part. Make it DRY and not that leakable.
@@ -93,120 +82,56 @@ function register(user) {
   return dispatch => {
     dispatch(beginTask());
 
-    userService.register(user)
-      .then(
-        // eslint-disable-next-line no-unused-vars
-        user => {
-          history.push('/login');
-          dispatch(addAlert({
-            text: "Successfull registration!",
-            type: 'success'
-          }));
-        },
-        error => {
-          dispatch(addAlert({
-            text: error,
-            type: 'warning'
-          }));
-        }
-      )
+    auth.doCreateUserWithEmailAndPassword(user.email, user.password)
+      .then(authUser => {
+        // Create a user in your own accessible Firebase Database too
+        db.doCreateUser(authUser.user.uid, user.username, user.email)
+        history.push('/login');
+        dispatch(addAlert({
+          text: "Successfull registration for " + user.username,
+          type: 'success'
+        }));
+      })
+      .catch(error => {
+        dispatch(addAlert({
+          text: error.message,
+          type: 'warning'
+        }));
+      })
       .then(() => {
         dispatch(endTask());
       });
   };
 }
 
-function getByName(name) {
-  return userService.getByName(name)
-    .then(
-      response => success(response),
-      error => failure(error)
-    );
-
-
-  function success(response) {
-    return {
-      type: userConstants.GETBYNAME_SUCCESS,
-      response
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.GETBYNAME_FAILURE,
-      error
-    }
-  }
-}
-
-function getAll() {
+function getByName(username) {
   return dispatch => {
+    dispatch(beginTask()); // todo move this into middleware?
     dispatch(request());
 
-    userService.getAll()
+    userService.getByName(username)
       .then(
-        users => dispatch(success(users)),
-        error => dispatch(failure(error))
-      );
+        user => {
+          dispatch({
+            type: userConstants.GETBYNAME_SUCCESS,
+            user
+          });
+        },
+        error => {
+          dispatch({
+            type: userConstants.GETBYNAME_FAILURE,
+            error
+          });
+        }
+      )
+      .then(() => {
+        dispatch(endTask());
+      });
   };
 
   function request() {
     return {
-      type: userConstants.GETALL_REQUEST
-    }
-  }
-
-  function success(users) {
-    return {
-      type: userConstants.GETALL_SUCCESS,
-      users
-    }
-  }
-
-  function failure(error) {
-    return {
-      type: userConstants.GETALL_FAILURE,
-      error
-    }
-  }
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function remove(id) {
-  return dispatch => {
-    dispatch(request(id));
-
-    userService.remove(id)
-      .then(
-        // eslint-disable-next-line no-unused-vars
-        user => {
-          dispatch(success(id));
-        },
-        error => {
-          dispatch(failure(id, error));
-        }
-      );
-  };
-
-  function request(id) {
-    return {
-      type: userConstants.DELETE_REQUEST,
-      id
-    }
-  }
-
-  function success(id) {
-    return {
-      type: userConstants.DELETE_SUCCESS,
-      id
-    }
-  }
-
-  function failure(id, error) {
-    return {
-      type: userConstants.DELETE_FAILURE,
-      id,
-      error
+      type: userConstants.GETBYNAME_REQUEST
     }
   }
 }

@@ -15,7 +15,6 @@ class Qualification extends Component {
     const {user} = this.props;
 
     this.state = {
-      skills: user.skills || [],
       languages: user.languages || [],
       jobs: user.jobs || [],
       specialities: user.specialities || [],
@@ -41,7 +40,6 @@ class Qualification extends Component {
   // and those edit actions will change user and pass updates user state via props. And then, saving user profile from redux to database on action.
   updateUserProfile = () => {
     let { user } = this.props;
-    user.skills = this.state.skills;
     user.languages = this.state.languages;
     user.jobs = this.state.jobs;
     user.specialities = this.state.specialities;
@@ -64,7 +62,7 @@ class Qualification extends Component {
   };
 
   render() {
-    const { skills, languages, specialities, jobs } = this.state;
+    const { languages, specialities, jobs } = this.state;
 
     let saveButton = this.state.unsaved ? (
       <button
@@ -88,7 +86,7 @@ class Qualification extends Component {
             {saveButton}
             <div className="col-md-4">
               <Skills
-                data={skills}
+                data={this.props.skills || []}
                 canEdit={this.props.canEdit}
                 name="skills"
                 onChange={this.onChange}

@@ -61,7 +61,12 @@ export function configureFakeBackend() {
                     let user = matchedUsers.length ? matchedUsers[0] : null;
 
                     // respond 200 OK with user
-                    resolve({ ok: true, user: user});
+                    if(user === null) {
+                        reject('Not found!');
+                        return;
+                    }
+
+                    resolve(user);
                     return;
                 }
 
@@ -93,28 +98,6 @@ export function configureFakeBackend() {
                     return;
                 }
 
-                // register user
-                if (url.endsWith('/users/register') && opts.method === 'POST') {
-                    // get new user object from post body
-                    let newUser = JSON.parse(opts.body);
-
-                    // validation
-                    let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
-                    if (duplicateUser) {
-                        reject('Username "' + newUser.username + '" is already taken');
-                        return;
-                    }
-
-                    // save new user
-                    newUser.id = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
-                    users.push(newUser);
-                    localStorage.setItem('users', JSON.stringify(users));
-
-                    // respond 200 OK
-                    resolve({ ok: true, json: () => ({}) });
-
-                    return;
-                }
 
                 // delete user
                 if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
