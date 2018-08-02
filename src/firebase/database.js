@@ -1,6 +1,7 @@
 import { db } from './firebase';
 
 // User API
+// TODO move this to user.service
 
 export const doCreateUser = (id, username, email, firstName, lastName) =>
   db.ref(`users/${id}`).set({
@@ -9,6 +10,9 @@ export const doCreateUser = (id, username, email, firstName, lastName) =>
     firstName,
     lastName
   });
+
+export const doEditProfile = (id, profile) =>
+  db.ref(`users/${id}`).update(profile);
 
 export const onceGetUsers = () => {
   return db.ref('users').once('value');

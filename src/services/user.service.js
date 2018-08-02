@@ -38,13 +38,8 @@ function getAll() {
   return fetch('/users', requestOptions).then(handleResponse);
 }
 
-function edit(user) {
-  const requestOptions = {
-    method: 'POST',
-    body: JSON.stringify(user)
-  };
-
-  return fetch('/users/edit/' + user.id, requestOptions).then(handleResponse);
+function edit(uid, profile) {
+  return db.doEditProfile(uid, profile);
 }
 
 function update(user) {

@@ -52,24 +52,20 @@ function authChanged(authUser) {
   };
 }
 
-function edit(user) {
+function edit(uid, user) {
   return (dispatch) => {
     dispatch(beginTask());
 
-    userService.edit(user)
-      .then(() => {
+    userService.edit(uid, user)
+      .then((result) => {
+        console.log(result);
         dispatch(addAlert({
           text: "Profile saved!",
           type: 'success'
         }));
-
-
-        // update user in local storage in order to keep our changes.
-        // TODO better way for auth and this part. Make it DRY and not that leakable.
-        localStorage.setItem('user', JSON.stringify(Object.assign(JSON.parse(localStorage.getItem('user')), user)));
       }, (error) => {
         dispatch(addAlert({
-          text: error,
+          text: error.message,
           type: 'warning'
         }));
       })

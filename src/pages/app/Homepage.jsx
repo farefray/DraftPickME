@@ -18,13 +18,18 @@ const profileLink = username => {
 const UserList = ({ users }) => (
   <div>
     <h2>List of users</h2>
-    {Object.keys(users).map(key => (
-      <div key={key}>
-        <Link to={profileLink(users[key].username)}>
-          {users[key].firstName + " " + users[key].lastName}
-        </Link>{" "}
-      </div>
-    ))}
+    {Object.keys(users).map(
+      key =>
+        users[key].enabled ? (
+          <div key={key}>
+            <Link to={profileLink(users[key].username)}>
+              {users[key].firstName + " " + users[key].lastName}
+            </Link>{" "}
+          </div>
+        ) : (
+          ""
+        )
+    )}
   </div>
 );
 

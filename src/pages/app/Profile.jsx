@@ -40,7 +40,6 @@ RouteWithProps.propTypes = {
 
 const ProfileHandler = props => {
   let username = props.match.params.username;
-  console.log(props);
   return (
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
@@ -84,6 +83,11 @@ const ProfileHandler = props => {
 };
 
 ProfileHandler.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      username: PropTypes.string.isRequired
+    })
+  }),
   canEdit: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   profile: PropTypes.object
@@ -129,6 +133,8 @@ class Profile extends React.Component {
     const { profile } = this.state;
     const { authUser } = this.props;
 
+    console.log(authUser);
+    console.log(profile);
     let canEditProfile = !!(
       authUser &&
       profile &&
