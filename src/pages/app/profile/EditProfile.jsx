@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "@/actions";
-
+import { storage } from "@/firebase";
 // Import React FilePond and file type validation for it
 import { FilePond, File, registerPlugin } from "react-filepond";
 import FilepondPluginFileValidateType from "filepond-plugin-file-validate-type";
@@ -26,7 +26,7 @@ class EditProfile extends React.Component {
         phone: profile.phone || "",
         title: profile.title || "",
         enabled: profile.enabled || false,
-        cvFile: [],
+        cvFile: [], // TODO 
         photo: [],
         github: profile.github || "",
         facebook: profile.facebook || "",
@@ -67,9 +67,7 @@ class EditProfile extends React.Component {
               <div className="col-md-8 col-md-offset-2 container-404">
                 <h2>403 - Forbidden.</h2>
                 <hr className="container-404-hr" />
-                <div className="container-404-form">
-                  Access restricted.
-                </div>
+                <div className="container-404-form">Access restricted.</div>
                 <p>&nbsp;</p>
                 <Link to="/" className="btn btn-link">
                   Return
@@ -79,6 +77,47 @@ class EditProfile extends React.Component {
           </div>
         </section>
       );
+    }
+
+    const handleProcessing = (fieldName, file, metadata, load, error, progress, abort) => {
+      // handle file upload here
+      console.log(" handle file upload here");
+      console.log(file);
+  
+      let uploadTask = storage.uploadFile(file);
+      progress(true, 0, 1);
+      uploadTask.on(
+        `state_changed`,
+        snapshot => {
+          console.log(snapshot.bytesTransferred, snapshot.totalBytes);
+          let percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log(percentage);
+            progress(true, percentage, 1);
+        },
+        error => {
+          //Error
+          console.log(error);
+          abort();
+        },
+        () => {
+          //Success
+          
+        }
+      );
+  
+      uploadTask.then(snapshot => {
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          load(downloadURL);
+  
+          let profile = this.state.profile;
+          profile.cvFile[0] = downloadURL;
+          this.setState({
+            profile
+          });
+        });
+      });
     }
 
     const handleInputChange = event => {
@@ -284,8 +323,8 @@ class EditProfile extends React.Component {
                 labelIdle={
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
-                server="/api/upload">
-                {profile.cvFile.map(file => <File key={file} source={file} />)}
+                server={{ process: handleProcessing }}>
+                {profile.cvFile.map((file, index) => <File key={index} source={file} />)}
               </FilePond>
             </div>
             <div className="form-group">
