@@ -1,16 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { userActions } from "@/actions";
-import { storage } from "@/firebase";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userActions } from '@/actions';
+import { storage } from '@/firebase';
+import CVFile from './editprofile/CvFile';
+
 // Import React FilePond and file type validation for it
-import { FilePond, File, registerPlugin } from "react-filepond";
-import FilepondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import { FilePond, File, registerPlugin } from 'react-filepond';
+import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 registerPlugin(FilepondPluginFileValidateType);
 
 // Import FilePond styles
-import "filepond/dist/filepond.min.css";
+import 'filepond/dist/filepond.min.css';
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -19,18 +21,18 @@ class EditProfile extends React.Component {
     let profile = { ...props.profile };
     this.state = {
       profile: {
-        firstName: profile.firstName || "",
-        lastName: profile.lastName || "",
-        username: profile.username || "",
-        email: profile.email || "",
-        phone: profile.phone || "",
-        title: profile.title || "",
+        firstName: profile.firstName || '',
+        lastName: profile.lastName || '',
+        username: profile.username || '',
+        email: profile.email || '',
+        phone: profile.phone || '',
+        title: profile.title || '',
         enabled: profile.enabled || false,
-        cvFile: [], // TODO 
+        cvFile: profile.cvFile || '',
         photo: [],
-        github: profile.github || "",
-        facebook: profile.facebook || "",
-        linkedin: profile.linkedin || ""
+        github: profile.github || '',
+        facebook: profile.facebook || '',
+        linkedin: profile.linkedin || ''
       }
     };
   }
@@ -44,10 +46,10 @@ class EditProfile extends React.Component {
 
   handleInputChange = event => {
     const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    console.log("change event");
+    console.log('change event');
     console.log(name, value);
 
     let profile = this.state.profile;
@@ -79,11 +81,19 @@ class EditProfile extends React.Component {
       );
     }
 
-    const handleProcessing = (fieldName, file, metadata, load, error, progress, abort) => {
+    const handleProcessing = (
+      fieldName,
+      file,
+      metadata,
+      load,
+      error,
+      progress,
+      abort
+    ) => {
       // handle file upload here
-      console.log(" handle file upload here");
+      console.log(' handle file upload here');
       console.log(file);
-  
+
       let uploadTask = storage.uploadFile(file);
       progress(true, 0, 1);
       uploadTask.on(
@@ -92,8 +102,8 @@ class EditProfile extends React.Component {
           console.log(snapshot.bytesTransferred, snapshot.totalBytes);
           let percentage =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log(percentage);
-            progress(true, percentage, 1);
+          console.log(percentage);
+          progress(true, percentage, 1);
         },
         error => {
           //Error
@@ -102,30 +112,29 @@ class EditProfile extends React.Component {
         },
         () => {
           //Success
-          
         }
       );
-  
+
       uploadTask.then(snapshot => {
-        snapshot.ref.getDownloadURL().then((downloadURL) => {
+        snapshot.ref.getDownloadURL().then(downloadURL => {
           console.log('File available at', downloadURL);
           load(downloadURL);
-  
+
           let profile = this.state.profile;
-          profile.cvFile[0] = downloadURL;
+          profile.cvFile = downloadURL;
           this.setState({
             profile
           });
         });
       });
-    }
+    };
 
     const handleInputChange = event => {
       const target = event.target;
-      const value = target.type === "checkbox" ? target.checked : target.value;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
 
-      console.log("change event");
+      console.log('change event');
       console.log(name, value);
 
       let profile = this.state.profile;
@@ -142,6 +151,7 @@ class EditProfile extends React.Component {
     };
 
     const { profile } = this.state;
+    console.log(profile.cvFile);
     return (
       <div id="profile_edit">
         <div className="row">
@@ -270,10 +280,12 @@ class EditProfile extends React.Component {
                   <div
                     className="btn-group"
                     role="group"
-                    aria-label="Basic example">
+                    aria-label="Basic example"
+                  >
                     <Link
-                      to={"/p/" + profile.username}
-                      className="btn btn-primary">
+                      to={'/p/' + profile.username}
+                      className="btn btn-primary"
+                    >
                       Back
                     </Link>
                   </div>
@@ -308,36 +320,49 @@ class EditProfile extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="surnameInput">Upload your CV:</label>
-              <FilePond
-                allowFileTypeValidation={true}
-                acceptedFileTypes={[
-                  "application/msword",
-                  "application/vnd.oasis.opendocument.text",
-                  "application/rtf",
-                  "text/plain",
-                  "text/html",
-                  "application/pdf"
-                ]}
-                allowMultiple={false}
-                maxFiles={1}
-                labelIdle={
-                  'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
-                }
-                server={{ process: handleProcessing }}>
-                {profile.cvFile.map((file, index) => <File key={index} source={file} />)}
-              </FilePond>
+              {profile.cvFile !== '' ? (
+                <CVFile
+                  source={profile.cvFile}
+                  removeFile={() => {
+                    let profile = this.state.profile;
+                    profile.cvFile = '';
+                    this.setState({
+                      profile
+                    });
+                  }}
+                />
+              ) : (
+                <FilePond
+                  allowFileTypeValidation={true}
+                  acceptedFileTypes={[
+                    'application/msword',
+                    'application/vnd.oasis.opendocument.text',
+                    'application/rtf',
+                    'text/plain',
+                    'text/html',
+                    'application/pdf'
+                  ]}
+                  allowMultiple={false}
+                  maxFiles={1}
+                  labelIdle={
+                    'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
+                  }
+                  server={{ process: handleProcessing }}
+                />
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="surnameInput">Upload your photo:</label>
               <FilePond
                 allowFileTypeValidation={true}
-                acceptedFileTypes={["image/jpeg", "image/png"]}
+                acceptedFileTypes={['image/jpeg', 'image/png']}
                 allowMultiple={false}
                 maxFiles={1}
                 labelIdle={
                   'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
                 }
-                server="/api/upload">
+                server="/api/upload"
+              >
                 {profile.photo.map(file => <File key={file} source={file} />)}
               </FilePond>
             </div>
