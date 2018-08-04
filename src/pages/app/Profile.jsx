@@ -126,8 +126,6 @@ class Profile extends React.Component {
     const { profile, loading } = this.state;
     const { authUser } = this.props;
 
-    console.log(loading);
-    console.log(profile);
     let canEditProfile = !!(
       authUser &&
       profile &&

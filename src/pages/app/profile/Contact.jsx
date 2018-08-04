@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import SocialLinks from "./contact/SocialLinks";
 
 class Contact extends React.Component {
   constructor(props) {
@@ -9,53 +10,26 @@ class Contact extends React.Component {
     this.messageField = React.createRef();
     this.emailField = React.createRef();
   }
-  
+
   static propTypes = {
-    user: PropTypes.shape({
-      projects: PropTypes.array
-    })
+    profile: PropTypes.object.isRequired
   };
 
-  focusContactForm = () => {
+  focusContactForm = (event) => {
     this.usernameField.current.value = "Your potencial rabotodatel";
-    this.messageField.current.value = "Hello! We could hire you, are you still interested?";
-    this.emailField.current.focus(); //todo fixme P1
-  }
+    this.messageField.current.value =
+      "Hello! We could hire you, are you still interested? [Julz gonna write some attractive text example here ;)]";
+    this.emailField.current.focus();
+    event.preventDefault();
+  };
 
   submitContactForm = () => {
-    alert('todo');
-  }
+    alert("todo");
+  };
+
 
   render() {
-    const { user } = this.props;
-    console.log(user);
-    let socialLinksBlock =
-      (user.github || user.facebook || user.linkedin) ? (
-        <div>
-          <div className="contact-social">
-            <ul>
-              {!user.github || <li className="social-media icons">
-                <a className="github" href={user.github} target="_blank" rel="noopener nofollow">
-                  <i className="fa fa-github" />
-                </a>
-              </li>}
-              {!user.facebook || <li className="social-media icons">
-                <a className="facebook" href={user.facebook} target="_blank" rel="noopener nofollow">
-                  <i className="fa fa-facebook" />
-                </a>
-              </li>}
-              {!user.linkedin || <li className="social-media icons">
-                <a className="linkedin" href={user.linkedin} target="_blank" rel="noopener nofollow">
-                  <i className="fa fa-linkedin" />
-                </a>
-              </li>}
-            </ul>
-          </div>
-        </div>
-      ) : (
-          <div />
-        );
-
+    const { profile } = this.props;
     return (
       <section id="contact">
         <div className="container">
@@ -63,7 +37,10 @@ class Contact extends React.Component {
             <div className="col-md-12">
               <div className="hire-wrapper">
                 <h3>I'm available for hire!</h3>
-                <a className="smooth" href="#contact" onClick={this.focusContactForm}>
+                <a
+                  className="smooth"
+                  href="#contact"
+                  onClick={this.focusContactForm}>
                   <i className="fa fa-envelope" /> Hire Me
                 </a>
                 <i className="fa fa-envelope-o" />
@@ -96,8 +73,12 @@ class Contact extends React.Component {
                       ref={this.emailField}
                     />
                   </div>
-                  <textarea id="message" placeholder="Your Message" ref={this.messageField} />
-                  <div className="btn" onClick={() => this.submitContactForm}>
+                  <textarea
+                    id="message"
+                    placeholder="Your Message"
+                    ref={this.messageField}
+                  />
+                  <div className="btn" onClick={this.submitContactForm}>
                     <span>
                       <i className="fa fa-location-arrow" /> Send Message
                     </span>
@@ -109,22 +90,24 @@ class Contact extends React.Component {
             </div>
             <div className="col-md-5 right-section">
               <div className="contact-card flipInY">
-                <h2>
-                  Contact Me
-                </h2>
-                {!user.phone || <div className="contact-info">
-                  <p>
-                    <i className="fa fa-phone" /> <strong>&nbsp; Phone:</strong>{" "}
-                    {user.phone}
-                  </p>
-                </div>}
-                {!user.email || <div className="contact-info">
-                  <p>
-                    <i className="fa fa-envelope" />{" "}
-                    <strong>&nbsp; Email:</strong> {user.email}
-                  </p>
-                </div>}
-                {socialLinksBlock}
+                <h2>Contact Me</h2>
+                {!profile.phone || (
+                  <div className="contact-info">
+                    <p>
+                      <i className="fa fa-phone" />{" "}
+                      <strong>&nbsp; Phone:</strong> {profile.phone}
+                    </p>
+                  </div>
+                )}
+                {!profile.email || (
+                  <div className="contact-info">
+                    <p>
+                      <i className="fa fa-envelope" />{" "}
+                      <strong>&nbsp; Email:</strong> <a href={"mailto:" + profile.email} >{profile.email}</a>
+                    </p>
+                  </div>
+                )}
+                <SocialLinks github={profile.github} facebook={profile.facebook} linkedin={profile.linkedin}/>
               </div>
             </div>
           </div>
