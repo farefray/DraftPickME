@@ -1,14 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import Editable from "react-x-editable";
 import EditableRichComponent from "../../../components/EditableRichComponent";
+import SocialLinks from './userprofile/SocialLinks';
+import CVBlock from './userprofile/CVBlock';
 
 export default class UserProfile extends React.PureComponent {
   static propTypes = {
     profile: PropTypes.shape({
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
       description: PropTypes.any,
       age: PropTypes.string,
       address: PropTypes.string,
@@ -26,74 +28,6 @@ export default class UserProfile extends React.PureComponent {
     const { profile, canEdit } = this.props;
     const disabledEditing = !canEdit;
 
-    let socialLinksBlock =
-      profile.github || profile.facebook || profile.linkedin ? (
-        <div>
-          <div className="col-md-12 no-padding-left">
-            <ul>
-              <li className="social-media">
-                <p className="info-title">Social Links</p>
-              </li>
-              {profile.github ? (
-                <li className="social-media icons">
-                  <a href={profile.github} target="_blank" rel="noopener">
-                    <i className="fa fa-github" />
-                  </a>
-                </li>
-              ) : (
-                ""
-              )}
-              {profile.linkedin ? (
-                <li className="social-media icons">
-                  <a href={profile.linkedin} target="_blank" rel="noopener">
-                    <i className="fa fa-linkedin" />
-                  </a>
-                </li>
-              ) : (
-                ""
-              )}
-              {profile.facebook ? (
-                <li className="social-media icons">
-                  <a href={profile.facebook} target="_blank" rel="noopener">
-                    <i className="fa fa-facebook" />
-                  </a>
-                </li>
-              ) : (
-                ""
-              )}
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <div />
-      );
-
-    const CVBlock =
-      profile.cvFile && profile.cvFile.path ? (
-        <React.Fragment>
-          <a
-            className="black-button"
-            href={profile.cvFile.path}
-            target="_blank"
-            rel="noopener noreferrer">
-            <i className="fa fa-download" />
-            Download CV
-          </a>
-        </React.Fragment>
-      ) : (
-        <div>
-          {canEdit ? (
-            <Link
-              to={"/" + profile.username + "/edit"}
-              className="black-button">
-              Edit profile.
-            </Link>
-          ) : (
-            <span />
-          )}
-        </div>
-      );
-
     return (
       <div className="row animated fadeInUp">
         <div className="col-md-4">
@@ -104,7 +38,7 @@ export default class UserProfile extends React.PureComponent {
               src={profile.photo || "http://placehold.it/270x340"}
             />
           </div>
-          {CVBlock}
+          <CVBlock username={profile.username} canEdit={canEdit} cvFile={profile.cvFile}/>
         </div>
         <div className="col-md-8">
           <div className="about-info">
@@ -227,7 +161,7 @@ export default class UserProfile extends React.PureComponent {
                   </li>
                 </ul>
               </div>
-              {socialLinksBlock}
+              <SocialLinks github={profile.github} facebook={profile.facebook} linkedin={profile.linkedin}/>
             </div>
           </div>
         </div>
