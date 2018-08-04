@@ -8,7 +8,8 @@ export const userActions = {
   login,
   authChanged,
   register,
-  edit
+  edit,
+  editProfileValue
 };
 
 function login(email, password) {
@@ -49,6 +50,28 @@ function authChanged(authUser) {
         type: userConstants.LOGOUT
       });
     }
+  };
+}
+
+function editProfileValue(name, value) {
+  return (dispatch) => {
+    dispatch(beginTask());
+
+    userService.editProfileValue(name, value)
+      .then(() => {
+        dispatch(addAlert({
+          text: "Profile saved!",
+          type: 'success'
+        }));
+      }, (error) => {
+        dispatch(addAlert({
+          text: error.message,
+          type: 'warning'
+        }));
+      })
+      .then(() => {
+        dispatch(endTask());
+      });
   };
 }
 

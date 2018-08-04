@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
-import { db } from "@/firebase";
+import { userService } from "@/services";
 
 import {
   About,
@@ -109,31 +109,24 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    // todo move to some service
-    db.onceGetUserByUsername(this.state.username).then(snapshot => {
-      const value = snapshot.val();
-      let profileValue = null;
-      if (
-        value &&
-        typeof value === "object" &&
-        Object.keys(value).length >= 0
-      ) {
-        // there must be better way
-        profileValue = value[Object.keys(value)[0]];
-      }
-
+    userService.getByUsername(this.state.username).then(profile => {
       this.setState({
-        profile: profileValue,
+        profile: profile,
+        loading: false
+      });
+    }).catch(() => {
+      this.setState({
+        profile: null,
         loading: false
       });
     });
   }
 
   render() {
-    const { profile } = this.state;
+    const { profile, loading } = this.state;
     const { authUser } = this.props;
 
-    console.log(authUser);
+    console.log(loading);
     console.log(profile);
     let canEditProfile = !!(
       authUser &&
@@ -167,7 +160,7 @@ class Profile extends React.Component {
               />
             </Drilldown>
           </div>
-        ) : this.state.loading === false && !!profile ? (
+        ) : loading === false && profile === null ? (
           <FreeUsername username={this.state.username} />
         ) : (
           <div />

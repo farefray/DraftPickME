@@ -53,14 +53,16 @@ class EditProfile extends React.Component {
 
   handleSubmit = event => {
     const { profile, uploads } = this.state;
-    if (uploads.cvFile.path !== profile.cvFile.path) {
+    if (uploads.cvFile.path !== "" && uploads.cvFile.path !== profile.cvFile.path || uploads.cvFile.name !== profile.cvFile.name) {
       profile.cvFile = uploads.cvFile;
     }
 
-    if (uploads.photo !== profile.photo) {
+    if (uploads.photo !== "" && uploads.photo !== profile.photo) {
       profile.photo = uploads.photo;
     }
 
+    // Issue. This way we are not updating userprofile which is currently being used for pages. Changes will be updated only after page reload. This need to be fixed, by storing profile in redux and updating it.
+    console.log(profile);
     this.props.dispatch(userActions.edit(profile));
     event.preventDefault();
   }

@@ -17,11 +17,13 @@ const SocialLinks = (props) => {
   ) : (
     <div>
       {props.canEdit ? (
+        <React.Fragment>
         <Link
           to={"/" + props.username + "/edit"}
           className="black-button">
           Edit profile.
         </Link>
+        </React.Fragment>
       ) : (
         <span />
       )}

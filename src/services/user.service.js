@@ -1,4 +1,4 @@
-import { auth, db, storage} from '@/firebase';
+import { auth, db, storage } from '@/firebase';
 import store from "@/store";
 
 export const userService = {
@@ -6,7 +6,9 @@ export const userService = {
   login,
   logout,
   edit,
-  uploadCV
+  editProfileValue,
+  uploadCV,
+  getByUsername
 };
 
 function login(email, password) {
@@ -25,19 +27,53 @@ async function register(user) {
   }
 }
 
+async function getByUsername(username) {
+  try {
+    let profile = await db.getUserProfileByUsername(username);
+    if (profile) {
+      const value = profile.val();
+      let profileValue = null;
+      if (
+        value &&
+        typeof value === "object" &&
+        Object.keys(value).length >= 0
+      ) {
+        // there must be better way
+        profileValue = value[Object.keys(value)[0]];
+        return Promise.resolve(profileValue);
+      }
+
+      return Promise.reject('Error during user lookup.');
+    }
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+}
+
 function logout() {
   auth.doSignOut();
 }
 
-function edit(profile) {
+function getCurrentAuth() {
   // I'm not sure how good this way is, probably thats a huge mistake
   const currentState = store.getState();
-  const {authUser} = currentState.authentication;
+  const { authUser } = currentState.authentication;
 
-  if(!authUser || !authUser.uid) {
-    return false;
+  if (!authUser || !authUser.uid) {
+    return null;
   }
+
+  return authUser;
+}
+
+function edit(profile) {
+  const authUser = getCurrentAuth();
   return db.doEditProfile(authUser.uid, profile);
+}
+
+function editProfileValue(name, value) {
+  const authUser = getCurrentAuth();
+  return db.doEditProfileValue(authUser.uid, name, value);
 }
 
 function uploadCV(file) {
