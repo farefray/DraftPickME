@@ -82,7 +82,7 @@ class EditProfile extends React.Component {
 
   render() {
     if (!this.props.canEdit) {
-      // todo better way handle authorized page. I know its bad.
+      // todo better way handle authorized page. I know its bad. P3
       return <Forbidden />;
     }
 

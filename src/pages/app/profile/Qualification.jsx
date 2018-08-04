@@ -11,58 +11,60 @@ import Jobs from "./qualification/Jobs";
 class Qualification extends Component {
   constructor(props) {
     super(props);
-    //const user = { ...this.props.user };
-    const {user} = this.props;
+    let { qualification } = this.props.profile;
 
     this.state = {
-      languages: user.languages || [],
-      jobs: user.jobs || [],
-      specialities: user.specialities || [],
+      qualification: {
+        skills: qualification && qualification.skills ? qualification.skills : [],
+        languages: qualification && qualification.languages ? qualification.languages : [],
+        jobs: qualification && qualification.jobs ? qualification.jobs : [],
+        specialities: qualification && qualification.specialities ? qualification.specialities : [],
+      },
       unsaved: false
     };
   }
 
   static propTypes = {
-    user: PropTypes.shape({
-      skills: PropTypes.array,
-      languages: PropTypes.array,
-      jobs: PropTypes.array,
-      specialities: PropTypes.array
-    }),
+    profile: PropTypes.shape({
+      qualification: PropTypes.shape({
+        skills: PropTypes.array,
+        languages: PropTypes.array,
+        jobs: PropTypes.array,
+        specialities: PropTypes.array
+      })
+    }).isRequired,
     canEdit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
   // Actually this can be moved to higher order component to keep it DRY
   // TODO P1! The way current user is sent to props and saved is wrong, as we are actually mutating prop values in some cases.
-  // Should be reworked into some other way, probably having current userprofile in redux, 
+  // Should be reworked into some other way, probably having current userprofile in redux,
   // passing it with props, and dispatching edit actions on the later level components (skills, jobs, languages) wrapped into HOC
   // and those edit actions will change user and pass updates user state via props. And then, saving user profile from redux to database on action.
   updateUserProfile = () => {
-    let { user } = this.props;
-    user.languages = this.state.languages;
-    user.jobs = this.state.jobs;
-    user.specialities = this.state.specialities;
-    this.props.dispatch(userActions.edit(user));
+    let { qualification } = this.props.profile;
+    qualification = {...this.state.qualification};
+    this.props.dispatch(userActions.editProfileValue('qualification', qualification));
+
     this.setState({
       unsaved: false
     });
   };
 
   onChange = (name, value) => {
+    // P0 TODO - thats actually can be skipped, as we actually mutating our props in child components :( this should be reworked.
     console.log("onChange");
-    console.log(name);
-    console.log(value);
-    console.log(this.state);
-    let { unsaved } = this.state;
-    unsaved = true;
+    const { qualification } = this.state;
+    qualification[name] = value;
     this.setState({
-      unsaved
+      qualification: qualification,
+      unsaved: true
     });
   };
 
   render() {
-    const { languages, specialities, jobs } = this.state;
+    const { languages, specialities, jobs, skills } = this.state.qualification;
 
     let saveButton = this.state.unsaved ? (
       <button
@@ -76,8 +78,8 @@ class Qualification extends Component {
     );
 
     const minHeight = {
-      minHeight: '150px'
-    }
+      minHeight: "150px"
+    };
 
     return (
       <section id="skills">
@@ -86,7 +88,7 @@ class Qualification extends Component {
             {saveButton}
             <div className="col-md-4">
               <Skills
-                data={this.props.skills || []}
+                data={skills}
                 canEdit={this.props.canEdit}
                 name="skills"
                 onChange={this.onChange}

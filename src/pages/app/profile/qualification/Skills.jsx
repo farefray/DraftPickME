@@ -51,7 +51,7 @@ export default class Skills extends React.Component {
       <div>
         <div className="skills">
           <h2>
-            {data.length > 0 ? <div /> : <div><i className="fa fa-trophy" key="mainSkillsHeader" /> Main Skills</div>}
+            {data.length > 0 ? <div><i className="fa fa-trophy" key="mainSkillsHeader" /> Main Skills</div> : <div />}
           </h2>
           <FlipMove>
             {data.map((data, index) => (

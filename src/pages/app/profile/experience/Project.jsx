@@ -42,7 +42,7 @@ export default class Project extends React.PureComponent {
               value={data.period}
               placement="bottom"
               mode="popup"
-              handleSubmit={e => this.props.editAction(e)}
+              handleSubmit={this.props.editAction}
             />
           </div>
           <div className="degree">
@@ -57,7 +57,7 @@ export default class Project extends React.PureComponent {
                   value={data.name}
                   placement="bottom"
                   mode="popup"
-                  handleSubmit={e => this.props.editAction(e)}
+                  handleSubmit={this.props.editAction}
                 />
               </li>
               <li>
@@ -69,7 +69,7 @@ export default class Project extends React.PureComponent {
                   disabled={disabledEditing}
                   value={data.stack}
                   mode="popup"
-                  handleSubmit={e => this.props.editAction(e)}
+                  handleSubmit={this.props.editAction}
                 />
               </li>
             </ul>
@@ -82,7 +82,7 @@ export default class Project extends React.PureComponent {
               disabled={disabledEditing}
               value={data.description}
               mode="popup"
-              handleSubmit={e => this.props.editAction(e)}
+              handleSubmit={this.props.editAction}
             />
           </div>
         </div>

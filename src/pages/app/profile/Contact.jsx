@@ -19,7 +19,7 @@ class Contact extends React.Component {
   focusContactForm = () => {
     this.usernameField.current.value = "Your potencial rabotodatel";
     this.messageField.current.value = "Hello! We could hire you, are you still interested?";
-    this.emailField.current.focus(); //todo fixme
+    this.emailField.current.focus(); //todo fixme P1
   }
 
   submitContactForm = () => {

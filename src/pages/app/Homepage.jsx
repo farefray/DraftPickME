@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { db } from "@/firebase"; // move to service or action TODO
+import { db } from "@/firebase"; // move to service or action TODO P2
 import SignOutButton from "@/pages/components/SignOut";
 
 import {
@@ -51,7 +51,7 @@ class Homepage extends React.Component {
     initAnimation();
     addListeners();
 
-    // todo move to some service
+    // todo move to some service P2
     db.onceGetUsers().then(snapshot => {
       this.setState({ users: snapshot.val() });
     });

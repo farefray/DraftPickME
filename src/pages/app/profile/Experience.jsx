@@ -11,32 +11,33 @@ class Experience extends Component {
   constructor(props) {
     super(props);
 
-    const { user } = this.props;
+    const { profile } = this.props;
     this.state = {
-      projectsBlocks: user && user.projects ? user.projects : [],
+      projectsBlocks: profile && profile.projects ? profile.projects : [],
       unsaved: false // todo probably warn about unsaved page on route and also move this to HOC
     };
   }
 
   static propTypes = {
-    user: PropTypes.shape({
+    profile: PropTypes.shape({
       projects: PropTypes.array
-    }),
+    }).isRequired,
     canEdit: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
   updateUserProjects = () => {
-    let { user } = this.props;
+    let { profile } = this.props;
     let { projectsBlocks } = this.state;
 
     // removing null values from array, in order to save into db
     projectsBlocks = projectsBlocks.filter(project => {
       return project !== null;
     });
-    user["projects"] = projectsBlocks;
+
+    profile["projects"] = projectsBlocks;
     this.setState({ unsaved: false });
-    this.props.dispatch(userActions.edit(user));
+    this.props.dispatch(userActions.editProfileValue('projects', projectsBlocks));
   };
 
   removeProject = key => {
@@ -48,11 +49,12 @@ class Experience extends Component {
 
   addProject = () => {
     const { projectsBlocks } = this.state;
+    // We can move this to fabric, TODO P3
     projectsBlocks.push({
       period: "Project time",
       name: "Project name",
       stack: "Tech stack",
-      description: "Project descrption, specialities."
+      description: "Project description, specialities."
     });
 
     this.setState({
@@ -89,12 +91,13 @@ class Experience extends Component {
       <div key="save_button" />
     );
 
+    const { projectsBlocks } = this.state;
     return (
       <div>
         <section id="experience">
           <div className="container animated fadeInDown">
             <FlipMove>
-              {this.state.projectsBlocks.map((blockData, index) => (
+              {projectsBlocks.map((blockData, index) => (
                 <Project
                   key={index}
                   index={index}
