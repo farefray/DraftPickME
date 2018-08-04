@@ -12,7 +12,7 @@ export const doCreateUser = (id, username, email, firstName, lastName) =>
   });
 
 export const doEditProfile = (id, profile) =>
-  db.ref(`users/${id}`).update(profile);
+  db.ref(`users/${id}`).update(JSON.parse(JSON.stringify(profile)));
 
 export const onceGetUsers = () => {
   return db.ref('users').once('value');

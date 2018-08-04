@@ -6,10 +6,18 @@ import UserProfile from "./about/UserProfile";
 import { userActions } from "../../../actions";
 
 class About extends React.PureComponent {
+
+  static propTypes = {
+    profile: PropTypes.object,
+    canEdit: PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired
+  };
+
   updateUserProfileValue = (name, value) => {
     let { profile } = this.props;
     profile[name] = value;
-    //todo uid
+    console.log(name, value);
+    console.log(profile);
     this.props.dispatch(userActions.edit(profile));
   };
 
@@ -33,13 +41,6 @@ class About extends React.PureComponent {
   }
 }
 
-About.propTypes = {
-  profile: PropTypes.object,
-  canEdit: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
-
 const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
-
 const connectedAbout = connect(mapDispatchToProps)(About);
 export { connectedAbout as About };

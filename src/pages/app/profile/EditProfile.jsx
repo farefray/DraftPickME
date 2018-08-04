@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { userActions } from "@/actions";
 import Uploads from "./editprofile/Uploads";
@@ -47,8 +48,7 @@ class EditProfile extends React.Component {
   static propTypes = {
     profile: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    canEdit: PropTypes.bool.isRequired,
-    authUser: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
   };
 
   render() {
@@ -68,24 +68,17 @@ class EditProfile extends React.Component {
         profile.photo = uploads.photo;
       }
 
-      this.props.dispatch(userActions.edit(this.props.authUser.uid, profile));
+      this.props.dispatch(userActions.edit(profile));
       event.preventDefault();
     };
 
     const profileChange = (name, value) => {
       let { profile } = this.state;
-      console.log("profileChange");
-      console.log(name);
-      console.log(value);
       profile[name] = value;
-      console.log(this);
-
       this.setState(() => ({ profile: profile }));
     };
 
     const handleInputChange = event => {
-      console.log(event);
-      console.log(this);
       const target = event.target;
       const value = target.type === "checkbox" ? target.checked : target.value;
       const name = target.name;
@@ -281,12 +274,6 @@ class EditProfile extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { authUser } = state.authentication;
-  return {
-    authUser
-  };
-}
-
-const connectedEditProfile = connect(mapStateToProps)(EditProfile);
+const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
+const connectedEditProfile = connect(mapDispatchToProps)(EditProfile);
 export { connectedEditProfile as EditProfile };

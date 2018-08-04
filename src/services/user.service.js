@@ -1,4 +1,5 @@
-import { auth, db, storage } from '@/firebase';
+import { auth, db, storage} from '@/firebase';
+import store from "@/store";
 
 export const userService = {
   register,
@@ -28,8 +29,15 @@ function logout() {
   auth.doSignOut();
 }
 
-function edit(uid, profile) {
-  return db.doEditProfile(uid, profile);
+function edit(profile) {
+  // I'm not sure how good this way is, probably thats a huge mistake
+  const currentState = store.getState();
+  const {authUser} = currentState.authentication;
+
+  if(!authUser || !authUser.uid) {
+    return false;
+  }
+  return db.doEditProfile(authUser.uid, profile);
 }
 
 function uploadCV(file) {

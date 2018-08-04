@@ -52,13 +52,12 @@ function authChanged(authUser) {
   };
 }
 
-function edit(uid, user) {
+function edit(profile) {
   return (dispatch) => {
     dispatch(beginTask());
 
-    userService.edit(uid, user)
-      .then((result) => {
-        console.log(result);
+    userService.edit(profile)
+      .then(() => {
         dispatch(addAlert({
           text: "Profile saved!",
           type: 'success'
