@@ -71,7 +71,6 @@ export default class Uploads extends React.PureComponent {
     let { profile } = this.props;
 
     let cvFile = { ...profile.cvFile };
-    console.log(cvFile);
     return (
       <React.Fragment>
         <div className="form-group">

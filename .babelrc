@@ -1,15 +1,23 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 Chrome versions"],
-        "node": "current"
-      }
-    }], "react", "stage-2"
-  ],
   "env": {
-    "development": {
-      "plugins": [
+     "development": { 
+        "presets": [ 
+          [
+            "env",
+            {
+              "es2015": {
+                "modules": false
+              },
+              "targets": {
+                "browsers": ["last 2 Chrome versions"],
+                "uglify": true
+              }
+            }
+          ],
+          "react", 
+          "stage-2" 
+        ],
+        "plugins": [
         ["react-transform", {
           "transforms": [{
             "transform": "react-transform-hmr",
@@ -17,6 +25,36 @@
             "locals": ["module"]
           }]
         }]
+      ]
+      }, 
+    "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "es2015": {
+              "modules": false
+            },
+            "targets": {
+              "browsers": ["last 2 Chrome versions"],
+              "uglify": true
+            }
+          }
+        ],
+        "react",
+        "stage-2"
+      ],
+      "plugins": [
+        "react-hot-loader/babel",
+        "transform-react-constant-elements",
+        "transform-react-remove-prop-types"
+      ]
+    },
+    "test": {
+      "presets": [
+        "env",
+        "react",
+        "stage-2"
       ]
     }
   }

@@ -114,16 +114,7 @@ export default class RichTextEditor extends React.Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={this.mapKeyToEditorCommand}
-            onChange={(editorState) => {
-              // actually a dublicate of this.onChange, but somehow it stopped to work and I'm in hurry to get it done ;()
-              this.setState({ editorState });
-
-              // the raw state, stringified
-              const rawDraftContentState = JSON.stringify(
-                convertToRaw(this.state.editorState.getCurrentContent())
-              );
-
-              return this.props.onChange(rawDraftContentState);}}
+            onChange={this.onChange}
             placeholder=""
             ref={this.setEditorRef}
             spellCheck={true}

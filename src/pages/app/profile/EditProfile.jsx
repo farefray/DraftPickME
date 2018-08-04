@@ -51,39 +51,38 @@ class EditProfile extends React.Component {
     canEdit: PropTypes.bool.isRequired
   };
 
+  handleSubmit = event => {
+    const { profile, uploads } = this.state;
+    if (uploads.cvFile.path !== profile.cvFile.path) {
+      profile.cvFile = uploads.cvFile;
+    }
+
+    if (uploads.photo !== profile.photo) {
+      profile.photo = uploads.photo;
+    }
+
+    this.props.dispatch(userActions.edit(profile));
+    event.preventDefault();
+  }
+
+  profileChange = (name, value) => {
+    let { profile } = this.state;
+    profile[name] = value;
+    this.setState(() => ({ profile: profile }));
+  };
+
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    return this.profileChange(name, value);
+  };
+
   render() {
     if (!this.props.canEdit) {
       // todo better way handle authorized page. I know its bad.
       return <Forbidden />;
     }
-
-    // TODO investigate this. Somehow its not working when we lift those methods up and call by () => this.handle
-    const handleSubmit = event => {
-      const { profile, uploads } = this.state;
-      if (uploads.cvFile.path !== profile.cvFile.path) {
-        profile.cvFile = uploads.cvFile;
-      }
-
-      if (uploads.photo !== profile.photo) {
-        profile.photo = uploads.photo;
-      }
-
-      this.props.dispatch(userActions.edit(profile));
-      event.preventDefault();
-    };
-
-    const profileChange = (name, value) => {
-      let { profile } = this.state;
-      profile[name] = value;
-      this.setState(() => ({ profile: profile }));
-    };
-
-    const handleInputChange = event => {
-      const target = event.target;
-      const value = target.type === "checkbox" ? target.checked : target.value;
-      const name = target.name;
-      return profileChange(name, value);
-    };
 
     const { profile } = this.state;
     return (
@@ -100,7 +99,7 @@ class EditProfile extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-3 col-md-offset-2">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="nameInput">Name</label>
                 <input
@@ -110,7 +109,7 @@ class EditProfile extends React.Component {
                   placeholder="Jane"
                   name="firstName"
                   value={profile.firstName}
-                  onChange={handleInputChange}
+                  onChange={this.handleInputChange}
                 />
               </div>
               <div className="form-group">
@@ -122,7 +121,7 @@ class EditProfile extends React.Component {
                   placeholder="Doe"
                   name="lastName"
                   value={profile.lastName}
-                  onChange={handleInputChange}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -135,7 +134,7 @@ class EditProfile extends React.Component {
                   placeholder="Job title"
                   name="title"
                   value={profile.title}
-                  onChange={handleInputChange}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -150,7 +149,7 @@ class EditProfile extends React.Component {
                     title="Your login and profile URL"
                     name="username"
                     value={profile.username}
-                    onChange={handleInputChange}
+                    onChange={this.handleInputChange}
                   />
                 </div>
               </div>
@@ -164,7 +163,7 @@ class EditProfile extends React.Component {
                   placeholder="GitHub profile"
                   name="github"
                   value={profile.github}
-                  onChange={handleInputChange}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -177,7 +176,7 @@ class EditProfile extends React.Component {
                   placeholder="LinkedIn profile"
                   name="linkedin"
                   value={profile.linkedin}
-                  onChange={handleInputChange}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -190,7 +189,7 @@ class EditProfile extends React.Component {
                   placeholder="Facebook profile"
                   name="facebook"
                   value={profile.facebook}
-                  onChange={handleInputChange}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -202,7 +201,7 @@ class EditProfile extends React.Component {
                     name="enabled"
                     type="checkbox"
                     checked={profile.enabled}
-                    onChange={handleInputChange}
+                    onChange={this.handleInputChange}
                   />
                 </label>
               </div>
@@ -235,7 +234,7 @@ class EditProfile extends React.Component {
                 placeholder="john.doe@gmail.com"
                 name="email"
                 value={profile.email}
-                onChange={handleInputChange}
+                onChange={this.handleInputChange}
               />
             </div>
             <div className="form-group">
@@ -247,7 +246,7 @@ class EditProfile extends React.Component {
                 placeholder="+XXXXXXXXXXXX"
                 name="phone"
                 value={profile.phone}
-                onChange={handleInputChange}
+                onChange={this.handleInputChange}
               />
             </div>
             <Uploads

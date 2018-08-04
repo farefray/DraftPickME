@@ -22,18 +22,18 @@ export default class EditableRichComponent extends React.Component {
     disabled: PropTypes.bool.isRequired
   };  
 
+  handleSubmit = () => {
+    const { name, value } = this.state;
+    this.props.handleSubmit(name, value);
+  };
+
+  onRichFieldEdited = newValue => {
+    let { value } = this.state;
+    value = newValue;
+    this.setState({ value });
+  };
+
   render() {
-    const handleSubmit = () => {
-      const { name, value } = this.state;
-      this.props.handleSubmit(name, value);
-    };
-
-    const onRichFieldEdited = newValue => {
-      let { value } = this.state;
-      value = newValue;
-      this.setState({ value });
-    };
-
     const {value} = this.state;
     return (
       <Editable
@@ -41,7 +41,7 @@ export default class EditableRichComponent extends React.Component {
         dataType="custom"
         disabled={this.props.disabled}
         value={value}
-        handleSubmit={handleSubmit}
+        handleSubmit={this.handleSubmit}
         display={value => {
           return (
             <RichTextRenderer
@@ -55,7 +55,7 @@ export default class EditableRichComponent extends React.Component {
             <RichTextEditor
               {...props}
               {...state}
-              onChange={onRichFieldEdited}
+              onChange={this.onRichFieldEdited}
               value={this.state.value}
             />
           );

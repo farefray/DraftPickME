@@ -141,6 +141,7 @@ class Profile extends React.Component {
       profile.email &&
       profile.email == authUser.email
     );
+    
     return (
       <div>
         <Navigation
