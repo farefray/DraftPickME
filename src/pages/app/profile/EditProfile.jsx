@@ -1,10 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { userActions } from '@/actions';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { userActions } from "@/actions";
 import Uploads from "./editprofile/Uploads";
 import Forbidden from "@/pages/components/Forbidden";
+
+const emptyFiles = {
+  cvFile: {
+    name: "",
+    path: ""
+  },
+  photo: ""
+};
+
+const emptyUploads = {
+  // actually storing this just to avoid redrawing of uploaded component once upload successed
+  cvFile: emptyFiles.cvFile,
+  photo: emptyFiles.photo
+};
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -13,22 +27,20 @@ class EditProfile extends React.Component {
     let profile = { ...props.profile };
     this.state = {
       profile: {
-        firstName: profile.firstName || '',
-        lastName: profile.lastName || '',
-        username: profile.username || '',
-        email: profile.email || '',
-        phone: profile.phone || '',
-        title: profile.title || '',
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        username: profile.username || "",
+        email: profile.email || "",
+        phone: profile.phone || "",
+        title: profile.title || "",
         enabled: profile.enabled || false,
-        cvFile: profile.cvFile || {
-          name: '',
-          path: ''
-        },
-        photo: profile.photo || '',
-        github: profile.github || '',
-        facebook: profile.facebook || '',
-        linkedin: profile.linkedin || ''
-      }
+        cvFile: profile.cvFile || emptyFiles.cvFile,
+        photo: profile.photo || emptyFiles.photo,
+        github: profile.github || "",
+        facebook: profile.facebook || "",
+        linkedin: profile.linkedin || ""
+      },
+      uploads: emptyUploads
     };
   }
 
@@ -42,30 +54,42 @@ class EditProfile extends React.Component {
   render() {
     if (!this.props.canEdit) {
       // todo better way handle authorized page. I know its bad.
-      return (
-        <Forbidden/>
-      );
+      return <Forbidden />;
     }
 
+    // TODO investigate this. Somehow its not working when we lift those methods up and call by () => this.handle
+    const handleSubmit = event => {
+      const { profile, uploads } = this.state;
+      if (uploads.cvFile.path !== profile.cvFile.path) {
+        profile.cvFile = uploads.cvFile;
+      }
+
+      if (uploads.photo !== profile.photo) {
+        profile.photo = uploads.photo;
+      }
+
+      this.props.dispatch(userActions.edit(this.props.authUser.uid, profile));
+      event.preventDefault();
+    };
+
     const profileChange = (name, value) => {
-      let {profile} = this.state;
+      let { profile } = this.state;
+      console.log("profileChange");
+      console.log(name);
+      console.log(value);
       profile[name] = value;
-      this.setState({
-        profile
-      });
+      console.log(this);
+
+      this.setState(() => ({ profile: profile }));
     };
 
     const handleInputChange = event => {
+      console.log(event);
+      console.log(this);
       const target = event.target;
-      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const value = target.type === "checkbox" ? target.checked : target.value;
       const name = target.name;
-      profileChange(name, value);
-    };
-
-    const handleSubmit = event => {
-      const { profile } = this.state;
-      this.props.dispatch(userActions.edit(this.props.authUser.uid, profile));
-      event.preventDefault();
+      return profileChange(name, value);
     };
 
     const { profile } = this.state;
@@ -197,12 +221,10 @@ class EditProfile extends React.Component {
                   <div
                     className="btn-group"
                     role="group"
-                    aria-label="Basic example"
-                  >
+                    aria-label="Basic example">
                     <Link
-                      to={'/p/' + profile.username}
-                      className="btn btn-primary"
-                    >
+                      to={"/p/" + profile.username}
+                      className="btn btn-primary">
                       Back
                     </Link>
                   </div>
@@ -235,16 +257,23 @@ class EditProfile extends React.Component {
                 onChange={handleInputChange}
               />
             </div>
-            <Uploads profileChange={profileChange} profile={profile} removeFile={() => {
-              let profile = this.state.profile;
-              profile.cvFile = {
-                name: "",
-                path: ""
-              };
-              this.setState({
-                profile
-              });
-            }}/>
+            <Uploads
+              onSuccessfullUpload={(name, value) => {
+                let { uploads } = this.state;
+                uploads[name] = value;
+                this.setState(() => ({ uploads: uploads }));
+              }}
+              profile={profile}
+              removeFile={type => {
+                let { profile, uploads } = this.state;
+                profile[type] = emptyFiles[type];
+                uploads[type] = emptyFiles[type];
+                this.setState({
+                  profile,
+                  uploads
+                });
+              }}
+            />
           </div>
         </div>
       </div>

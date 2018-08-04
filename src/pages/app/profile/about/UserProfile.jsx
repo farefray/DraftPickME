@@ -27,7 +27,7 @@ export default class UserProfile extends React.PureComponent {
     const disabledEditing = !canEdit;
 
     let socialLinksBlock =
-    profile.github || profile.facebook || profile.linkedin ? (
+      profile.github || profile.facebook || profile.linkedin ? (
         <div>
           <div className="col-md-12 no-padding-left">
             <ul>
@@ -68,24 +68,31 @@ export default class UserProfile extends React.PureComponent {
         <div />
       );
 
-    const CVBlock = profile.cvFile && profile.cvFile.path ? (
-      <div>
-        <a className="black-button" href={profile.cvFile.path} target="_blank" rel="noopener noreferrer">
-          <i className="fa fa-download" />
-          Download CV
-        </a>
-      </div>
-    ) : (
-      <div>
-        {canEdit ? (
-          <Link to={"/" + profile.username + "/edit"} className="black-button">
-            Edit profile.
-          </Link>
-        ) : (
-          <span />
-        )}
-      </div>
-    );
+    const CVBlock =
+      profile.cvFile && profile.cvFile.path ? (
+        <React.Fragment>
+          <a
+            className="black-button"
+            href={profile.cvFile.path}
+            target="_blank"
+            rel="noopener noreferrer">
+            <i className="fa fa-download" />
+            Download CV
+          </a>
+        </React.Fragment>
+      ) : (
+        <div>
+          {canEdit ? (
+            <Link
+              to={"/" + profile.username + "/edit"}
+              className="black-button">
+              Edit profile.
+            </Link>
+          ) : (
+            <span />
+          )}
+        </div>
+      );
 
     return (
       <div className="row animated fadeInUp">
@@ -94,7 +101,7 @@ export default class UserProfile extends React.PureComponent {
             <img
               className="img-responsive"
               alt="profile-img"
-              src="http://placehold.it/270x340"
+              src={profile.photo || "http://placehold.it/270x340"}
             />
           </div>
           {CVBlock}
@@ -123,10 +130,7 @@ export default class UserProfile extends React.PureComponent {
                 value={profile.description}
                 defaultValue="Describe your profile more detailed."
                 handleSubmit={(name, newValue) => {
-                  return this.props.updateUserProfileValue(
-                    name,
-                    newValue
-                  );
+                  return this.props.updateUserProfileValue(name, newValue);
                 }}
               />
             </div>

@@ -801,8 +801,18 @@ Profile edit
   color: #fff;
 }
 
+.filepond--image-preview-overlay {
+  display:none;
+}
 .uploaded-csv {
   height: 60px;
+
+  .filepond--list {
+    position: relative;
+    left: auto;
+    right: auto;
+    width: 100%;
+  }
 
   .filepond--item {
     height: 45px;
@@ -878,6 +888,10 @@ about
     -webkit-box-shadow: 0 0 10px #333;
     box-shadow: 0 0 10px #333;
   }
+  .col-md-4 {
+    text-align: center;
+  }
+  
   a.black-button {
     width: 270px;
     margin: 25px auto;

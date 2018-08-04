@@ -4,9 +4,13 @@ import CVFile from "./uploads/CvFile";
 import { storage } from "@/firebase";
 
 // Import React FilePond and file type validation for it
-import { FilePond, File, registerPlugin } from "react-filepond";
+import { FilePond, registerPlugin } from "react-filepond";
 import FilepondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilepondPluginImagePreview from "filepond-plugin-image-preview";
+import FilepondPluginFileRename from 'filepond-plugin-file-rename';
 registerPlugin(FilepondPluginFileValidateType);
+registerPlugin(FilepondPluginImagePreview);
+registerPlugin(FilepondPluginFileRename);
 
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
@@ -14,7 +18,7 @@ import "filepond/dist/filepond.min.css";
 export default class Uploads extends React.PureComponent {
   static propTypes = {
     removeFile: PropTypes.func.isRequired,
-    profileChange: PropTypes.func.isRequired,
+    onSuccessfullUpload: PropTypes.func.isRequired,
     profile: PropTypes.shape({
       photo: PropTypes.string.isRequired,
       cvFile: PropTypes.shape({
@@ -24,25 +28,13 @@ export default class Uploads extends React.PureComponent {
     }).isRequired
   };
 
-  fileName = oldName => {
+  fileRename = (fileInfo) => {
     let { profile } = this.props;
-    return (
-      `${profile.firstName}_${profile.lastName}_CV.` +
-        oldName.slice(((oldName.lastIndexOf(".") - 1) >>> 0) + 2) || "txt"
-    );
-  };
-
-  handleProcessing = (
-    fieldName,
-    file,
-    metadata,
-    load,
-    error,
-    progress,
-    abort
-  ) => {
-    let rename = this.fileName(file.name);
-    let uploadTask = storage.uploadFile(file, rename);
+    return `${profile.firstName}_${profile.lastName}${fileInfo.extension}`;
+  }
+  
+  handleProcessing = (type, file, load, progress, abort) => {
+    let uploadTask = storage.uploadFile(file, type);
     progress(true, 0, 1);
     uploadTask.on(
       `state_changed`,
@@ -61,12 +53,16 @@ export default class Uploads extends React.PureComponent {
       snapshot.ref.getDownloadURL().then(downloadURL => {
         load(downloadURL);
 
-        const cvFile = {
-          path: downloadURL,
-          name: rename
-        };
-
-        this.props.profileChange("cvFile", cvFile);
+        if (type == "cvFile") {
+          const cvFile = {
+            path: downloadURL,
+            name: file.name
+          };
+          console.log(this.props);
+          this.props.onSuccessfullUpload("cvFile", cvFile);
+        } else {
+          this.props.onSuccessfullUpload("photo", downloadURL);
+        }
       });
     });
   };
@@ -74,47 +70,99 @@ export default class Uploads extends React.PureComponent {
   render() {
     let { profile } = this.props;
 
+    let cvFile = { ...profile.cvFile };
+    console.log(cvFile);
     return (
       <React.Fragment>
         <div className="form-group">
-          <label htmlFor="surnameInput">Upload your CV:</label>
-          {profile.cvFile.path !== "" ? (
+          {cvFile.path !== "" ? (
             <CVFile
-              source={profile.cvFile.path}
-              filename={profile.cvFile.name}
-              removeFile={this.props.removeFile}
+              source={cvFile.path}
+              filename={"Uploaded CV file: " + cvFile.name}
+              removeFile={() => this.props.removeFile("cvFile")}
             />
           ) : (
-            <FilePond
-              allowFileTypeValidation={true}
-              acceptedFileTypes={[
-                "application/msword",
-                "application/vnd.oasis.opendocument.text",
-                "application/rtf",
-                "text/plain",
-                "application/pdf"
-              ]}
-              allowMultiple={false}
-              maxFiles={1}
-              labelIdle={
-                'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
-              }
-              server={{ process: this.handleProcessing, revert: this.props.removeFile}}
-            />
+            <React.Fragment>
+              <label htmlFor="surnameInput">Upload your CV:</label>
+              <FilePond
+                allowFileTypeValidation={true}
+                acceptedFileTypes={[
+                  "application/msword",
+                  "application/vnd.oasis.opendocument.text",
+                  "application/rtf",
+                  "text/plain",
+                  "application/pdf"
+                ]}
+                allowFileRename={true}
+                fileRenameFunction={this.fileRename}
+                allowMultiple={false}
+                maxFiles={1}
+                labelIdle={
+                  'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
+                }
+                server={{
+                  process: (
+                    fieldName,
+                    file,
+                    metadata,
+                    load,
+                    error,
+                    progress,
+                    abort
+                  ) =>
+                    this.handleProcessing(
+                      "cvFile",
+                      file,
+                      load,
+                      progress,
+                      abort
+                    ),
+                  revert: () => this.props.removeFile("cvFile")
+                }}
+              />
+            </React.Fragment>
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="surnameInput">Upload your photo:</label>
-          <FilePond
-            allowFileTypeValidation={true}
-            acceptedFileTypes={["image/jpeg", "image/png"]}
-            allowMultiple={false}
-            maxFiles={1}
-            labelIdle={
-              'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
-            }
-            server="/api/upload">
-          </FilePond>
+          {profile.photo !== "" ? (
+            <CVFile
+              source={profile.photo}
+              filename="Photo uploaded!"
+              removeFile={() => this.props.removeFile("photo")}
+            />
+          ) : (
+            <React.Fragment>
+              <label htmlFor="surnameInput">Upload your photo:</label>
+              <FilePond
+                allowImagePreview={true}
+                imagePreviewMaxFileSize="5MB"
+                imagePreviewMinHeight={44}
+                imagePreviewMaxHeight={256}
+                allowFileTypeValidation={true}
+                allowFileRename={true}
+                fileRenameFunction={this.fileRename}
+                acceptedFileTypes={["image/jpeg", "image/png"]}
+                allowMultiple={false}
+                maxFiles={1}
+                labelIdle={
+                  'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
+                }
+                server={{
+                  process: (
+                    fieldName,
+                    file,
+                    metadata,
+                    load,
+                    error,
+                    progress,
+                    abort
+                  ) =>
+                    this.handleProcessing("photo", file, load, progress, abort),
+                  revert: () => this.props.removeFile("photo")
+                }}
+              />
+            </React.Fragment>
+          )}
         </div>
       </React.Fragment>
     );
