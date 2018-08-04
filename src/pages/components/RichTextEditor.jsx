@@ -114,7 +114,16 @@ export default class RichTextEditor extends React.Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             keyBindingFn={this.mapKeyToEditorCommand}
-            onChange={this.onChange}
+            onChange={(editorState) => {
+              // actually a dublicate of this.onChange, but somehow it stopped to work and I'm in hurry to get it done ;()
+              this.setState({ editorState });
+
+              // the raw state, stringified
+              const rawDraftContentState = JSON.stringify(
+                convertToRaw(this.state.editorState.getCurrentContent())
+              );
+
+              return this.props.onChange(rawDraftContentState);}}
             placeholder=""
             ref={this.setEditorRef}
             spellCheck={true}
@@ -137,10 +146,6 @@ function getBlockStyle(block) {
 class StyleButton extends React.Component {
   constructor() {
     super();
-    this.onToggle = e => {
-      e.preventDefault();
-      this.props.onToggle(this.props.style);
-    };
   }
 
   render() {
@@ -150,7 +155,10 @@ class StyleButton extends React.Component {
     }
 
     return (
-      <span className={className} onMouseDown={this.onToggle}>
+      <span className={className} onMouseDown={(e) => {
+        e.preventDefault();
+        this.props.onToggle(this.props.style);
+      }}>
         {this.props.label}
       </span>
     );

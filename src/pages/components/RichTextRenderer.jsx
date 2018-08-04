@@ -119,7 +119,6 @@ export default class RichTextRenderer extends React.PureComponent {
     raw = JSON.parse(raw);
 
     if (this.isEmpty(raw)) {
-      console.log('rendeder is empty')
       return this.renderWarning();
     }
 

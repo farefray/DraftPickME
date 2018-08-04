@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Editable from "react-x-editable";
-import EditableRichComponent from "../../../components/EditableRichComponent";
+import EditableRichComponent from "@/pages/components/EditableRichComponent";
 import SocialLinks from './userprofile/SocialLinks';
 import CVBlock from './userprofile/CVBlock';
 
@@ -53,7 +53,9 @@ export default class UserProfile extends React.PureComponent {
                 value={profile.title}
                 placement="bottom"
                 mode="popup"
-                handleSubmit={this.props.updateUserProfileValue}
+                handleSubmit={newBlock =>
+                  this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                }
               />
             </div>
             <hr />
@@ -81,7 +83,9 @@ export default class UserProfile extends React.PureComponent {
                         value={profile.age ? profile.age : "-"}
                         placement="bottom"
                         mode="popup"
-                        handleSubmit={this.props.updateUserProfileValue}
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                        }
                       />
                     </span>
                   </li>
@@ -92,10 +96,12 @@ export default class UserProfile extends React.PureComponent {
                         name="address"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={profile.address ? profile.adress : "-"}
+                        value={profile.address ? profile.address : "-"}
                         placement="bottom"
                         mode="popup"
-                        handleSubmit={this.props.updateUserProfileValue}
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                        }
                       />
                     </span>
                   </li>
@@ -109,7 +115,9 @@ export default class UserProfile extends React.PureComponent {
                         value={profile.email ? profile.email : "-"}
                         placement="bottom"
                         mode="popup"
-                        handleSubmit={this.props.updateUserProfileValue}
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                        }
                       />
                     </span>
                   </li>
@@ -127,7 +135,9 @@ export default class UserProfile extends React.PureComponent {
                         value={profile.phone ? profile.phone : "-"}
                         placement="bottom"
                         mode="popup"
-                        handleSubmit={this.props.updateUserProfileValue}
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                        }
                       />
                     </span>
                   </li>
@@ -141,7 +151,9 @@ export default class UserProfile extends React.PureComponent {
                         value={profile.website ? profile.website : "-"}
                         placement="bottom"
                         mode="popup"
-                        handleSubmit={this.props.updateUserProfileValue}
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                        }
                       />
                     </span>
                   </li>
@@ -155,7 +167,9 @@ export default class UserProfile extends React.PureComponent {
                         value={profile.country ? profile.country : "-"}
                         placement="bottom"
                         mode="popup"
-                        handleSubmit={this.props.updateUserProfileValue}
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(newBlock.props.name, newBlock.newValue)
+                        }
                       />
                     </span>
                   </li>
