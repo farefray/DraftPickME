@@ -3,16 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { userActions } from '@/actions';
-import { storage } from '@/firebase';
-import CVFile from './editprofile/CvFile';
-
-// Import React FilePond and file type validation for it
-import { FilePond, File, registerPlugin } from 'react-filepond';
-import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-registerPlugin(FilepondPluginFileValidateType);
-
-// Import FilePond styles
-import 'filepond/dist/filepond.min.css';
+import Uploads from "./editprofile/Uploads";
+import Forbidden from "@/pages/components/Forbidden";
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -32,7 +24,7 @@ class EditProfile extends React.Component {
           name: '',
           path: ''
         },
-        photo: [],
+        photo: profile.photo || '',
         github: profile.github || '',
         facebook: profile.facebook || '',
         linkedin: profile.linkedin || ''
@@ -47,83 +39,19 @@ class EditProfile extends React.Component {
     authUser: PropTypes.object.isRequired
   };
 
-  fileName = (oldName) => {
-    let { profile } = this.state;
-    return `${profile.firstName}_${profile.lastName}_CV.` + (oldName.slice((oldName.lastIndexOf(".") - 1 >>> 0) + 2)) || 'txt';
-  }
-
-  handleInputChange = event => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    let {profile} = this.state;
-    profile[name] = value;
-    this.setState({
-      profile
-    });
-  };
-
   render() {
     if (!this.props.canEdit) {
       // todo better way handle authorized page. I know its bad.
       return (
-        <section id="username_404">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-8 col-md-offset-2 container-404">
-                <h2>403 - Forbidden.</h2>
-                <hr className="container-404-hr" />
-                <div className="container-404-form">Access restricted.</div>
-                <p>&nbsp;</p>
-                <Link to="/" className="btn btn-link">
-                  Return
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Forbidden/>
       );
     }
 
-    const handleProcessing = (
-      fieldName,
-      file,
-      metadata,
-      load,
-      error,
-      progress,
-      abort
-    ) => {
-      let rename = this.fileName(file.name);
-      let uploadTask = storage.uploadFile(file, rename);
-      progress(true, 0, 1);
-      uploadTask.on(
-        `state_changed`,
-        snapshot => {
-          console.log(snapshot.bytesTransferred, snapshot.totalBytes);
-          let percentage =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(percentage);
-          progress(true, percentage, 1);
-        },
-        error => {
-          console.log(error);
-          abort();
-        }
-      );
-
-      uploadTask.then(snapshot => {
-        snapshot.ref.getDownloadURL().then(downloadURL => {
-          console.log('File available at', downloadURL);
-          load(downloadURL);
-
-          let profile = this.state.profile;
-          profile.cvFile.path = downloadURL;
-          profile.cvFile.name = rename;
-          this.setState({
-            profile
-          });
-        });
+    const profileChange = (name, value) => {
+      let {profile} = this.state;
+      profile[name] = value;
+      this.setState({
+        profile
       });
     };
 
@@ -131,15 +59,7 @@ class EditProfile extends React.Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-
-      console.log('change event');
-      console.log(name, value);
-
-      let profile = this.state.profile;
-      profile[name] = value;
-      this.setState({
-        profile
-      });
+      profileChange(name, value);
     };
 
     const handleSubmit = event => {
@@ -315,57 +235,16 @@ class EditProfile extends React.Component {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="surnameInput">Upload your CV:</label>
-              {profile.cvFile.path !== '' ? (
-                <CVFile
-                  source={profile.cvFile.path}
-                  filename={profile.cvFile.name}
-                  removeFile={() => {
-                    let profile = this.state.profile;
-                    profile.cvFile = {
-                      name: "",
-                      path: ""
-                    };
-                    this.setState({
-                      profile
-                    });
-                  }}
-                />
-              ) : (
-                <FilePond
-                  allowFileTypeValidation={true}
-                  acceptedFileTypes={[
-                    'application/msword',
-                    'application/vnd.oasis.opendocument.text',
-                    'application/rtf',
-                    'text/plain',
-                    'application/pdf'
-                  ]}
-                  allowMultiple={false}
-                  maxFiles={1}
-                  labelIdle={
-                    'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
-                  }
-                  server={{ process: handleProcessing }}
-                />
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="surnameInput">Upload your photo:</label>
-              <FilePond
-                allowFileTypeValidation={true}
-                acceptedFileTypes={['image/jpeg', 'image/png']}
-                allowMultiple={false}
-                maxFiles={1}
-                labelIdle={
-                  'Drag & Drop or <span class="filepond--label-action"> Browse </span>'
-                }
-                server="/api/upload"
-              >
-                {profile.photo.map(file => <File key={file} source={file} />)}
-              </FilePond>
-            </div>
+            <Uploads profileChange={profileChange} profile={profile} removeFile={() => {
+              let profile = this.state.profile;
+              profile.cvFile = {
+                name: "",
+                path: ""
+              };
+              this.setState({
+                profile
+              });
+            }}/>
           </div>
         </div>
       </div>
