@@ -6,7 +6,7 @@ import EditableRichComponent from "../../../components/EditableRichComponent";
 
 export default class UserProfile extends React.PureComponent {
   static propTypes = {
-    user: PropTypes.shape({
+    profile: PropTypes.shape({
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
       description: PropTypes.any,
@@ -16,45 +16,45 @@ export default class UserProfile extends React.PureComponent {
       website: PropTypes.string,
       country: PropTypes.string,
       email: PropTypes.string,
-      cvFile: PropTypes.string
+      cvFile: PropTypes.object
     }).isRequired,
     updateUserProfileValue: PropTypes.func.isRequired,
     canEdit: PropTypes.bool.isRequired
   };
 
   render() {
-    const { user, canEdit } = this.props;
+    const { profile, canEdit } = this.props;
     const disabledEditing = !canEdit;
 
     let socialLinksBlock =
-      user.github || user.facebook || user.linkedin ? (
+    profile.github || profile.facebook || profile.linkedin ? (
         <div>
           <div className="col-md-12 no-padding-left">
             <ul>
               <li className="social-media">
                 <p className="info-title">Social Links</p>
               </li>
-              {user.github ? (
+              {profile.github ? (
                 <li className="social-media icons">
-                  <a href={user.github} target="_blank" rel="noopener">
+                  <a href={profile.github} target="_blank" rel="noopener">
                     <i className="fa fa-github" />
                   </a>
                 </li>
               ) : (
                 ""
               )}
-              {user.linkedin ? (
+              {profile.linkedin ? (
                 <li className="social-media icons">
-                  <a href={user.linkedin} target="_blank" rel="noopener">
+                  <a href={profile.linkedin} target="_blank" rel="noopener">
                     <i className="fa fa-linkedin" />
                   </a>
                 </li>
               ) : (
                 ""
               )}
-              {user.facebook ? (
+              {profile.facebook ? (
                 <li className="social-media icons">
-                  <a href={user.facebook} target="_blank" rel="noopener">
+                  <a href={profile.facebook} target="_blank" rel="noopener">
                     <i className="fa fa-facebook" />
                   </a>
                 </li>
@@ -68,9 +68,9 @@ export default class UserProfile extends React.PureComponent {
         <div />
       );
 
-    const CVBlock = user.cvFile ? (
+    const CVBlock = profile.cvFile && profile.cvFile.path ? (
       <div>
-        <a className="black-button" href={user.cvFile}>
+        <a className="black-button" href={profile.cvFile.path} target="_blank" rel="noopener noreferrer">
           <i className="fa fa-download" />
           Download CV
         </a>
@@ -78,7 +78,7 @@ export default class UserProfile extends React.PureComponent {
     ) : (
       <div>
         {canEdit ? (
-          <Link to={"/" + user.username + "/edit"} className="black-button">
+          <Link to={"/" + profile.username + "/edit"} className="black-button">
             Edit profile.
           </Link>
         ) : (
@@ -102,14 +102,14 @@ export default class UserProfile extends React.PureComponent {
         <div className="col-md-8">
           <div className="about-info">
             <h2>
-              {user.lastName} {user.firstName}
+              {profile.lastName} {profile.firstName}
             </h2>
             <div className="strong-p">
               <Editable
                 name="title"
                 dataType="text"
                 disabled={disabledEditing}
-                value={user.title}
+                value={profile.title}
                 placement="bottom"
                 mode="popup"
                 handleSubmit={this.props.updateUserProfileValue}
@@ -120,7 +120,7 @@ export default class UserProfile extends React.PureComponent {
               <EditableRichComponent
                 name="description"
                 disabled={disabledEditing}
-                value={user.description}
+                value={profile.description}
                 defaultValue="Describe your profile more detailed."
                 handleSubmit={(name, newValue) => {
                   return this.props.updateUserProfileValue(
@@ -140,7 +140,7 @@ export default class UserProfile extends React.PureComponent {
                         name="age"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={user.age ? user.age : "-"}
+                        value={profile.age ? profile.age : "-"}
                         placement="bottom"
                         mode="popup"
                         handleSubmit={this.props.updateUserProfileValue}
@@ -154,7 +154,7 @@ export default class UserProfile extends React.PureComponent {
                         name="address"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={user.address ? user.adress : "-"}
+                        value={profile.address ? profile.adress : "-"}
                         placement="bottom"
                         mode="popup"
                         handleSubmit={this.props.updateUserProfileValue}
@@ -168,7 +168,7 @@ export default class UserProfile extends React.PureComponent {
                         name="email"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={user.email ? user.email : "-"}
+                        value={profile.email ? profile.email : "-"}
                         placement="bottom"
                         mode="popup"
                         handleSubmit={this.props.updateUserProfileValue}
@@ -186,7 +186,7 @@ export default class UserProfile extends React.PureComponent {
                         name="phone"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={user.phone ? user.phone : "-"}
+                        value={profile.phone ? profile.phone : "-"}
                         placement="bottom"
                         mode="popup"
                         handleSubmit={this.props.updateUserProfileValue}
@@ -200,7 +200,7 @@ export default class UserProfile extends React.PureComponent {
                         name="website"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={user.website ? user.website : "-"}
+                        value={profile.website ? profile.website : "-"}
                         placement="bottom"
                         mode="popup"
                         handleSubmit={this.props.updateUserProfileValue}
@@ -214,7 +214,7 @@ export default class UserProfile extends React.PureComponent {
                         name="country"
                         dataType="text"
                         disabled={disabledEditing}
-                        value={user.country ? user.country : "-"}
+                        value={profile.country ? profile.country : "-"}
                         placement="bottom"
                         mode="popup"
                         handleSubmit={this.props.updateUserProfileValue}

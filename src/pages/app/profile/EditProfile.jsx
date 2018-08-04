@@ -28,7 +28,10 @@ class EditProfile extends React.Component {
         phone: profile.phone || '',
         title: profile.title || '',
         enabled: profile.enabled || false,
-        cvFile: profile.cvFile || '',
+        cvFile: profile.cvFile || {
+          name: '',
+          path: ''
+        },
         photo: [],
         github: profile.github || '',
         facebook: profile.facebook || '',
@@ -44,15 +47,16 @@ class EditProfile extends React.Component {
     authUser: PropTypes.object.isRequired
   };
 
+  fileName = (oldName) => {
+    let { profile } = this.state;
+    return `${profile.firstName}_${profile.lastName}_CV.` + (oldName.slice((oldName.lastIndexOf(".") - 1 >>> 0) + 2)) || 'txt';
+  }
+
   handleInputChange = event => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-
-    console.log('change event');
-    console.log(name, value);
-
-    let profile = this.state.profile;
+    let {profile} = this.state;
     profile[name] = value;
     this.setState({
       profile
@@ -90,11 +94,8 @@ class EditProfile extends React.Component {
       progress,
       abort
     ) => {
-      // handle file upload here
-      console.log(' handle file upload here');
-      console.log(file);
-
-      let uploadTask = storage.uploadFile(file);
+      let rename = this.fileName(file.name);
+      let uploadTask = storage.uploadFile(file, rename);
       progress(true, 0, 1);
       uploadTask.on(
         `state_changed`,
@@ -106,12 +107,8 @@ class EditProfile extends React.Component {
           progress(true, percentage, 1);
         },
         error => {
-          //Error
           console.log(error);
           abort();
-        },
-        () => {
-          //Success
         }
       );
 
@@ -121,7 +118,8 @@ class EditProfile extends React.Component {
           load(downloadURL);
 
           let profile = this.state.profile;
-          profile.cvFile = downloadURL;
+          profile.cvFile.path = downloadURL;
+          profile.cvFile.name = rename;
           this.setState({
             profile
           });
@@ -151,7 +149,6 @@ class EditProfile extends React.Component {
     };
 
     const { profile } = this.state;
-    console.log(profile.cvFile);
     return (
       <div id="profile_edit">
         <div className="row">
@@ -320,12 +317,16 @@ class EditProfile extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="surnameInput">Upload your CV:</label>
-              {profile.cvFile !== '' ? (
+              {profile.cvFile.path !== '' ? (
                 <CVFile
-                  source={profile.cvFile}
+                  source={profile.cvFile.path}
+                  filename={profile.cvFile.name}
                   removeFile={() => {
                     let profile = this.state.profile;
-                    profile.cvFile = '';
+                    profile.cvFile = {
+                      name: "",
+                      path: ""
+                    };
                     this.setState({
                       profile
                     });
@@ -339,7 +340,6 @@ class EditProfile extends React.Component {
                     'application/vnd.oasis.opendocument.text',
                     'application/rtf',
                     'text/plain',
-                    'text/html',
                     'application/pdf'
                   ]}
                   allowMultiple={false}

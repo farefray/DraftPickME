@@ -7,9 +7,10 @@ import { userActions } from "../../../actions";
 
 class About extends React.PureComponent {
   updateUserProfileValue = (name, value) => {
-    let { user } = this.props;
-    user[name] = value;
-    this.props.dispatch(userActions.edit(user));
+    let { profile } = this.props;
+    profile[name] = value;
+    //todo uid
+    this.props.dispatch(userActions.edit(profile));
   };
 
   render() {
@@ -22,7 +23,7 @@ class About extends React.PureComponent {
       <section id="about">
         <div className="container">
           <UserProfile
-            user={profile}
+            profile={profile}
             canEdit={this.props.canEdit}
             updateUserProfileValue={this.updateUserProfileValue}
           />
