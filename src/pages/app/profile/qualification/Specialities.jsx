@@ -50,7 +50,7 @@ export default class Specialities extends React.Component {
     const { data } = this.state;
     data.push({
       value: "Speciality",
-      description: 'Speciality description'
+      description: "Speciality description"
     });
 
     this.update(data);
@@ -63,22 +63,39 @@ export default class Specialities extends React.Component {
     return (
       <div>
         <div className="specialities">
-        <h2>
-            {noResults ? <div/> : <div><h2><i className="fa fa-keyboard-o" /> My Specialities</h2></div>}
-        </h2>
-        <FlipMove>
+          <h2>
+            {noResults ? (
+              <div />
+            ) : (
+              <div>
+                <h2>
+                  <i className="fa fa-keyboard-o" /> My Specialities
+                </h2>
+              </div>
+            )}
+          </h2>
+          <FlipMove>
             {data.map((blockData, index) => (
-            <Speciality
+              <Speciality
                 key={index}
                 index={index}
                 canEdit={this.props.canEdit}
                 data={blockData}
                 removeAction={this.removeSpeciality}
                 editAction={this.editSpeciality}
-            />
+              />
             ))}
-            <div key="buttonAddContainer"><ButtonAdd onClick={this.addSpeciality} entityName="speciality"/></div>
-        </FlipMove>
+            <div key="buttonAddContainer">
+              {this.props.canEdit ? (
+                <ButtonAdd
+                  onClick={this.addSpeciality}
+                  entityName="speciality"
+                />
+              ) : (
+                <div />
+              )}
+            </div>
+          </FlipMove>
         </div>
       </div>
     );

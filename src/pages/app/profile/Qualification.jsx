@@ -15,10 +15,17 @@ class Qualification extends Component {
 
     this.state = {
       qualification: {
-        skills: qualification && qualification.skills ? qualification.skills : [],
-        languages: qualification && qualification.languages ? qualification.languages : [],
+        skills:
+          qualification && qualification.skills ? qualification.skills : [],
+        languages:
+          qualification && qualification.languages
+            ? qualification.languages
+            : [],
         jobs: qualification && qualification.jobs ? qualification.jobs : [],
-        specialities: qualification && qualification.specialities ? qualification.specialities : [],
+        specialities:
+          qualification && qualification.specialities
+            ? qualification.specialities
+            : []
       },
       unsaved: false
     };
@@ -44,8 +51,10 @@ class Qualification extends Component {
   // and those edit actions will change user and pass updates user state via props. And then, saving user profile from redux to database on action.
   updateUserProfile = () => {
     let { qualification } = this.props.profile;
-    qualification = {...this.state.qualification};
-    this.props.dispatch(userActions.editProfileValue('qualification', qualification));
+    qualification = { ...this.state.qualification };
+    this.props.dispatch(
+      userActions.editProfileValue("qualification", qualification)
+    );
 
     this.setState({
       unsaved: false
@@ -81,6 +90,7 @@ class Qualification extends Component {
       minHeight: "150px"
     };
 
+    const { canEdit } = this.props;
     return (
       <section id="skills">
         <div className="container animated fadeInDown">
@@ -89,13 +99,13 @@ class Qualification extends Component {
             <div className="col-md-4">
               <Skills
                 data={skills}
-                canEdit={this.props.canEdit}
+                canEdit={canEdit}
                 name="skills"
                 onChange={this.onChange}
               />
               <Languages
                 data={languages}
-                canEdit={this.props.canEdit}
+                canEdit={canEdit}
                 name="languages"
                 onChange={this.onChange}
               />
@@ -103,7 +113,7 @@ class Qualification extends Component {
             <div className="col-md-4" style={minHeight}>
               <Jobs
                 data={jobs}
-                canEdit={this.props.canEdit}
+                canEdit={canEdit}
                 name="jobs"
                 onChange={this.onChange}
               />
@@ -111,7 +121,7 @@ class Qualification extends Component {
             <div className="col-md-4">
               <Specialities
                 data={specialities}
-                canEdit={this.props.canEdit}
+                canEdit={canEdit}
                 name="specialities"
                 onChange={this.onChange}
               />

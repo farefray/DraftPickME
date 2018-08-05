@@ -19,10 +19,7 @@ export default class Skills extends React.Component {
   };
 
   update(data) {
-    this.props.onChange(
-      this.props.name,
-      data
-    );
+    this.props.onChange(this.props.name, data);
   }
 
   editSkill = (index, name, newValue) => {
@@ -40,18 +37,24 @@ export default class Skills extends React.Component {
     });
     data = data.filter(block => {
       return block && block !== null;
-    })
+    });
     this.update(data);
   };
 
   render() {
     const { data } = this.props;
-    console.log(data);
     return (
       <div>
         <div className="skills">
           <h2>
-            {data.length > 0 ? <div><i className="fa fa-trophy" key="mainSkillsHeader" /> Main Skills</div> : <div />}
+            {data.length > 0 ? (
+              <div>
+                <i className="fa fa-trophy" key="mainSkillsHeader" /> Main
+                Skills
+              </div>
+            ) : (
+              <div />
+            )}
           </h2>
           <FlipMove>
             {data.map((data, index) => (
@@ -64,7 +67,17 @@ export default class Skills extends React.Component {
                 editAction={this.editSkill}
               />
             ))}
-            <div key="buttonAddContainer"><ButtonAdd onClick={this.addSkill} entityName="skill" key="addSkills" /></div>
+            <div key="buttonAddContainer">
+              {this.props.canEdit ? (
+                <ButtonAdd
+                  onClick={this.addSkill}
+                  entityName="skill"
+                  key="addSkills"
+                />
+              ) : (
+                <div />
+              )}
+            </div>
           </FlipMove>
         </div>
       </div>

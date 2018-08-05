@@ -53,7 +53,7 @@ export default class Languages extends React.Component {
     const { data } = this.state;
     data.push({
       value: "Language",
-      percent: 'Beginner'
+      percent: "Beginner"
     });
 
     this.update(data);
@@ -67,7 +67,13 @@ export default class Languages extends React.Component {
       <div>
         <div className="skills languages margin-top">
           <h2>
-            {noResults ? <div /> : <div><i className="fa fa-globe" key="mainSkillsHeader" /> Languages</div>}
+            {noResults ? (
+              <div />
+            ) : (
+              <div>
+                <i className="fa fa-globe" key="mainSkillsHeader" /> Languages
+              </div>
+            )}
           </h2>
           <FlipMove>
             {data.map((blockData, index) => (
@@ -80,7 +86,17 @@ export default class Languages extends React.Component {
                 editAction={this.editLanguage}
               />
             ))}
-            <div key="buttonAddContainer"><ButtonAdd onClick={this.addLanguage} entityName="language" key="addLanguages" /></div>
+            <div key="buttonAddContainer">
+              {this.props.canEdit ? (
+                <ButtonAdd
+                  onClick={this.addLanguage}
+                  entityName="language"
+                  key="addLanguages"
+                />
+              ) : (
+                <div />
+              )}
+            </div>
           </FlipMove>
         </div>
       </div>

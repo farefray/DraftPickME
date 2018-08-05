@@ -89,9 +89,9 @@ export default class Jobs extends React.Component {
                 editAction={this.editJob}
               />
             ))}
-            <div key="buttonAddContainer">
+            {this.props.canEdit ? <div key="buttonAddContainer">
               <ButtonAdd onClick={this.addJob} entityName="job" />
-            </div>
+            </div> : <div/>}
           </FlipMove>
         </div>
       </div>
