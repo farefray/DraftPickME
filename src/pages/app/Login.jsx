@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { userActions } from "@/actions";
+import { AwesomeButton } from "react-awesome-button";
 
 class Login extends React.Component {
   static propTypes = {
@@ -26,16 +27,18 @@ class Login extends React.Component {
     const cannotSubmit = password === "" || email === "";
 
     return (
-      <div className="col-md-6 col-md-offset-3">
+      <div id="login" className="col-md-6 col-md-offset-3">
         <h2>Authorize Yourself</h2>
-        <form name="form" onSubmit={(e) => {
-          e.preventDefault();
+        <form
+          name="form"
+          onSubmit={e => {
+            e.preventDefault();
 
-          const { email, password } = this.state;
-          if (email && password) {
-            this.props.dispatch(userActions.login(email, password));
-          }
-        }}>
+            const { email, password } = this.state;
+            if (email && password) {
+              this.props.dispatch(userActions.login(email, password));
+            }
+          }}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -65,12 +68,14 @@ class Login extends React.Component {
             />
           </div>
           <div className="form-group">
-            <button className="btn btn-primary" disabled={cannotSubmit}>
+            <AwesomeButton disabled={cannotSubmit} type="primary">
               Sign In
-            </button>
-            <Link to="/register" className="btn btn-link">
-              Register
-            </Link>
+            </AwesomeButton>
+
+            <AwesomeButton type="secondary" element={Link} to={`/register`}>
+            Register
+            </AwesomeButton>
+
             <Link to="/" className="btn btn-link right">
               Back
             </Link>
@@ -84,4 +89,3 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
 const connectedLogin = connect(mapDispatchToProps)(Login);
 export { connectedLogin as Login };
-

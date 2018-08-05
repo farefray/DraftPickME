@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import { AwesomeButton } from "react-awesome-button";
 import { userActions } from "@/actions";
 
 const INITIAL_STATE = {
@@ -31,13 +31,22 @@ class Register extends React.Component {
   handleSubmit = event => {
     const { user } = this.state;
 
+    // TODO P3 some basic validation on frontend, to avoid 'spam on button requests'
+
     this.props.dispatch(userActions.register(user));
 
     event.preventDefault();
   };
 
   render() {
-    const { firstName, lastName, username, email, password, passwordConfirm } = this.state.user;
+    const {
+      firstName,
+      lastName,
+      username,
+      email,
+      password,
+      passwordConfirm
+    } = this.state.user;
     const { error } = this.state;
 
     const cannotSubmit =
@@ -133,9 +142,9 @@ class Register extends React.Component {
           </div>
           <div className="form-group">{error && <p>{error.message}</p>}</div>
           <div className="form-group">
-            <button className="btn btn-primary" disabled={cannotSubmit}>
-              Register
-            </button>
+            <AwesomeButton disabled={cannotSubmit} type="primary">
+              Sign In
+            </AwesomeButton>
             <Link to="/login" className="btn btn-link">
               Cancel
             </Link>

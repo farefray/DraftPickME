@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { db } from "@/firebase"; // move to service or action TODO P2
 import SignOutButton from "@/pages/components/SignOut";
+import { AwesomeButton } from "react-awesome-button";
 
 import {
   initHeader,
@@ -59,16 +60,25 @@ class Homepage extends React.Component {
                   <div className="col-md-6 col-md-offset-3">
                     <UserList users={users} />
                     {!authUser ? (
-                      <Link to="/login" className="right">
+                      <AwesomeButton
+                        type="primary"
+                        element={Link}
+                        to={`/login`}>
                         Login / Register
-                      </Link>
+                      </AwesomeButton>
                     ) : (
                       <div
                         className="btn-group right"
                         role="group"
                         aria-label="Action buttons">
                         <Link
-                          to={"/p/" + (users && authUser && authUser.uid ? users[authUser.uid].username : "") + "/edit"}
+                          to={
+                            "/p/" +
+                            (users && authUser && authUser.uid
+                              ? users[authUser.uid].username
+                              : "") +
+                            "/edit"
+                          }
                           className="btn btn-success right">
                           Edit your profile
                         </Link>

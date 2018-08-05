@@ -5,6 +5,7 @@ import {
 } from 'react-dom'
 import { Provider } from 'react-redux';
 import store from './store'
+import 'react-awesome-button/dist/styles.css';
 import './styles/main.scss'
 import { App } from "./pages/App";
 
