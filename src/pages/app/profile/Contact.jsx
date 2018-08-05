@@ -26,11 +26,11 @@ class Contact extends React.Component {
   };
 
   focusContactForm = event => {
+    event.preventDefault();
     this.fullNameField.current.value = "Your potencial rabotodatel";
     this.messageField.current.value =
       "Hello! We could hire you, are you still interested? [Julz gonna write some attractive text example here ;)]";
     this.emailField.current.focus();
-    event.preventDefault();
   };
 
   submitContactForm = e => {
@@ -51,12 +51,16 @@ class Contact extends React.Component {
             <div className="col-md-12">
               <div className="hire-wrapper">
                 <h3>I'm available for hire!</h3>
-                <a
-                  className="smooth"
-                  href="#contact"
-                  onClick={this.focusContactForm}>
-                  <i className="fa fa-envelope" /> Hire Me
-                </a>
+                {!contacted ? (
+                  <a
+                    className="smooth"
+                    href="#contact"
+                    onClick={this.focusContactForm}>
+                    <i className="fa fa-envelope" /> Hire Me
+                  </a>
+                ) : (
+                  <div />
+                )}
                 <i className="fa fa-envelope-o" />
               </div>
             </div>
