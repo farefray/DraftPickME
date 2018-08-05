@@ -6,7 +6,7 @@ const LogoBlock = () => {
         <Link to="/">
             <img className="img-responsive" alt="logo" src="/images/logo.png" />
         </Link>
-        <div className="animated rotateInDownLeft col-md-4">
+        <div className="col-md-4">
             What does it mean to be a draft pick? A draft is a process used
             in some countries and sports to allocate certain players to
             teams. In a draft, teams take turns selecting from a pool of
