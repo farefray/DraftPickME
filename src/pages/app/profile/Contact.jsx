@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SocialLinks from "./contact/SocialLinks";
-import userService from "@/services";
+import { userService } from "@/services";
 
 class Contact extends React.Component {
   constructor(props) {
@@ -66,7 +66,10 @@ class Contact extends React.Component {
               <h2>Get In touch</h2>
               <hr className="contact-hr" />
               {contacted ? (
-                <React.Fragment> <h3>Thanks for contacting {profile.username}!</h3></React.Fragment>
+                <React.Fragment>
+                  {" "}
+                  <h3>Thanks for contacting {profile.username}!</h3>
+                </React.Fragment>
               ) : (
                 <div className="contact-form">
                   <form method="post">

@@ -236,7 +236,7 @@ class EditProfile extends React.Component {
                 placeholder="john.doe@gmail.com"
                 name="email"
                 value={profile.email}
-                onChange={this.handleInputChange}
+                disabled="true"
               />
             </div>
             <div className="form-group">
