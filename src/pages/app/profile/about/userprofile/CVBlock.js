@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const SocialLinks = (props) => {
+const CVBlock = (props) => {
   return  props.cvFile && props.cvFile.path ? (
     <React.Fragment>
       <a
@@ -31,7 +31,7 @@ const SocialLinks = (props) => {
   )
 }
 
-SocialLinks.propTypes = {
+CVBlock.propTypes = {
   username: PropTypes.string.isRequired,
   cvFile: PropTypes.shape({
     path: PropTypes.string.isRequired
@@ -39,4 +39,4 @@ SocialLinks.propTypes = {
   canEdit: PropTypes.bool.isRequired
 };
 
-export default SocialLinks;
+export default CVBlock;

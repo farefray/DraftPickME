@@ -11,31 +11,7 @@ import {
   addListeners
 } from "@/js/homepageAnimation";
 
-const profileLink = username => {
-  return "/p/" + username;
-};
-
-const UserList = ({ users }) => (
-  <div>
-    <h2>List of users</h2>
-    {Object.keys(users).map(
-      key =>
-        users[key].enabled ? (
-          <div key={key}>
-            <Link to={profileLink(users[key].username)}>
-              {users[key].firstName + " " + users[key].lastName}
-            </Link>{" "}
-          </div>
-        ) : (
-          ""
-        )
-    )}
-  </div>
-);
-
-UserList.propTypes = {
-  users: PropTypes.object.isRequired
-};
+import UserList from "./homepage/UserList";
 
 class Homepage extends React.Component {
   state = {
@@ -61,14 +37,6 @@ class Homepage extends React.Component {
     const { users } = this.state;
     const { authUser } = this.props;
 
-    console.log(this.props);
-    const usersBlock = (
-      <div>
-        {!users && <em>Loading users...</em>}
-        {!!users && <UserList users={users} />}
-      </div>
-    );
-
     return (
       <div id="home" className="large-header">
         <canvas id="demo-canvas" />
@@ -89,13 +57,23 @@ class Homepage extends React.Component {
                 </div>
                 <div className="row">
                   <div className="col-md-6 col-md-offset-3">
-                    <div>{users && usersBlock}</div>
+                    <UserList users={users} />
                     {!authUser ? (
                       <Link to="/login" className="right">
                         Login / Register
                       </Link>
                     ) : (
-                      <SignOutButton />
+                      <div
+                        className="btn-group right"
+                        role="group"
+                        aria-label="Action buttons">
+                        <Link
+                          to={"/p/" + (users && authUser && authUser.uid ? users[authUser.uid].username : "") + "/edit"}
+                          className="btn btn-success right">
+                          Edit your profile
+                        </Link>
+                        <SignOutButton />
+                      </div>
                     )}
                   </div>
                 </div>
