@@ -1,35 +1,49 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SocialLinks from "./contact/SocialLinks";
+import userService from "@/services";
 
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 
-    this.usernameField = React.createRef();
+    this.fullNameField = React.createRef();
     this.messageField = React.createRef();
     this.emailField = React.createRef();
+
+    this.state = {
+      contactData: {
+        email: "",
+        fullName: "",
+        message: ""
+      },
+      contacted: false
+    };
   }
 
   static propTypes = {
     profile: PropTypes.object.isRequired
   };
 
-  focusContactForm = (event) => {
-    this.usernameField.current.value = "Your potencial rabotodatel";
+  focusContactForm = event => {
+    this.fullNameField.current.value = "Your potencial rabotodatel";
     this.messageField.current.value =
       "Hello! We could hire you, are you still interested? [Julz gonna write some attractive text example here ;)]";
     this.emailField.current.focus();
     event.preventDefault();
   };
 
-  submitContactForm = () => {
-    alert("todo");
+  submitContactForm = e => {
+    e.preventDefault();
+    const { contactData } = this.state;
+    const { profile } = this.props;
+    userService.contactUser(profile.email, contactData);
+    this.setState({ contacted: true });
   };
-
 
   render() {
     const { profile } = this.props;
+    const { contacted } = this.state;
     return (
       <section id="contact">
         <div className="container">
@@ -51,40 +65,59 @@ class Contact extends React.Component {
             <div className="col-md-7 contact-form-container">
               <h2>Get In touch</h2>
               <hr className="contact-hr" />
-              <div className="contact-form">
-                <form method="post">
-                  <div className="group-them">
-                    <i className="user-icon fa fa-user-plus" />
-                    <input
-                      id="fullname"
-                      type="text"
-                      name="username"
-                      placeholder="Username"
-                      ref={this.usernameField}
+              {contacted ? (
+                <React.Fragment> <h3>Thanks for contacting {profile.username}!</h3></React.Fragment>
+              ) : (
+                <div className="contact-form">
+                  <form method="post">
+                    <div className="group-them">
+                      <i className="user-icon fa fa-user-plus" />
+                      <input
+                        id="fullname"
+                        type="text"
+                        name="fullName"
+                        placeholder="Full Name"
+                        ref={this.fullNameField}
+                        onChange={e => {
+                          const { contactData } = this.state;
+                          contactData.fullName = e.target.value;
+                          this.setState({ contactData });
+                        }}
+                      />
+                    </div>
+                    <div className="group-them">
+                      <i className="email-icon fa fa-envelope" />
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        ref={this.emailField}
+                        onChange={e => {
+                          const { contactData } = this.state;
+                          contactData.email = e.target.value;
+                          this.setState({ contactData });
+                        }}
+                      />
+                    </div>
+                    <textarea
+                      id="message"
+                      placeholder="Your Message"
+                      ref={this.messageField}
+                      onChange={e => {
+                        const { contactData } = this.state;
+                        contactData.message = e.target.value;
+                        this.setState({ contactData });
+                      }}
                     />
-                  </div>
-                  <div className="group-them">
-                    <i className="email-icon fa fa-envelope" />
-                    <input
-                      id="email"
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      ref={this.emailField}
-                    />
-                  </div>
-                  <textarea
-                    id="message"
-                    placeholder="Your Message"
-                    ref={this.messageField}
-                  />
-                  <div className="btn" onClick={this.submitContactForm}>
-                    <span>
-                      <i className="fa fa-location-arrow" /> Send Message
-                    </span>
-                  </div>
-                </form>
-              </div>
+                    <div className="btn" onClick={this.submitContactForm}>
+                      <span>
+                        <i className="fa fa-location-arrow" /> Send Message
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              )}
               <div id="response_brought" />
               <p>&nbsp;</p>
             </div>
@@ -103,11 +136,16 @@ class Contact extends React.Component {
                   <div className="contact-info">
                     <p>
                       <i className="fa fa-envelope" />{" "}
-                      <strong>&nbsp; Email:</strong> <a href={"mailto:" + profile.email} >{profile.email}</a>
+                      <strong>&nbsp; Email:</strong>{" "}
+                      <a href={"mailto:" + profile.email}>{profile.email}</a>
                     </p>
                   </div>
                 )}
-                <SocialLinks github={profile.github} facebook={profile.facebook} linkedin={profile.linkedin}/>
+                <SocialLinks
+                  github={profile.github}
+                  facebook={profile.facebook}
+                  linkedin={profile.linkedin}
+                />
               </div>
             </div>
           </div>

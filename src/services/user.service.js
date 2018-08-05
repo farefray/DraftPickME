@@ -8,7 +8,8 @@ export const userService = {
   edit,
   editProfileValue,
   uploadCV,
-  getByUsername
+  getByUsername,
+  contactUser
 };
 
 function login(email, password) {
@@ -78,4 +79,8 @@ function editProfileValue(name, value) {
 
 function uploadCV(file) {
   return storage.uploadCV(file);
+}
+
+function contactUser(email, contactData) {
+  return db.storeContact(email, contactData);
 }
