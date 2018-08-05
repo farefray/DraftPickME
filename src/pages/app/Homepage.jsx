@@ -42,8 +42,11 @@ class Homepage extends React.Component {
         <canvas id="demo-canvas" />
         <div id="large-header">
           <div className="homepage-container">
-            <div className="col-md-6">
+            <div className="homepage-logo animated fadeIn">
               <LogoBlock />
+              <div className="user-list">
+                <UserList users={users} />
+              </div>
             </div>
 
             <div className="project-description col-md-3">
@@ -51,10 +54,6 @@ class Homepage extends React.Component {
               <h4>This website was created in order to learn React and to partially show off my learning posibilities and developing skills. Here, you can create a resume profile for yourself, or browse existing.</h4>
             </div>
             
-            <div className="user-list">
-              <UserList users={users} />
-            </div>
-
             <div className="action-buttons">
               {!authUser ? (
                 <AwesomeButton type="primary" element={Link} to={`/login`}>

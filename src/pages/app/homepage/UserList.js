@@ -10,24 +10,34 @@ const UserList = (props) => {
   const { users } = props;
 
   if (users === null) {
-    return "Loading...";
+    return <div>Loading...</div>;
   }
 
-  return  (<div>
-    <h2>List of users</h2>
+  return (<li className="m-dropdown">
+	<div className="e-button open">
+		View profiles
+		<div className="e-burger">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<ul className="e-list">
     {Object.keys(users).map(
       key =>
-      users[key].enabled ? (
-          <div key={key}>
+        users[key].enabled ? (
+          <li key={key}>
             <Link to={profileLink(users[key].username)}>
               {users[key].firstName + " " + users[key].lastName}
             </Link>{" "}
-          </div>
+          </li>
         ) : (
           ""
         )
     )}
-  </div>);
+	</ul>
+</li>);
 }
 
 UserList.propTypes = {

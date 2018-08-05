@@ -618,6 +618,10 @@ nav {
     justify-self: start;
     height: 125px;
     margin-top: 25px;
+
+    div {
+      color: #cecece;
+    }
   }
   .bottom {
     justify-self: end;
@@ -793,8 +797,17 @@ Home
     flex-wrap: wrap;
     align-items: stretch;
 
-    .logo {
-      margin: 15px;      
+    .homepage-logo {
+      margin: 15px; 
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      align-items: center;
+      .user-list {
+        margin-left: auto;
+        max-height: 100px;
+      }
     }
 
     .project-description {
@@ -822,11 +835,7 @@ Home
         transition-delay: .72s;
         text-shadow: 1px 1px 1px black;
       }
-    }
-
-    .user-list{
-      align-self: center;
-    }
+    }    
 
     .action-buttons {
       display: flex;

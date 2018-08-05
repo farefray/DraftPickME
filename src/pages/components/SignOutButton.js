@@ -5,7 +5,7 @@ import { AwesomeButton } from "react-awesome-button";
 const SignOutButton = () => {
   return (<AwesomeButton
     type="secondary"
-    onClick={() => {
+    action={() => {
       userService.logout();
     }}>
     Sign Out
