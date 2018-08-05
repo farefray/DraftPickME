@@ -6,13 +6,8 @@ const LogoBlock = () => {
         <Link to="/">
             <img className="img-responsive" alt="logo" src="/images/logo.png" />
         </Link>
-        <div className="col-md-4">
-            What does it mean to be a draft pick? A draft is a process used
-            in some countries and sports to allocate certain players to
-            teams. In a draft, teams take turns selecting from a pool of
-            eligible players. When a team selects a player, the team
-            receives exclusive rights to sign that player to a contract, and
-            no other team in the league may sign the player.
+        <div className="col-md-4 animated fadeInLeft">
+            Every year during the National Basketball Association draft each baskeball team picks players. This process is called draft pick. When selecting a player a team receives exclusive rights to sign that player to a contract. The person who is selected first among all the draftees is called `first overall draft pick`. And that is a great honor to be the draft pick #1.
         </div>
         </React.Fragment>);
 }

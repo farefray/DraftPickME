@@ -15,7 +15,8 @@ import LogoBlock from "./homepage/LogoBlock";
 
 class Homepage extends React.Component {
   state = {
-    users: null
+    users: null,
+    loaded: false
   };
 
   static propTypes = {
@@ -29,12 +30,12 @@ class Homepage extends React.Component {
 
     // todo move to some service P2
     db.onceGetUsers().then(snapshot => {
-      this.setState({ users: snapshot.val() });
+      this.setState({ users: snapshot.val(), loaded: true });
     });
   }
 
   render() {
-    const { users } = this.state;
+    const { users, loaded } = this.state;
     const { authUser } = this.props;
 
     return (
@@ -45,13 +46,13 @@ class Homepage extends React.Component {
             <div className="homepage-logo animated fadeIn">
               <LogoBlock />
               <div className="user-list">
-                <UserList users={users} />
+                {loaded ? <UserList users={users} /> : ""}
               </div>
             </div>
 
-            <div className="project-description col-md-3">
+            <div className="project-description col-md-5 animated fadeIn">
               <h3>Hello, my name is Maksym Fedan.</h3>
-              <h4>This website was created in order to learn React and to partially show off my learning posibilities and developing skills. Here, you can create a resume profile for yourself, or browse existing.</h4>
+              <h4>This website was created in order to learn React and to partially show my learning and developing skills. Now I`m searching for a job as the Frontend/Full-stack developer and here you can see <span className="fancy"><Link to="/p/farefray">more information</Link></span> about my skills and experience. <br/>In case you are also seeking for an experienced QA <span className="fancy"><Link to="/p/julz">I can recommend you one ;)</Link></span> And if you are not a recrutier but a person who is searching for a job just like me, you can <span className="fancy"><Link to="/register">create a resume profile</Link></span> for yourself.</h4>
             </div>
             
             <div className="action-buttons">

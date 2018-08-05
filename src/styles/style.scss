@@ -836,6 +836,27 @@ Home
         transition-delay: .72s;
         text-shadow: 1px 1px 1px black;
       }
+
+      a:before {
+        background-color: #3a3a3a;
+        -moz-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+        width: 0%;
+        -moz-transition: width .325s cubic-bezier(.65,.2,0,1);
+        -o-transition: width .325s cubic-bezier(.65,.2,0,1);
+        -webkit-transition: width .325s cubic-bezier(.65,.2,0,1);
+        transition: width .325s cubic-bezier(.65,.2,0,1);
+      }
+      a {        
+        &:hover:before {
+          width: 100%;
+        }
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }    
 
     .action-buttons {
@@ -868,6 +889,7 @@ Profile edit
   font-size: 14px;
   overflow-x: hidden;
   color: #fff;
+  height: 100%;
 }
 
 .filepond--image-preview-overlay {

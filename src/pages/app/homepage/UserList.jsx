@@ -22,15 +22,14 @@ class UserList extends React.Component {
     const { users } = this.props;
     const { opened } = this.state;
     
-    if (users === null) {
-      return <div>Loading...</div>;
+    if (!users) {
+      return <div/>;
     }
   
     let eButtonClass = "e-button" + (opened ? " open" : "");
     let listClass = "e-list" + (!opened ? " closed" : "");
     return (<li className="m-dropdown">
     <div className={eButtonClass} onClick={() => {
-      console.log('asd');
       this.setState((prevState) => {
         return {opened: !prevState.opened};
       });
