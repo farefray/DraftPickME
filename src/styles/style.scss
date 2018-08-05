@@ -177,9 +177,6 @@ section {
   font-weight: 500;
 }
 
-.container {
-  max-width: 1000px;
-}
 
 .margin-top {
   margin-top: 50px;
@@ -786,6 +783,59 @@ Home
   .sup-home {
     color: #caa669;
     font-weight: bold;
+  }
+
+  .homepage-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    .logo {
+      margin: 15px;      
+    }
+
+    .project-description {
+      align-self: center;
+
+      h3 {
+        color: #cacaca;
+        font-size: 1.8em;
+        line-height: 1.7em;
+        font-weight: 700;
+        -moz-transition-delay: .4s;
+        -o-transition-delay: .4s;
+        -webkit-transition-delay: .4s;
+        transition-delay: .4s;
+      }
+
+      h4 {
+        color: #cacaca;
+        font-style: normal;
+        font-size: 1.25em;
+        line-height: 1.4em;
+        -moz-transition-delay: .72s;
+        -o-transition-delay: .72s;
+        -webkit-transition-delay: .72s;
+        transition-delay: .72s;
+        text-shadow: 1px 1px 1px black;
+      }
+    }
+
+    .user-list{
+      align-self: center;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0 2em 2em 0;
+      a {
+        margin-right: 1em;
+      }
+    }
   }
 }
 
