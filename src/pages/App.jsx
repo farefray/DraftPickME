@@ -22,7 +22,7 @@ const Main = props => {
             key={props.location.pathname}
             classNames="fadeTranslate"
             timeout={1000}
-            mountOnEnter={true}
+            mountOnEnter={false}
             unmountOnExit={true}
           >
           <Switch location={props.location}>

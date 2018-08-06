@@ -35,7 +35,7 @@ class Homepage extends React.Component {
   }
 
   render() {
-    const { users, loaded } = this.state;
+    let { users, loaded } = this.state;
     const { authUser } = this.props;
 
     return (
@@ -46,16 +46,16 @@ class Homepage extends React.Component {
             <div className="homepage-logo animated fadeIn">
               <LogoBlock />
               <div className="user-list">
-                {loaded ? <UserList users={users} /> : ""}
+                <UserList users={users} />
               </div>
             </div>
 
-            <div className="project-description col-md-5 animated fadeIn">
+            <div className="project-description col-md-5 animated zoomIn">
               <h3>Hello, my name is Maksym Fedan.</h3>
               <h4>This website was created in order to learn React and to partially show my learning and developing skills. Now I`m searching for a job as the Frontend/Full-stack developer and here you can see <span className="fancy"><Link to="/p/farefray">more information</Link></span> about my skills and experience. <br/>In case you are also seeking for an experienced QA <span className="fancy"><Link to="/p/julz">I can recommend you one ;)</Link></span> And if you are not a recrutier but a person who is searching for a job just like me, you can <span className="fancy"><Link to="/register">create a resume profile</Link></span> for yourself.</h4>
             </div>
             
-            <div className="action-buttons">
+            {loaded ? <div className="action-buttons animated fadeIn">
               {!authUser ? (
                 <AwesomeButton type="primary" element={Link} to={`/login`}>
                   Login / Register
@@ -78,7 +78,7 @@ class Homepage extends React.Component {
                   <SignOutButton />
                 </React.Fragment>
               )}
-            </div>
+            </div> : <div/>}
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ function Navigation(props) {
   const extendedPages = props.exist ? (
     <React.Fragment>
       <li id="tt2">
-        <Link className="smooth" to={url + "/about"}>
+        <Link to={url + "/about"}>
           <i className="menu zmdi zmdi-account-box-o" />
           <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt2">
             About
@@ -20,7 +20,7 @@ function Navigation(props) {
         </Link>
       </li>
       <li id="tt3">
-        <Link className="smooth" to={url + "/qualification"}>
+        <Link to={url + "/qualification"}>
           <i className="menu fa fa-trophy" />
           <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt4">
             Qualification
@@ -28,7 +28,7 @@ function Navigation(props) {
         </Link>
       </li>
       <li id="tt4">
-        <Link className="smooth" to={url + "/experience"}>
+        <Link to={url + "/experience"}>
           <i className="menu zmdi zmdi-graduation-cap" />
           <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt3">
             Experience
@@ -36,7 +36,7 @@ function Navigation(props) {
         </Link>
       </li>
       <li id="tt5">
-        <Link className="smooth" to={url + "/contact"}>
+        <Link to={url + "/contact"}>
           <i className="menu zmdi zmdi-email " />
           <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt6">
             Contact
@@ -49,30 +49,37 @@ function Navigation(props) {
   );
 
   return (
-    <nav id="nav" className={"is-editable-" + props.canEdit}>
+    <React.Fragment>
       <div className="logo">
         <Link to="/">
           <img className="img-responsive" alt="logo" src="/images/logo.png" />
         </Link>
       </div>
-      <ul>
-        <li id="tt1">
-          <Link className="smooth" to={url}>
-            <i className="menu fa fa-home" />
-            <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt1">
-              Home
-            </div>
-          </Link>
-        </li>
-        {extendedPages}
-      </ul>
-      <div className="bottom">&copy; {currentYear}</div>
-      {props.canEdit ? (
-        <Link className="nav-controller" to={url + "/edit"}/>
-      ) : (
-        ""
-      )}
-    </nav>
+      <nav
+        id="nav"
+        className={"animated fadeInLeft is-editable-" + props.canEdit}>
+        <div className="logo-space" />
+        <ul>
+          <li id="tt1">
+            <Link to={url}>
+              <i className="menu fa fa-home" />
+              <div
+                className="mdl-tooltip mdl-tooltip--right"
+                data-mdl-for="tt1">
+                Home
+              </div>
+            </Link>
+          </li>
+          {extendedPages}
+        </ul>
+        <div className="bottom">&copy; {currentYear}</div>
+        {props.canEdit ? (
+          <Link className="nav-controller" to={url + "/edit"} />
+        ) : (
+          ""
+        )}
+      </nav>
+    </React.Fragment>
   );
 }
 

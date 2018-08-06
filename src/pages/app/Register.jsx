@@ -28,16 +28,6 @@ class Register extends React.Component {
     dispatch: PropTypes.func.isRequired
   };
 
-  handleSubmit = event => {
-    const { user } = this.state;
-
-    // TODO P3 some basic validation on frontend, to avoid 'spam on button requests'
-
-    this.props.dispatch(userActions.register(user));
-
-    event.preventDefault();
-  };
-
   render() {
     const {
       firstName,
@@ -60,7 +50,18 @@ class Register extends React.Component {
     return (
       <div className="col-md-6 col-md-offset-3">
         <h2>Register</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
+        <form
+          name="form"
+          onSubmit={event => {
+            event.preventDefault();
+            if (cannotSubmit) {
+              return;
+            }
+            const { user } = this.state;
+
+            // TODO P3 some basic validation on frontend, to avoid 'spam on button requests'
+            this.props.dispatch(userActions.register(user));
+          }}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input

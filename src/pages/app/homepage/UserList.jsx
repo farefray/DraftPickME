@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Loader from 'react-loaders'
 
 const profileLink = username => {
   return "/p/" + username;
 };
+
 
 class UserList extends React.Component {
   constructor(props) {
@@ -23,12 +25,12 @@ class UserList extends React.Component {
     const { opened } = this.state;
     
     if (!users) {
-      return <div/>;
+      return <Loader type="ball-clip-rotate-multiple" />;
     }
   
     let eButtonClass = "e-button" + (opened ? " open" : "");
     let listClass = "e-list" + (!opened ? " closed" : "");
-    return (<li className="m-dropdown">
+    return (<li className="m-dropdown animated fadeIn">
     <div className={eButtonClass} onClick={() => {
       this.setState((prevState) => {
         return {opened: !prevState.opened};

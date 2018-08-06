@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
+import { AwesomeButton } from "react-awesome-button";
 import {
   initHeader,
   initAnimation,
@@ -28,7 +28,7 @@ class Home extends React.Component {
         <div id="large-header">
           <div className="relative-table">
             <div className="table-cell">
-              <div className="container">
+              <div className="container animated fadeIn">
                 <div className="row">
                   <div className="col-md-12">
                     <h1>
@@ -48,9 +48,9 @@ class Home extends React.Component {
                     ) : (
                       ""
                     )}
-                    <Link to={"/p/" + profile.username + "/about"} className="button-style-2 text-center smooth">
-                      <i className="fa fa-file-text" /> More About Me
-                    </Link>
+                    <AwesomeButton type="primary" size="large" className="text-center" element={Link} to={"/p/" + profile.username + "/about"}>
+                    <i className="fa fa-file-text" /> More About Me
+                    </AwesomeButton>
                   </div>
                 </div>
               </div>

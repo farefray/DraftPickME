@@ -21,6 +21,15 @@
   --button-anchor-color-light: #e2ddd8;
   --button-anchor-color-hover: #4e350a;
   --button-anchor-border: 1px solid #8c633c;
+  --button-large-width: 200px;
+  --button-large-height: 50px;
+  --button-default-font-size: 16px;
+  --button-default-line-height: 40px;
+}
+
+.aws-btn--large {
+  --button-raise-level: 4px;
+  --button-hover-pressure: 2;
 }
 
 a.aws-btn {

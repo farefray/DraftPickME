@@ -596,6 +596,18 @@ Nav Menu
   }
 }
 
+.logo {
+  left: 15px;
+  position: absolute;
+  height: 125px;
+  top: 22px;
+  z-index: 1001;
+
+  div {
+    color: #cecece;
+  }
+}
+
 nav {
   position: absolute;
   left: 0;
@@ -606,22 +618,15 @@ nav {
   text-align: center;
   height: 100%;
   box-shadow: 0 0 25px #333;
-  z-index: 10000;
+  z-index: 1000;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
   justify-content: space-between;
-  .logo {
-    margin-left: 13px;
-    justify-self: start;
+  .logo-space {
     height: 125px;
-    margin-top: 25px;
-
-    div {
-      color: #cecece;
-    }
   }
   .bottom {
     justify-self: end;
@@ -652,7 +657,6 @@ nav {
     }
   }
   ul {
-    padding-top: 30px;
     list-style: none;
     padding-left: 0;
     overflow: hidden;
@@ -804,10 +808,18 @@ Home
       justify-content: flex-start;
       flex-wrap: wrap;
       align-items: center;
+      .draftpickme {
+        background: rgba(70, 70, 70, 0.5);
+        color: #e4e4e4;
+        border-radius: 40px;
+        padding: 0.5em 2em;
+        margin-left: 10px;
+      }
       .user-list {
         margin-left: auto;
-        max-height: 100px;
-        margin-right: 40px;
+        position: absolute;
+        right: 40px;
+        min-width: 160px;
       }
     }
 

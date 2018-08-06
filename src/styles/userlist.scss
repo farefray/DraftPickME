@@ -67,10 +67,10 @@
     display: block;
     width: 155px;
     margin: 0 auto;
-    background: #504949;
+    background: rgba(113, 113, 113, 0.35);
     &:hover {
       cursor: pointer;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.2);
       color: #0487cc;
       .e-burger {
         span {
@@ -130,7 +130,7 @@
     }
     &.open {
       border-color: transparent;
-      background: #504949;
+      background: rgba(113, 113, 113, 0.35);
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
       color: #0487cc;
@@ -163,13 +163,13 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     position: relative;
     max-height: 500px;
-    transition: max-height 0.25s ease-in;
+    transition: max-height 0.35s ease-in;
     transition-delay: 0.3s;
     width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
-    background: #504949;
+    background: rgba(113, 113, 113, 0.35);
     float: left;
     overflow: hidden;
     z-index: 999;
@@ -183,7 +183,7 @@
         border: none;
       }
       a {
-        @include transition(all .3s ease-in-out);
+        @include transition(all .45s ease-in-out);
         padding: 15px;
         float: left;
         width: 100%;

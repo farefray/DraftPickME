@@ -19,7 +19,7 @@ const CVBlock = (props) => {
       {props.canEdit ? (
         <React.Fragment>
         <Link
-          to={"/" + props.username + "/edit"}
+          to={"/p/" + props.username + "/edit"}
           className="black-button">
           Edit profile.
         </Link>

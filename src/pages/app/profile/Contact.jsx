@@ -53,7 +53,6 @@ class Contact extends React.Component {
                 <h3>I'm available for hire!</h3>
                 {!contacted ? (
                   <a
-                    className="smooth"
                     href="#contact"
                     onClick={this.focusContactForm}>
                     <i className="fa fa-envelope" /> Hire Me
