@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Editable from "react-x-editable";
+import Editable from "@/libs/react-x-editable/dist/editable";
 import ButtonRemove from "../components/ButtonRemove";
 
 export default class Project extends React.PureComponent {
