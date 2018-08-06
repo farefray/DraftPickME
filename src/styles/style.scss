@@ -904,6 +904,15 @@ Profile edit
   height: 100%;
 }
 
+.profile-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
 .filepond--image-preview-overlay {
   display:none;
 }

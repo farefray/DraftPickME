@@ -2,11 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { AwesomeButton } from "react-awesome-button";
-import {
-  initHeader,
-  initAnimation,
-  addListeners
-} from "../../../js/homepageAnimation.js";
+import { initHeader, initAnimation, addListeners } from "../../../js/homepageAnimation.js";
 
 class Home extends React.Component {
   static propTypes = {
@@ -14,13 +10,13 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
+    // TODO P3 animation not working once its router redirect from main page
     initHeader();
     initAnimation();
     addListeners();
   }
 
   render() {
-    console.log("profile");
     let { profile } = this.props;
     return (
       <div id="home" className="large-header">

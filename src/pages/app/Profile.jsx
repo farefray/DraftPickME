@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
 import { userService } from "@/services";
+import Loader from 'react-loaders'
 
 import {
   About,
@@ -116,7 +117,7 @@ class Profile extends React.Component {
       });
     }).catch(() => {
       this.setState({
-        profile: null,
+        profile: false,
         loading: false
       });
     });
@@ -133,13 +134,14 @@ class Profile extends React.Component {
       profile.email == authUser.email
     );
     
+    console.log(profile);
     return (
       <div>
-        <Navigation
+        {profile !== null ? <Navigation
           username={this.state.username}
           canEdit={canEditProfile}
           exist={profile !== null}
-        />
+        /> : ""}    
         {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
@@ -161,7 +163,9 @@ class Profile extends React.Component {
         ) : loading === false && profile === null ? (
           <FreeUsername username={this.state.username} />
         ) : (
-          <div />
+          <div className="profile-loading">
+            <Loader type="ball-clip-rotate-multiple" />
+          </div>
         )}
       </div>
     );
