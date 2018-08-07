@@ -1,0 +1,3 @@
+[submodule "react-x-editable"]
+	path = react-x-editable
+	url = https://github.com/farefray/react-x-editable.git
