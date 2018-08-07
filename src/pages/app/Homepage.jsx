@@ -50,7 +50,7 @@ class Homepage extends React.Component {
               </div>
             </div>
 
-            <div className="project-description col-md-5 animated zoomIn">
+            <div className="project-description col-md-5 animated fadeIn">
               <h3>Hello, my name is Maksym Fedan.</h3>
               <h4>This website was created in order to learn React and to partially show my learning and developing skills. Now I`m searching for a job as the Frontend/Full-stack developer and here you can see <span className="fancy"><Link to="/p/farefray">more information</Link></span> about my skills and experience. <br/>In case you are also seeking for an experienced QA <span className="fancy"><Link to="/p/julz">I can recommend you one ;)</Link></span> And if you are not a recrutier but a person who is searching for a job just like me, you can <span className="fancy"><Link to="/register">create a resume profile</Link></span> for yourself.</h4>
             </div>
