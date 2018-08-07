@@ -17,8 +17,6 @@ class About extends React.PureComponent {
     let { profile } = this.props;
     profile[name] = value;
     // stupid profile handling. Will be reworked into redux.
-    console.log(name, value);
-    console.log(profile);
     this.props.dispatch(userActions.editProfileValue(name, value));
   };
 

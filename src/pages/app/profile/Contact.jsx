@@ -36,6 +36,10 @@ class Contact extends React.Component {
   submitContactForm = e => {
     e.preventDefault();
     const { contactData } = this.state;
+    if (!contactData.email || !contactData.fullName || !contactData.message) {
+      return;
+    }
+    
     const { profile } = this.props;
     userService.contactUser(profile.email, contactData);
     this.setState({ contacted: true });

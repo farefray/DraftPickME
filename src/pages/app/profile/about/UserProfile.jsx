@@ -29,7 +29,7 @@ export default class UserProfile extends React.PureComponent {
     const disabledEditing = !canEdit;
 
     return (
-      <div className="row animated fadeInUp">
+      <div id="userprofile" className="row animated fadeInUp">
         <div className="col-md-4">
           <div className="profile-img">
             <img

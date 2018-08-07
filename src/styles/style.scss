@@ -999,6 +999,7 @@ about
   .profile-img img {
     -webkit-box-shadow: 0 0 10px #333;
     box-shadow: 0 0 10px #333;
+    max-width: 360px;
   }
   
   a.black-button {
@@ -1076,6 +1077,12 @@ about
   .strong-p {
     font-size: 16px;
   }
+}
+
+#userprofile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 /* ==========
