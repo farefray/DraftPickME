@@ -57,6 +57,7 @@ export default class Language extends React.Component {
             name="percent"
             index={index}
             dataType="select"
+            ignoreDefault={true}
             disabled={!canEdit}
             value={data.percent}
             placement="bottom"
