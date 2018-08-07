@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Editable from "@/libs/react-x-editable/dist/editable";
+import Editable from "@/../react-x-editable/dist/editable";
 import EditableRichComponent from "@/pages/components/EditableRichComponent";
 import SocialLinks from './userprofile/SocialLinks';
 import CVBlock from './userprofile/CVBlock';
