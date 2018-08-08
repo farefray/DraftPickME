@@ -177,7 +177,6 @@ section {
   font-weight: 500;
 }
 
-
 .margin-top {
   margin-top: 50px;
 }
@@ -512,13 +511,13 @@ Shared components
   }
 }
 
-
 /* ==========
 Login
 ========== */
+
 #login {
   .aws-btn {
-    margin-right:10px;
+    margin-right: 10px;
   }
 }
 
@@ -602,7 +601,6 @@ Nav Menu
   height: 125px;
   top: 22px;
   z-index: 1001;
-
   div {
     color: #cecece;
   }
@@ -711,7 +709,7 @@ nav {
   }
   .scroll {
     background-color: rgba(1, 1, 1, 0.9);
-  }  
+  }
   .nav-controller {
     position: absolute;
     width: 60px;
@@ -792,7 +790,6 @@ Home
     color: #caa669;
     font-weight: bold;
   }
-
   .homepage-container {
     display: flex;
     flex-direction: column;
@@ -800,9 +797,8 @@ Home
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: stretch;
-
     .homepage-logo {
-      margin: 15px; 
+      margin: 15px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -814,18 +810,19 @@ Home
         border-radius: 40px;
         padding: 0.5em 2em;
         margin-left: 10px;
+        max-width: 60%;
       }
       .user-list {
         margin-left: auto;
         position: absolute;
         right: 40px;
         min-width: 160px;
+        top: 0;
       }
     }
-
     .project-description {
       align-self: center;
-
+      padding: 0px 70px;
       h3 {
         color: #cacaca;
         font-size: 1.8em;
@@ -836,7 +833,6 @@ Home
         -webkit-transition-delay: .4s;
         transition-delay: .4s;
       }
-
       h4 {
         color: #cacaca;
         font-style: normal;
@@ -848,7 +844,6 @@ Home
         transition-delay: .72s;
         text-shadow: 1px 1px 1px black;
       }
-
       a:before {
         background-color: #3a3a3a;
         -moz-transition-delay: 0s;
@@ -856,12 +851,12 @@ Home
         -webkit-transition-delay: 0s;
         transition-delay: 0s;
         width: 0%;
-        -moz-transition: width .325s cubic-bezier(.65,.2,0,1);
-        -o-transition: width .325s cubic-bezier(.65,.2,0,1);
-        -webkit-transition: width .325s cubic-bezier(.65,.2,0,1);
-        transition: width .325s cubic-bezier(.65,.2,0,1);
+        -moz-transition: width .325s cubic-bezier(.65, .2, 0, 1);
+        -o-transition: width .325s cubic-bezier(.65, .2, 0, 1);
+        -webkit-transition: width .325s cubic-bezier(.65, .2, 0, 1);
+        transition: width .325s cubic-bezier(.65, .2, 0, 1);
       }
-      a {        
+      a {
         &:hover:before {
           width: 100%;
         }
@@ -869,14 +864,16 @@ Home
           text-decoration: none;
         }
       }
-    }    
-
-    .action-buttons {
+    }
+    .action-buttons-container {
       display: flex;
       justify-content: flex-end;
       margin: 0 2em 2em 0;
-      a {
-        margin-right: 1em;
+      min-height: 30px;
+      .action-buttons {
+        a {
+          margin-right: 1em;
+        }
       }
     }
   }
@@ -895,6 +892,7 @@ Home
 /* ==========
 Profile edit
 ========== */
+
 #profile_edit {
   background-color: #444;
   color: #444;
@@ -914,42 +912,35 @@ Profile edit
 }
 
 .filepond--image-preview-overlay {
-  display:none;
+  display: none;
 }
+
 .uploaded-csv {
   height: 60px;
-
   .filepond--list {
     position: relative;
     left: auto;
     right: auto;
     width: 100%;
   }
-
   .filepond--item {
     height: 45px;
-
     .filepond--file-wrapper {
       padding-left: 25px;
     }
   }
-
   .filepond--item-panel {
     background: #70c970;
   }
-  
   .filepond--panel-center:not([style]) {
     visibility: visible;
   }
-
   .filepond--panel-center {
     transform: translate3d(0px, 5px, 0) scale3d(1, 0.3, 1);
   }
-
   .filepond--panel-bottom {
     transform: translate3d(0px, 35px, 0);
   }
-
   .filepond--file-info .filepond--file-info-main {
     line-height: 30px;
     a {
@@ -958,35 +949,58 @@ Profile edit
       padding: 0;
     }
   }
-
   .filepond--file .filepond--action-remove-item {
     top: 1em;
     right: .5625em;
     left: auto;
-
     &:hover {
       color: #ca9469;
     }
   }
-
-  .filepond--file .filepond--file-action-button:not(.filepond--action-remove-item), .filepond--file .filepond--processing-complete-indicator {
+  .filepond--file .filepond--file-action-button:not(.filepond--action-remove-item),
+  .filepond--file .filepond--processing-complete-indicator {
     left: .5625em;
     top: 0.725em;
   }
 }
+
 /* ==========
 about
 ========== */
 
 #about {
-  max-width: 100%;
-  background: url("/images/about.png") no-repeat top center fixed;
   background-size: cover;
   background-color: #e6e6e6;
   background-blend-mode: overlay;
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
   color: #444;
   font-size: 14px;
+  #userprofile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .about-info {
+      max-height: 600px;
+      width: 700px;
+      overflow-y: auto;
+      margin: 0 150px;
+      .editable-rich-container {
+        .editable-container {
+          max-width: 600px;
+          word-wrap: break-word;
+        }
+      }
+      h2 {
+        color: #0487cc;
+        margin-top: 0;
+        span {
+          color: #333;
+        }
+      }
+    }
+  }
   div {
     line-height: 1.7;
     letter-spacing: 0.5px;
@@ -996,12 +1010,17 @@ about
     color: currentColor;
     /* ???? */
   }
-  .profile-img img {
-    -webkit-box-shadow: 0 0 10px #333;
-    box-shadow: 0 0 10px #333;
-    max-width: 360px;
+  .profile-img {
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    img {
+      -webkit-box-shadow: 0 0 10px #333;
+      box-shadow: 0 0 10px #333;
+      max-width: 360px;
+    }
   }
-  
   a.black-button {
     width: 270px;
     margin: 25px auto;
@@ -1057,32 +1076,9 @@ about
     color: #fff;
     border-color: #0487cc;
   }
-  .about-info {
-    max-height: 600px;
-    overflow-y: auto;
-    .editable-rich-container {
-      .editable-container {
-        max-width: 600px;
-        word-wrap: break-word;
-      }
-    }
-    h2 {
-      color: #0487cc;
-      margin-top: 0;
-      span {
-        color: #333;
-      }
-    }
-  }
   .strong-p {
     font-size: 16px;
   }
-}
-
-#userprofile {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 /* ==========
@@ -1172,7 +1168,6 @@ skills
 ========== */
 
 #skills {
-  background: url("/images/experience.png") no-repeat top center fixed;
   background-size: cover;
   background-color: #4b4b4b;
   background-blend-mode: overlay;
@@ -1458,7 +1453,7 @@ Contact
   textarea {
     text-indent: 0px;
   }
-  input{
+  input {
     &:focus {
       outline: none;
       border-color: #c1a068;

@@ -15,7 +15,7 @@ const CVBlock = (props) => {
       </a>
     </React.Fragment>
   ) : (
-    <div>
+    <React.Fragment>
       {props.canEdit ? (
         <React.Fragment>
         <Link
@@ -27,7 +27,7 @@ const CVBlock = (props) => {
       ) : (
         <span />
       )}
-    </div>
+    </React.Fragment>
   )
 }
 

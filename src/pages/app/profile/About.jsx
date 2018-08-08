@@ -6,7 +6,6 @@ import UserProfile from "./about/UserProfile";
 import { userActions } from "../../../actions";
 
 class About extends React.PureComponent {
-
   static propTypes = {
     profile: PropTypes.object,
     canEdit: PropTypes.bool.isRequired,
@@ -27,14 +26,12 @@ class About extends React.PureComponent {
     }
 
     return (
-      <section id="about">
-        <div className="container">
-          <UserProfile
-            profile={profile}
-            canEdit={this.props.canEdit}
-            updateUserProfileValue={this.updateUserProfileValue}
-          />
-        </div>
+      <section id="about" className="container">
+        <UserProfile
+          profile={profile}
+          canEdit={this.props.canEdit}
+          updateUserProfileValue={this.updateUserProfileValue}
+        />
       </section>
     );
   }

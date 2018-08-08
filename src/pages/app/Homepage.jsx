@@ -52,33 +52,58 @@ class Homepage extends React.Component {
 
             <div className="project-description col-md-5 animated fadeIn">
               <h3>Hello, my name is Maksym Fedan.</h3>
-              <h4>This website was created in order to learn React and to partially show my learning and developing skills. Now I`m searching for a job as the Frontend/Full-stack developer and here you can see <span className="fancy"><Link to="/p/farefray">more information</Link></span> about my skills and experience. <br/>In case you are also seeking for an experienced QA <span className="fancy"><Link to="/p/julz">I can recommend you one ;)</Link></span> And if you are not a recrutier but a person who is searching for a job just like me, you can <span className="fancy"><Link to="/register">create a resume profile</Link></span> for yourself.</h4>
+              <h4>
+                This website was created in order to learn React and to
+                partially show my learning and developing skills. Now I`m
+                searching for a job as the Frontend/Full-stack developer and
+                here you can see{" "}
+                <span className="fancy">
+                  <Link to="/p/farefray">more information</Link>
+                </span>{" "}
+                about my skills and experience. <br />In case you are also
+                seeking for an experienced QA{" "}
+                <span className="fancy">
+                  <Link to="/p/julz">I can recommend you one ;)</Link>
+                </span>{" "}
+                And if you are not a recrutier but a person who is searching for
+                a job just like me, you can{" "}
+                <span className="fancy">
+                  <Link to="/register">create a resume profile</Link>
+                </span>{" "}
+                for yourself.
+              </h4>
             </div>
-            
-            {loaded ? <div className="action-buttons animated fadeIn">
-              {!authUser ? (
-                <AwesomeButton type="primary" element={Link} to={`/login`}>
-                  Login / Register
-                </AwesomeButton>
-              ) : (
-                <React.Fragment>
-                  <AwesomeButton
-                    type="primary"
-                    element={Link}
-                    to={
-                      "/p/" +
-                      (users && authUser && authUser.uid
-                        ? users[authUser.uid].username
-                        : "") +
-                      "/edit"
-                    }>
-                    Edit your profile
-                  </AwesomeButton>
 
-                  <SignOutButton />
-                </React.Fragment>
+            <div className="action-buttons-container">
+              {loaded ? (
+                <div className="action-buttons animated fadeIn">
+                  {!authUser ? (
+                    <AwesomeButton type="primary" element={Link} to={`/login`}>
+                      Login / Register
+                    </AwesomeButton>
+                  ) : (
+                    <React.Fragment>
+                      <AwesomeButton
+                        type="primary"
+                        element={Link}
+                        to={
+                          "/p/" +
+                          (users && authUser && authUser.uid
+                            ? users[authUser.uid].username
+                            : "") +
+                          "/edit"
+                        }>
+                        Edit your profile
+                      </AwesomeButton>
+
+                      <SignOutButton />
+                    </React.Fragment>
+                  )}
+                </div>
+              ) : (
+                <div />
               )}
-            </div> : <div/>}
+            </div>
           </div>
         </div>
       </div>
