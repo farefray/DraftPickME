@@ -4,6 +4,7 @@ import Editable from "@/../react-x-editable/dist/editable";
 import EditableRichComponent from "@/pages/components/EditableRichComponent";
 import SocialLinks from "./userprofile/SocialLinks";
 import CVBlock from "./userprofile/CVBlock";
+import Image from "./userprofile/Image";
 
 export default class UserProfile extends React.PureComponent {
   static propTypes = {
@@ -31,9 +32,9 @@ export default class UserProfile extends React.PureComponent {
     return (
       <div id="userprofile" className="row animated fadeInUp">
         <div className="profile-img">
-          <img
+          <Image
             className="img-responsive"
-            alt="profile-img"
+            alt="profile-images"
             src={profile.photo || "http://placehold.it/270x340"}
           />
           <CVBlock

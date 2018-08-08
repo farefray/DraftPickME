@@ -1015,10 +1015,32 @@ about
     display: flex;
     flex-direction: column;
     justify-content: center;
-    img {
-      -webkit-box-shadow: 0 0 10px #333;
-      box-shadow: 0 0 10px #333;
-      max-width: 360px;
+    .image-component {
+      width: 360px;
+      height: 440px;
+      .image-preload {
+        background: gray;
+        width: 360px;
+        height: 440px;
+        box-shadow: 1px 1px 20px grey;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        position: absolute;
+        z-index: 2;
+        opacity: 1;
+        transition: opacity .3s;
+      }
+      .image-preload-true {
+        opacity: 0;
+      }
+      img {
+        -webkit-box-shadow: 0 0 10px #333;
+        box-shadow: 0 0 10px #333;
+        max-width: 360px;
+        max-height: 440px;
+        z-index: 2;
+      }
     }
   }
   a.black-button {
