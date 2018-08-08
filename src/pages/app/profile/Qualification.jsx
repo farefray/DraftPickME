@@ -82,9 +82,7 @@ class Qualification extends Component {
         <i className="fa fa-check-circle-o" aria-hidden="true" />
         Save
       </button>
-    ) : (
-      <div key="save_button" />
-    );
+    ) : "";
 
     const minHeight = {
       minHeight: "150px"
@@ -92,41 +90,37 @@ class Qualification extends Component {
 
     const { canEdit } = this.props;
     return (
-      <section id="skills">
-        <div className="container animated fadeInDown">
-          <div className="row">
-            {saveButton}
-            <div className="col-md-4">
-              <Skills
-                data={skills}
-                canEdit={canEdit}
-                name="skills"
-                onChange={this.onChange}
-              />
-              <Languages
-                data={languages}
-                canEdit={canEdit}
-                name="languages"
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="col-md-4" style={minHeight}>
-              <Jobs
-                data={jobs}
-                canEdit={canEdit}
-                name="jobs"
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="col-md-4">
-              <Specialities
-                data={specialities}
-                canEdit={canEdit}
-                name="specialities"
-                onChange={this.onChange}
-              />
-            </div>
-          </div>
+      <section id="skills" className="container animated fadeInDown">
+        {saveButton}
+        <div className="skills-and-languages-block">
+          <Skills
+            data={skills}
+            canEdit={canEdit}
+            name="skills"
+            onChange={this.onChange}
+          />
+          <Languages
+            data={languages}
+            canEdit={canEdit}
+            name="languages"
+            onChange={this.onChange}
+          />
+        </div>
+        <div className="jobs-block" style={minHeight}>
+          <Jobs
+            data={jobs}
+            canEdit={canEdit}
+            name="jobs"
+            onChange={this.onChange}
+          />
+        </div>
+        <div className="specialities-block">
+          <Specialities
+            data={specialities}
+            canEdit={canEdit}
+            name="specialities"
+            onChange={this.onChange}
+          />
         </div>
       </section>
     );

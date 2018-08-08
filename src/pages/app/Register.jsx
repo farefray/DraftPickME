@@ -48,7 +48,7 @@ class Register extends React.Component {
       lastName === "";
 
     return (
-      <div className="col-md-6 col-md-offset-3">
+      <div id="register" className="col-md-6 col-md-offset-3">
         <h2>Register</h2>
         <form
           name="form"

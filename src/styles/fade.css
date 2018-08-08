@@ -1,12 +1,12 @@
 .fadeTranslate-enter {
   opacity: 0;
-  transform: translate(0, -3vh);
+  /* transform: translate(0, -3vh);*/
   position: fixed;
 }
 
 .fadeTranslate-enter.fadeTranslate-enter-active {
   opacity: 1;
-  transform: translate(0, 0);
+  /* transform: translate(0, 0); */
   transition: opacity 500ms ease-in 500ms, transform 500ms ease-in-out 500ms;
 }
 
