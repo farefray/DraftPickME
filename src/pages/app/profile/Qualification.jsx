@@ -7,6 +7,7 @@ import Skills from "./qualification/Skills";
 import Languages from "./qualification/Languages";
 import Specialities from "./qualification/Specialities";
 import Jobs from "./qualification/Jobs";
+import SaveButton from "@/pages/components/SaveButton";
 
 class Qualification extends Component {
   constructor(props) {
@@ -75,15 +76,6 @@ class Qualification extends Component {
   render() {
     const { languages, specialities, jobs, skills } = this.state.qualification;
 
-    let saveButton = this.state.unsaved ? (
-      <button
-        className="actionButton animated fadeIn"
-        onClick={this.updateUserProfile}>
-        <i className="fa fa-check-circle-o" aria-hidden="true" />
-        Save
-      </button>
-    ) : "";
-
     const minHeight = {
       minHeight: "150px"
     };
@@ -91,7 +83,9 @@ class Qualification extends Component {
     const { canEdit } = this.props;
     return (
       <section id="skills" className="container animated fadeInDown">
-        {saveButton}
+        {this.state.unsaved ? <SaveButton
+          onClick={this.updateUserProfile}>
+        </SaveButton> : ""}
         <div className="skills-and-languages-block">
           <Skills
             data={skills}
