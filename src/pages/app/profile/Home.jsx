@@ -20,8 +20,8 @@ class Home extends React.Component {
     let { profile } = this.props;
     return (
       <div id="home" className="large-header">
-        <canvas id="demo-canvas" />
-        <div id="large-header">
+        <canvas className="demo-canvas" />
+        <div className="large-header">
           <div className="relative-table">
             <div className="table-cell">
               <div className="container animated fadeIn">

@@ -40,8 +40,8 @@ class Homepage extends React.Component {
 
     return (
       <div id="home" className="large-header">
-        <canvas id="demo-canvas" />
-        <div id="large-header">
+        <canvas className="demo-canvas" />
+        <div className="large-header">
           <div className="homepage-container">
             <div className="homepage-logo animated fadeIn">
               <LogoBlock />

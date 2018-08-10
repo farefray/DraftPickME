@@ -1,9 +1,20 @@
 import {TweenLite} from "gsap/TweenLite";
 
-var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
+HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+
+var width, height, largeHeaders, canvases, points, target;
+var ctx = [];
+
+function isAnimationActive() {
+  let elem = document.getElementsByClassName('large-header');
+  if(elem.length > 1) {
+    elem = elem[0];
+  }
+
+  return !!(elem && !!( elem.offsetWidth || elem.offsetHeight ));
+}
 
 export function initHeader() {
-
   width = window.innerWidth;
   height = window.innerHeight;
   target = {
@@ -11,13 +22,18 @@ export function initHeader() {
     y: height / 2
   };
 
-  largeHeader = document.getElementById('large-header');
-  largeHeader.style.height = height + 'px';
+  largeHeaders = document.getElementsByClassName('large-header');
+  Array.from(largeHeaders).forEach(elem => {
+    elem.style.height = height + 'px';
+  });
 
-  canvas = document.getElementById('demo-canvas');
-  canvas.width = width;
-  canvas.height = height;
-  ctx = canvas.getContext('2d');
+  canvases = document.getElementsByClassName('demo-canvas');
+  Array.from(canvases).forEach((elem) => {
+    elem.width = width;
+    elem.height = height;
+    ctx.push(elem.getContext('2d'));
+  });
+  
 
   // create points
   points = [];
@@ -72,17 +88,23 @@ export function initHeader() {
   }
 }
 
+var hasListener = false; // avoid double listeners
 // Event handling
 export function addListeners() {
-
-  if (!('ontouchstart' in window)) {
-    window.addEventListener('mousemove', mouseMove);
+  if (!hasListener && !('ontouchstart' in window)) {
+    hasListener = true;
+    window.addEventListener('mousemove', mouseMove, false);
   }
-  window.addEventListener('scroll', scrollCheck);
+  
   window.addEventListener('resize', resize);
 }
 
 function mouseMove(e) {
+  if(!animationActive) {
+    window.removeEventListener('mousemove', mouseMove, false);
+    return false;
+  }
+
   let posy, posx;
   posx = posy = 0;
   if (e.pageX || e.pageY) {
@@ -96,55 +118,70 @@ function mouseMove(e) {
   target.y = posy;
 }
 
-function scrollCheck() {
-  if (document.body.scrollTop > height) animateHeader = false;
-  else animateHeader = true;
-}
-
 function resize() {
   width = window.innerWidth;
   height = window.innerHeight;
-  largeHeader.style.height = height + 'px';
-  canvas.width = width;
-  canvas.height = height;
+  Array.from(largeHeaders).forEach(elem => {
+    elem.style.height = height + 'px';
+  });
+
+  Array.from(canvases).forEach((elem) => {
+    elem.width = width;
+    elem.height = height;
+  });
 }
 
 // animation
 export function initAnimation() {
-
   animate();
   for (var i in points) {
     shiftPoint(points[i]);
   }
 }
 
-function animate() {
-  if (animateHeader) {
-    ctx.clearRect(0, 0, width, height);
-    for (var i in points) {
-      // detect points in range
-      if (Math.abs(getDistance(target, points[i])) < 6000) {
-        points[i].active = 0.1;
-        points[i].circle.active = 0.3;
-      } else if (Math.abs(getDistance(target, points[i])) < 40000) {
-        points[i].active = 0.05;
-        points[i].circle.active = 0.2;
-      } else if (Math.abs(getDistance(target, points[i])) < 80000) {
-        points[i].active = 0.02;
-        points[i].circle.active = 0.1;
-      } else {
-        points[i].active = 0;
-        points[i].circle.active = 0;
-      }
+var myReq;
+var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+var animationActive = true;
 
-      drawLines(points[i]);
-      points[i].circle.draw();
-    }
+function animate() {
+  animationActive = isAnimationActive();
+  if(!animationActive) {
+    cancelAnimationFrame(myReq)
+    return;
   }
-  requestAnimationFrame(animate);
+  
+  Array.from(ctx).forEach((c) => {
+    c.clearRect(0, 0, width, height);
+  });
+  
+  for (var i in points) {
+    // detect points in range
+    if (Math.abs(getDistance(target, points[i])) < 6000) {
+      points[i].active = 0.1;
+      points[i].circle.active = 0.3;
+    } else if (Math.abs(getDistance(target, points[i])) < 40000) {
+      points[i].active = 0.05;
+      points[i].circle.active = 0.2;
+    } else if (Math.abs(getDistance(target, points[i])) < 80000) {
+      points[i].active = 0.02;
+      points[i].circle.active = 0.1;
+    } else {
+      points[i].active = 0;
+      points[i].circle.active = 0;
+    }
+
+    drawLines(points[i]);
+    points[i].circle.draw();
+  }
+
+  myReq = requestAnimationFrame(animate);
 }
 
 function shiftPoint(p) {
+  if(!animationActive) {
+    return false;
+  }
+
   // eslint-disable-next-line no-undef
   TweenLite.to(p, 1 + 1 * Math.random(), {
     x: p.originX - 50 + Math.random() * 100,
@@ -156,15 +193,17 @@ function shiftPoint(p) {
   });
 }
 
-// Canvas manipulation
+// Canvases manipulation
 function drawLines(p) {
   if (!p.active) return;
   for (var i in p.closest) {
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-    ctx.lineTo(p.closest[i].x, p.closest[i].y);
-    ctx.strokeStyle = 'rgba(156,217,249,' + p.active + ')';
-    ctx.stroke();
+    Array.from(ctx).forEach((c) => {
+      c.beginPath();
+      c.moveTo(p.x, p.y);
+      c.lineTo(p.closest[i].x, p.closest[i].y);
+      c.strokeStyle = 'rgba(156,217,249,' + p.active + ')';
+      c.stroke();
+    });
   }
 }
 
@@ -180,10 +219,12 @@ function Circle(pos, rad, color) {
 
   this.draw = function () {
     if (!_this.active) return;
-    ctx.beginPath();
-    ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'rgba(156,217,249,' + _this.active + ')';
-    ctx.fill();
+    Array.from(ctx).forEach((c) => {
+      c.beginPath();
+      c.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
+      c.fillStyle = 'rgba(156,217,249,' + _this.active + ')';
+      c.fill();
+    });
   };
 }
 
