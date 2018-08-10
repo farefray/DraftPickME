@@ -60,11 +60,11 @@ export default class Skill extends React.Component {
         <div className="skill-bar">
           <div className="skill-percent" />
         </div>
-        <ButtonRemove
+        {!canEdit || <ButtonRemove
           index={index}
           subclass="right relative"
           removeAction={() => this.props.removeAction(index)}
-        />
+        />}
         <hr />
       </div>
     );

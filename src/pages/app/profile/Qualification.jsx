@@ -63,8 +63,7 @@ class Qualification extends Component {
   };
 
   onChange = (name, value) => {
-    // P0 TODO - thats actually can be skipped, as we actually mutating our props in child components :( this should be reworked.
-    console.log("onChange");
+    // P0 TODO - thats action actually can be skipped, as we actually mutating our props in child components :( this should be reworked.
     const { qualification } = this.state;
     qualification[name] = value;
     this.setState({

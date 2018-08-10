@@ -74,11 +74,11 @@ export default class Language extends React.Component {
         <div className="skill-bar">
           <div className="skill-percent" />
         </div>
-        <ButtonRemove
+        {!canEdit || <ButtonRemove
           index={index}
           subclass="left"
           removeAction={() => this.props.removeAction(index)}
-        />
+        />}
       </div>
     );
   }

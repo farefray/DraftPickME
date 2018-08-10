@@ -100,11 +100,11 @@ export default class Job extends React.Component {
             />
           </div>
         </div>
-        <ButtonRemove
+        {!canEdit || <ButtonRemove
           index={index}
           subclass="right"
           removeAction={() => this.props.removeAction(index)}
-        />
+        />}
       </div>
     );
   }
