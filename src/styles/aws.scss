@@ -25,6 +25,8 @@
   --button-large-height: 50px;
   --button-default-font-size: 16px;
   --button-default-line-height: 40px;
+  --button-disabled-color: darkgray;
+  --button-disabled-color-dark: var(--button-primary-color-dark);
   &.save-button {
     position: absolute;
     margin-left: auto;
@@ -68,14 +70,11 @@ a.aws-btn {
   }
 }
 
-.aws-btn--disabled .aws-btn__content {
-  background: grey;
-  .aws-btn__wrapper {
-    &:hover {
-      background: grey;
-    }
-  }
-  &:hover {
-    background: grey;
-  }
+.aws-btn--disabled {
+  cursor: default;
+  cursor: not-allowed;
+}
+
+.aws-btn--disabled .aws-btn__wrapper:hover .aws-btn__content {
+  background: var(--button-disabled-color); 
 }
