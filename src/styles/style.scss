@@ -625,7 +625,9 @@ nav {
       top: 6px;
       -webkit-transition: all 0.5s ease-in-out;
       transition: all 0.5s ease-in-out;
-      cursor: pointer;
+      cursor: pointer;      
+      -webkit-animation: fa-spin 2s infinite linear;
+      animation: fa-spin 2s infinite linear
     }
   }
   ul {
@@ -1498,6 +1500,20 @@ Contact
       padding: 0 35px 15px 35px;
       height: 100%;
       margin-bottom: 45px;
+      height: 390px;
+      transition: all .5s;
+      &.contacted {
+        height: 250px;
+      }      
+      .contact-form {
+        margin-bottom: 15px;
+      }
+      .contact-done {
+        height: 125px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     .right-section {
       min-width: 435px;
@@ -1513,16 +1529,16 @@ Contact
         padding: 10px 0 0 0;
         margin-top: 0;
       }
-      background-color: rgba(1,
-      1,
-      1,
-      0.9);
+      background-color: rgba(1, 1, 1, 0.9);
       border-radius: 10px;
       box-shadow: 0 0 5px #555;
       -webkit-box-shadow: 0 0 5px #555;
       input,
       textarea {
         color: #000;
+      }
+      .contact-info a {
+        text-transform: none;
       }
     }
     .contact-card {
@@ -1585,12 +1601,12 @@ Contact
   textarea {
     text-indent: 0px;
   }
-  input {
+  input, textarea {
     &:focus {
       outline: none;
-      border-color: #c1a068;
+      border-color: #0487cb;
+      box-shadow: 0px 0px 17px 3px #0487cb;
       border-width: 2px;
-      box-shadow: 0 0 1px #c1a068;
       transition: all 0.3s ease-out;
     }
   }

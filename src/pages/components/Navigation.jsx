@@ -57,10 +57,8 @@ function Navigation(props) {
         <div className="logo-space" />
         <ul>{navigationButtons}</ul>
         <div className="bottom">&copy; {currentYear}</div>
-        {props.canEdit ? (
-          <Link className="nav-controller" to={url + "/edit"} />
-        ) : (
-          ""
+        {!props.canEdit || (
+          <Link className="nav-controller" to={url + "/edit"} data-toggle="tooltip" data-placement="right" title="Edit profile"/>
         )}
       </nav>
     </React.Fragment>

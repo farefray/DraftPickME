@@ -9,14 +9,12 @@ const SocialLinks = (props) => {
           <li className="social-media">
             <p className="info-title">Social Links</p>
           </li>
-          {props.github ? (
+          {!props.github || (
             <li className="social-media icons">
               <a href={props.github} target="_blank" rel="noopener">
                 <i className="fa fa-github" />
               </a>
             </li>
-          ) : (
-            ""
           )}
           {props.linkedin ? (
             <li className="social-media icons">

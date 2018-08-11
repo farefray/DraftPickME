@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SocialLinks from "./contact/SocialLinks";
+import classNames from "classnames";
 import { userService } from "@/services";
 
 class Contact extends React.Component {
   constructor(props) {
     super(props);
 
-    this.fullNameField = React.createRef();
-    this.messageField = React.createRef();
     this.emailField = React.createRef();
 
     this.state = {
@@ -17,7 +16,9 @@ class Contact extends React.Component {
         fullName: "",
         message: ""
       },
-      contacted: false
+      contacted: false,
+      hireMeClicked: false,
+      contactDone: false
     };
   }
 
@@ -27,70 +28,85 @@ class Contact extends React.Component {
 
   focusContactForm = event => {
     event.preventDefault();
-    this.fullNameField.current.value = "Your potencial rabotodatel";
-    this.messageField.current.value =
-      "Hello! We could hire you, are you still interested? [Julz gonna write some attractive text example here ;)]";
     this.emailField.current.focus();
+    this.setState({ hireMeClicked: true });
   };
 
-  submitContactForm = e => {
-    e.preventDefault();
+  contactFormReady = () => {
     const { contactData } = this.state;
     if (!contactData.email || !contactData.fullName || !contactData.message) {
+      return false;
+    }
+
+    return true;
+  };
+  submitContactForm = e => {
+    e.preventDefault();
+    if (!this.contactFormReady()) {
       return;
     }
 
+    const { contactData } = this.state;
     const { profile } = this.props;
     userService.contactUser(profile.email, contactData);
     this.setState({ contacted: true });
+    setTimeout(() => {
+      this.setState({ contactDone: true });
+    }, 500);
   };
 
   render() {
     const { profile } = this.props;
-    const { contacted } = this.state;
+    const { contacted, hireMeClicked, contactDone } = this.state;
     return (
       <section id="contact">
         <section className="hire animated fadeIn">
           <div className="hire-wrapper">
             <h3>I'm available for hire!</h3>
-            {!contacted ? (
-              <a href="#contact" onClick={this.focusContactForm}>
-                <i className="fa fa-envelope" /> Hire Me
-              </a>
-            ) : (
-              <div />
-            )}
+            <a
+              href="#contact"
+              onClick={this.focusContactForm}
+              className={classNames({ "animated hinge": hireMeClicked })}>
+              <i className="fa fa-envelope" /> Hire Me
+            </a>
             <i className="fa fa-envelope-o" />
           </div>
         </section>
         <div className="contact-me animated fadeIn">
-          <div className="contact-form-container">
+          <div className={classNames("contact-form-container", {
+                  "contacted": contacted
+                })}>
             <h2>Get In touch</h2>
             <hr className="contact-hr" />
-            {contacted ? (
-              <React.Fragment>
-                {" "}
-                <h3>Thanks for contacting {profile.username}!</h3>
-              </React.Fragment>
+            {contactDone ? (
+              <div className="contact-done animated zoomIn"><h3>Thanks for contacting me!</h3></div>
             ) : (
-              <div className="contact-form">
+              <div
+                className={classNames("contact-form", {
+                  "animated zoomOut": contacted
+                })}>
                 <form method="post">
-                  <div className="group-them">
+                  <div
+                    className={classNames("group-them", {
+                      "animated shake": hireMeClicked
+                    })}>
                     <i className="user-icon fa fa-user-plus" />
                     <input
                       id="fullname"
                       type="text"
                       name="fullName"
                       placeholder="Full Name"
-                      ref={this.fullNameField}
                       onChange={e => {
-                        const { contactData } = this.state;
+                        let { contactData } = this.state;
                         contactData.fullName = e.target.value;
                         this.setState({ contactData });
                       }}
                     />
                   </div>
-                  <div className="group-them">
+                  <div
+                    className={classNames("group-them", {
+                      "animated shake": hireMeClicked
+                    })}>
                     <i className="email-icon fa fa-envelope" />
                     <input
                       id="email"
@@ -99,7 +115,7 @@ class Contact extends React.Component {
                       placeholder="Email"
                       ref={this.emailField}
                       onChange={e => {
-                        const { contactData } = this.state;
+                        let { contactData } = this.state;
                         contactData.email = e.target.value;
                         this.setState({ contactData });
                       }}
@@ -107,15 +123,19 @@ class Contact extends React.Component {
                   </div>
                   <textarea
                     id="message"
+                    className={classNames({ "animated shake": hireMeClicked })}
                     placeholder="Your Message"
-                    ref={this.messageField}
                     onChange={e => {
-                      const { contactData } = this.state;
+                      let { contactData } = this.state;
                       contactData.message = e.target.value;
                       this.setState({ contactData });
                     }}
                   />
-                  <div className="btn" onClick={this.submitContactForm}>
+                  <div
+                    className={classNames("btn", {
+                      disabled: !this.contactFormReady()
+                    })}
+                    onClick={this.submitContactForm}>
                     <span>
                       <i className="fa fa-location-arrow" /> Send Message
                     </span>
@@ -123,6 +143,7 @@ class Contact extends React.Component {
                 </form>
               </div>
             )}
+
             <div id="response_brought" />
           </div>
           <div className="right-section">

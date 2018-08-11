@@ -48,9 +48,9 @@ const SocialLinks = (props) => {
 }
 
 SocialLinks.propTypes = {
-  github: PropTypes.string.isRequired,
-  linkedin: PropTypes.string.isRequired,
-  facebook: PropTypes.string.isRequired
+  github: PropTypes.string,
+  linkedin: PropTypes.string,
+  facebook: PropTypes.string
 };
 
 export default SocialLinks;

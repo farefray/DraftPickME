@@ -4,6 +4,7 @@ import Editable from "@/../react-x-editable/dist/editable";
 import RichTextEditor from "./RichTextEditor.jsx";
 import RichTextRenderer from "./RichTextRenderer";
 
+// This can actually be moved to own repository :)
 const EMPTY_RICH_VALUE = '{"blocks":[{"text":""}],"entityMap":{}}';
 export default class EditableRichComponent extends React.Component {
   constructor(props) {
@@ -42,6 +43,7 @@ export default class EditableRichComponent extends React.Component {
         disabled={this.props.disabled}
         value={value}
         handleSubmit={this.handleSubmit}
+        onCancel
         display={value => {
           return (
             <RichTextRenderer
