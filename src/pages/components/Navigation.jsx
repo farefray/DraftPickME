@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 
 function Navigation(props) {
   let currentYear = new Date().getFullYear();
@@ -12,29 +13,29 @@ function Navigation(props) {
   const navigationButtons = (
     <React.Fragment>
       <li type="button" data-toggle="tooltip" data-placement="right" title="Home">
-        <Link to={url}>
+        <Link to={url} className={classnames({ 'active': location.pathname === url })}>
           <i className="menu fa fa-home" />
         </Link>
       </li>
       {!props.exist || (
         <React.Fragment>
           <li>
-            <Link to={url + "/about"} type="button" data-toggle="tooltip" data-placement="right" title="About">
+            <Link to={url + "/about"} type="button" data-toggle="tooltip" data-placement="right" title="About" className={classnames({ 'active': location.pathname === url + "/about" })}>
               <i className="menu zmdi zmdi-account-box-o" />
             </Link>
           </li>
           <li>
-            <Link to={url + "/qualification"} type="button" data-toggle="tooltip" data-placement="right" title="Qualification">
+            <Link to={url + "/qualification"} type="button" data-toggle="tooltip" data-placement="right" title="Qualification" className={classnames({ 'active': location.pathname === url + "/qualification" })}>
               <i className="menu fa fa-trophy" />
             </Link>
           </li>
           <li>
-            <Link to={url + "/experience"} type="button" data-toggle="tooltip" data-placement="right" title="Experience">
+            <Link to={url + "/experience"} type="button" data-toggle="tooltip" data-placement="right" title="Experience" className={classnames({ 'active': location.pathname === url + "/experience" })}>
               <i className="menu zmdi zmdi-graduation-cap" />
             </Link>
           </li>
           <li>
-            <Link to={url + "/contact"} type="button" data-toggle="tooltip" data-placement="right" title="Contact">
+            <Link to={url + "/contact"} type="button" data-toggle="tooltip" data-placement="right" title="Contact" className={classnames({ 'active': location.pathname === url + "/contact" })}>
               <i className="menu zmdi zmdi-email " />
             </Link>
           </li>
