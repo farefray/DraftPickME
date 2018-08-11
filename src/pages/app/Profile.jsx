@@ -104,9 +104,6 @@ class Profile extends React.Component {
       loading: true,
       profile: null
     };
-
-    console.log("Profile");
-    console.log(props);
   }
 
   componentDidMount() {
@@ -134,7 +131,6 @@ class Profile extends React.Component {
       profile.email == authUser.email
     );
     
-    console.log(profile);
     return (
       <div>
         {profile !== null ? <Navigation
@@ -160,7 +156,7 @@ class Profile extends React.Component {
               />
             </Drilldown>
           </div>
-        ) : loading === false && profile === null ? (
+        ) : loading === false && profile === false ? (
           <FreeUsername username={this.state.username} />
         ) : (
           <div className="profile-loading">
