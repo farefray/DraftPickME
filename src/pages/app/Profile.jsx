@@ -5,7 +5,8 @@ import { Route } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
 import { userService } from "@/services";
-import Loader from 'react-loaders'
+import Loader from "react-loaders";
+import { ProfileContext } from "./profile/components/ProfileContext";
 
 import {
   About,
@@ -101,27 +102,30 @@ class Profile extends React.Component {
     let username = props.match.params.username;
     this.state = {
       username: username,
-      loading: true,
+      profileLoading: true,
       profile: null
     };
   }
 
   componentDidMount() {
-    userService.getByUsername(this.state.username).then(profile => {
-      this.setState({
-        profile: profile,
-        loading: false
+    userService
+      .getByUsername(this.state.username)
+      .then(profile => {
+        this.setState({
+          profile: profile,
+          profileLoading: false
+        });
+      })
+      .catch(() => {
+        this.setState({
+          profile: false,
+          profileLoading: false
+        });
       });
-    }).catch(() => {
-      this.setState({
-        profile: false,
-        loading: false
-      });
-    });
   }
 
   render() {
-    const { profile, loading } = this.state;
+    const { profile, profileLoading } = this.state;
     const { authUser } = this.props;
 
     let canEditProfile = !!(
@@ -130,14 +134,11 @@ class Profile extends React.Component {
       profile.email &&
       profile.email == authUser.email
     );
-    
+
     return (
-      <div>
-        {profile !== null ? <Navigation
-          username={this.state.username}
-          canEdit={canEditProfile}
-          exist={profile !== null}
-        /> : ""}    
+      <ProfileContext.Provider
+        value={{ profile: profile, canEdit: canEditProfile }}>
+        {profile === null || <Navigation username={this.state.username} />}
         {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
@@ -156,14 +157,14 @@ class Profile extends React.Component {
               />
             </Drilldown>
           </div>
-        ) : loading === false && profile === false ? (
+        ) : profileLoading === false && profile === false ? (
           <FreeUsername username={this.state.username} />
         ) : (
           <div className="profile-loading">
             <Loader type="ball-clip-rotate-multiple" />
           </div>
         )}
-      </div>
+      </ProfileContext.Provider>
     );
   }
 }
