@@ -14,7 +14,7 @@ class FreeUsername extends React.PureComponent {
       <section id="username_404">
         <div className="container">
           <div className="row">
-            <div className="col-md-8 col-md-offset-2 container-404">
+            <div className="col-md-8 col-md-offset-2 container-404 animated zoomIn">
               <h2>404 - No such profile.</h2>
               <hr className="container-404-hr" />
               <div className="container-404-form">

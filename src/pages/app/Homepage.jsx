@@ -61,7 +61,7 @@ class Homepage extends React.Component {
                   <Link to="/p/farefray">more information</Link>
                 </span>{" "}
                 about my skills and experience. <br />In case you are also
-                seeking for an experienced QA{" "}
+                seeking for an experienced QA,{" "}
                 <span className="fancy">
                   <Link to="/p/julz">I can recommend you one ;)</Link>
                 </span>{" "}

@@ -800,6 +800,72 @@ Home
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: stretch;
+    .fancy {
+      background: rgba(109, 109, 109, 0.55); 
+      padding: 2px 6px; 
+      border-radius: 5px; 
+      display: inline-flex;
+      box-shadow: 1px 1px 0 rgba(0, 0, 0, .25);
+      margin: 0;
+      opacity: 1;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      a {
+        position: relative;
+        z-index: 2;
+      }
+      &:before, &:after {
+        content: " ";
+        top: 0;
+        left: 0;
+        height: 50%;
+        display: block;
+        width: 100%;
+        position: absolute;
+        z-index: 1;
+        -moz-transition: -moz-transform .3s cubic-bezier(.65, .05, .1, 1);
+        -o-transition: -o-transform .3s cubic-bezier(.65, .05, .1, 1);
+        -webkit-transition: -webkit-transform .3s cubic-bezier(.65, .05, .1, 1);
+        transition: transform .3s cubic-bezier(.65, .05, .1, 1);
+      }
+      &:before {
+        top: 0;
+        background-color: rgba(22, 22, 22, 0.55);
+        -moz-transform: translate3d(-105%, 0, 0);
+        -ms-transform: translate3d(-105%, 0, 0);
+        -webkit-transform: translate3d(-105%, 0, 0);
+        transform: translate3d(-105%, 0, 0);
+      }
+      &:after {
+        top: 50%;
+        background-color: rgba(22, 22, 22, 0.75);
+        -moz-transform: translate3d(105%, 0, 0);
+        -ms-transform: translate3d(105%, 0, 0);
+        -webkit-transform: translate3d(105%, 0, 0);
+        transform: translate3d(105%, 0, 0);
+        -moz-transition-delay: 75ms;
+        -o-transition-delay: 75ms;
+        -webkit-transition-delay: 75ms;
+        transition-delay: 75ms;
+      }
+      &:hover {
+        a {
+          color: #0487cc;
+          transition: all .425s cubic-bezier(.65, .2, 0, 1);
+          z-index: 2;
+          display: inline-block;
+        }
+        &:after,
+        &:before {
+          -moz-transform: translate3d(0, 0, 0);
+          -ms-transform: translate3d(0, 0, 0);
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+        }
+      }
+    }
     .homepage-logo {
       margin: 15px;
       display: flex;
@@ -1466,12 +1532,13 @@ Contact
         padding: 10px 0 0 0;
         margin-top: 0;
       }
-
-      background-color: rgba(1, 1, 1, 0.9);
+      background-color: rgba(1,
+      1,
+      1,
+      0.9);
       border-radius: 10px;
       box-shadow: 0 0 5px #555;
       -webkit-box-shadow: 0 0 5px #555;
-
       input,
       textarea {
         color: #000;
