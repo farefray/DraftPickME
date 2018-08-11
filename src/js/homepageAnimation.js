@@ -88,11 +88,9 @@ export function initHeader() {
   }
 }
 
-var hasListener = false; // avoid double listeners
 // Event handling
 export function addListeners() {
-  if (!hasListener && !('ontouchstart' in window)) {
-    hasListener = true;
+  if (!('ontouchstart' in window)) {
     window.addEventListener('mousemove', mouseMove, false);
   }
   

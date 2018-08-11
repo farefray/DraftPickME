@@ -7,7 +7,7 @@ import { storage } from "@/firebase";
 import { FilePond, registerPlugin } from "react-filepond";
 import FilepondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilepondPluginImagePreview from "filepond-plugin-image-preview";
-import FilepondPluginFileRename from 'filepond-plugin-file-rename';
+import FilepondPluginFileRename from "filepond-plugin-file-rename";
 registerPlugin(FilepondPluginFileValidateType);
 registerPlugin(FilepondPluginImagePreview);
 registerPlugin(FilepondPluginFileRename);
@@ -20,6 +20,7 @@ export default class Uploads extends React.PureComponent {
     removeFile: PropTypes.func.isRequired,
     onSuccessfullUpload: PropTypes.func.isRequired,
     profile: PropTypes.shape({
+      username: PropTypes.string.isRequired,
       photo: PropTypes.string.isRequired,
       cvFile: PropTypes.shape({
         name: PropTypes.string,
@@ -28,13 +29,15 @@ export default class Uploads extends React.PureComponent {
     }).isRequired
   };
 
-  fileRename = (fileInfo) => {
+  fileRename = fileInfo => {
     let { profile } = this.props;
     return `${profile.firstName}_${profile.lastName}${fileInfo.extension}`;
-  }
-  
+  };
+
   handleProcessing = (type, file, load, progress, abort) => {
-    let uploadTask = storage.uploadFile(file, type);
+    const { username } = this.props.profile;
+
+    let uploadTask = storage.uploadFile(file, username + "/" + type);
     progress(true, 0, 1);
     uploadTask.on(
       `state_changed`,
@@ -86,12 +89,20 @@ export default class Uploads extends React.PureComponent {
               <FilePond
                 allowFileTypeValidation={true}
                 acceptedFileTypes={[
+                  ".odt",
+                  ".doc",
                   "application/msword",
-                  "application/vnd.oasis.opendocument.text",
+                  "application/pdf",
                   "application/rtf",
-                  "text/plain",
-                  "application/pdf"
+                  "application/vnd.oasis.opendocument.text"
                 ]}
+                fileValidateTypeLabelExpectedTypesMap={{
+                  "application/msword": ".doc",
+                  "application/pdf": ".pdf",
+                  "application/rtf": ".rtf",
+                  "application/vnd.oasis.opendocument.text": ".odt"
+                }}
+                fileValidateTypeLabelExpectedTypes='Expects .odt, .doc, .pdf or .rtf'
                 allowFileRename={true}
                 fileRenameFunction={this.fileRename}
                 allowMultiple={false}

@@ -150,8 +150,8 @@ class EditProfile extends React.Component {
                     data-toggle="tooltip"
                     title="Your login and profile URL"
                     name="username"
+                    disabled="true"
                     value={profile.username}
-                    onChange={this.handleInputChange}
                   />
                 </div>
               </div>
@@ -205,6 +205,9 @@ class EditProfile extends React.Component {
                     checked={profile.enabled}
                     onChange={this.handleInputChange}
                   />
+                  <br/><small>
+                  (Mark the checkbox if you want your profile to be shown to other users)
+                  </small>
                 </label>
               </div>
               <div className="form-group">

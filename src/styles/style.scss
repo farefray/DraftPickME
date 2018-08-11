@@ -940,6 +940,13 @@ Profile edit
   overflow-x: hidden;
   color: #fff;
   height: 100%;
+  .checkbox-inline {
+    line-height: 14px;
+    padding-left: 0;
+  }
+  #enabledCheckbox {
+    height: 13px;
+  }
 }
 
 .profile-loading {
