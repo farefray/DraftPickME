@@ -50,7 +50,7 @@ class Contact extends React.Component {
     const { contacted } = this.state;
     return (
       <section id="contact">
-        <section className="hire">
+        <section className="hire animated fadeIn">
           <div className="hire-wrapper">
             <h3>I'm available for hire!</h3>
             {!contacted ? (
@@ -63,7 +63,7 @@ class Contact extends React.Component {
             <i className="fa fa-envelope-o" />
           </div>
         </section>
-        <div className="contact-me">
+        <div className="contact-me animated fadeIn">
           <div className="contact-form-container">
             <h2>Get In touch</h2>
             <hr className="contact-hr" />

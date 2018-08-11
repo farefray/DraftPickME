@@ -35,7 +35,7 @@ export default class UserProfile extends React.PureComponent {
           <Image
             className="img-responsive"
             alt="profile-images"
-            src={profile.photo || "http://placehold.it/270x340"}
+            src={profile.photo || "http://placehold.it/360x440"}
           />
           <CVBlock
             username={profile.username}

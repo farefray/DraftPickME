@@ -1105,6 +1105,9 @@ about
   }
   .info {
     padding-top: 20px;
+    .editable-container {
+      min-width: 20%;
+    }
   }
   .info ul {
     list-style: none;
