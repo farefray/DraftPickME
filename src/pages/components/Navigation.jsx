@@ -11,59 +11,34 @@ function Navigation(props) {
   const url = "/p/" + props.username;
   const navigationButtons = (
     <React.Fragment>
-      <li id="tt1">
+      <li type="button" data-toggle="tooltip" data-placement="right" title="Home">
         <Link to={url}>
           <i className="menu fa fa-home" />
-          <div className="mdl-tooltip mdl-tooltip--right" data-mdl-for="tt1">
-            Home
-          </div>
         </Link>
       </li>
-      {props.exist ? (
+      {!props.exist || (
         <React.Fragment>
-          <li id="tt2">
-            <Link to={url + "/about"}>
+          <li>
+            <Link to={url + "/about"} type="button" data-toggle="tooltip" data-placement="right" title="About">
               <i className="menu zmdi zmdi-account-box-o" />
-              <div
-                className="mdl-tooltip mdl-tooltip--right"
-                data-mdl-for="tt2">
-                About
-              </div>
             </Link>
           </li>
-          <li id="tt3">
-            <Link to={url + "/qualification"}>
+          <li>
+            <Link to={url + "/qualification"} type="button" data-toggle="tooltip" data-placement="right" title="Qualification">
               <i className="menu fa fa-trophy" />
-              <div
-                className="mdl-tooltip mdl-tooltip--right"
-                data-mdl-for="tt4">
-                Qualification
-              </div>
             </Link>
           </li>
-          <li id="tt4">
-            <Link to={url + "/experience"}>
+          <li>
+            <Link to={url + "/experience"} type="button" data-toggle="tooltip" data-placement="right" title="Experience">
               <i className="menu zmdi zmdi-graduation-cap" />
-              <div
-                className="mdl-tooltip mdl-tooltip--right"
-                data-mdl-for="tt3">
-                Experience
-              </div>
             </Link>
           </li>
-          <li id="tt5">
-            <Link to={url + "/contact"}>
+          <li>
+            <Link to={url + "/contact"} type="button" data-toggle="tooltip" data-placement="right" title="Contact">
               <i className="menu zmdi zmdi-email " />
-              <div
-                className="mdl-tooltip mdl-tooltip--right"
-                data-mdl-for="tt6">
-                Contact
-              </div>
             </Link>
           </li>
         </React.Fragment>
-      ) : (
-        ""
       )}
     </React.Fragment>
   );
