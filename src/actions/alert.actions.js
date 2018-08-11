@@ -8,7 +8,6 @@ import {
 export function addAlert(options = {}) {
   let alert = createAlert(options);
   return dispatch => {
-    console.log(alert);
     setTimeout(() => {
       dispatch(hideAlert(alert.id));
     }, 5000);

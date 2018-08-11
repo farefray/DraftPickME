@@ -6,6 +6,7 @@ import FlipMove from "react-flip-move";
 import { userActions } from "../../../actions";
 import Project from "./experience/Project";
 import ButtonAdd from "./components/ButtonAdd";
+import ButtonSave from "@/pages/components/ButtonSave";
 
 class Experience extends Component {
   constructor(props) {
@@ -37,7 +38,9 @@ class Experience extends Component {
 
     profile["projects"] = projectsBlocks;
     this.setState({ unsaved: false });
-    this.props.dispatch(userActions.editProfileValue('projects', projectsBlocks));
+    this.props.dispatch(
+      userActions.editProfileValue("projects", projectsBlocks)
+    );
   };
 
   removeProject = key => {
@@ -77,25 +80,16 @@ class Experience extends Component {
   render() {
     let addProjectButton =
       this.props.canEdit && this.state.projectsBlocks.length <= 15 ? (
-        <ButtonAdd onClick={this.addProject}/>
+        <ButtonAdd onClick={this.addProject} />
       ) : (
         <div key="add_button" />
       );
-
-    let saveButton = this.state.unsaved ? (
-      <button className="actionButton animated fadeIn" onClick={this.updateUserProjects}>
-        <i className="fa fa-check-circle-o" aria-hidden="true" />
-        Save
-      </button>
-    ) : (
-      <div key="save_button" />
-    );
 
     const { projectsBlocks } = this.state;
     return (
       <div>
         <section id="experience">
-          <div className="container animated fadeInDown">
+          <div className="container animated fadeIn">
             <FlipMove>
               {projectsBlocks.map((blockData, index) => (
                 <Project
@@ -108,11 +102,13 @@ class Experience extends Component {
                 />
               ))}
               <div className="col-md-4" key="project_buttons">
-                {saveButton}
                 {addProjectButton}
               </div>
             </FlipMove>
           </div>
+          {!this.state.unsaved || (
+            <ButtonSave onClick={this.updateUserProjects} />
+          )}
         </section>
       </div>
     );

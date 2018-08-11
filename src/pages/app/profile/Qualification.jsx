@@ -7,7 +7,7 @@ import Skills from "./qualification/Skills";
 import Languages from "./qualification/Languages";
 import Specialities from "./qualification/Specialities";
 import Jobs from "./qualification/Jobs";
-import SaveButton from "@/pages/components/SaveButton";
+import ButtonSave from "@/pages/components/ButtonSave";
 
 class Qualification extends Component {
   constructor(props) {
@@ -81,10 +81,10 @@ class Qualification extends Component {
 
     const { canEdit } = this.props;
     return (
-      <section id="skills" className="container animated fadeInDown">
-        {this.state.unsaved ? <SaveButton
+      <section id="skills" className="container animated fadeIn">
+        {!this.state.unsaved || <ButtonSave
           onClick={this.updateUserProfile}>
-        </SaveButton> : ""}
+        </ButtonSave>}
         <div className="skills-and-languages-block">
           <Skills
             data={skills}

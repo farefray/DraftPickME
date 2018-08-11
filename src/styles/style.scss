@@ -386,7 +386,7 @@ Shared components
     padding: 16px;
     cursor: pointer;
     &:hover {
-      background: #5e5e5e;
+      background: #3e6e3e;
     }
     &>p {
       text-shadow: 2px 2px 3px black;
@@ -398,7 +398,7 @@ Shared components
     text-overflow: ellipsis;
   }
   .alert-success {
-    background-color: rgba(14, 129, 43, 0.5);
+    background-color: #63b663d7;
     border-color: #000000;
     color: #ffffff;
   }
@@ -450,35 +450,6 @@ Shared components
   margin: 2px 1px 0 0;
   button:not(:last-child) {
     margin: 0 4px;
-  }
-}
-
-.actionButton {
-  transition: all 300ms ease-in-out;
-  background-color: #0487cc;
-  letter-spacing: 0.5px;
-  font-weight: bold;
-  border: 1px solid #caa669;
-  border-radius: 4px;
-  padding: 2px 12px;
-  margin: 5px 15px;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-  color: #fff;
-  font-size: 14px;
-  display: inline-block;
-  &:hover {
-    color: #caa669;
-    .fa {
-      color: #fff !important;
-    }
-  }
-  .fa {
-    transition: all 300ms ease-in-out;
-    color: #caa669 !important;
-    margin-right: 5px;
   }
 }
 

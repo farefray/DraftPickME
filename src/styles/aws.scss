@@ -25,6 +25,35 @@
   --button-large-height: 50px;
   --button-default-font-size: 16px;
   --button-default-line-height: 40px;
+  &.save-button {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 2%;
+    font-weight: bold;
+    font-size: 1.25em;
+    --button-primary-color: #63b663;
+    --button-primary-color-hover: #3e6e3e;
+    .aws-btn__content {
+      color: #fff;
+    }
+  }
+  &.add-button {
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    margin: 5px 15px;
+    position: relative;
+    outline: none;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    .fa {
+      margin-right: 5px;
+      color: var(--button-primary-color-light) !important;
+    }
+  }
 }
 
 .aws-btn--large {
@@ -41,13 +70,11 @@ a.aws-btn {
 
 .aws-btn--disabled .aws-btn__content {
   background: grey;
-  
   .aws-btn__wrapper {
     &:hover {
       background: grey;
     }
   }
-  
   &:hover {
     background: grey;
   }
