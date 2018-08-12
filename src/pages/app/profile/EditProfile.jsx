@@ -23,7 +23,7 @@ class EditProfile extends React.Component {
   constructor(props) {
     super(props);
 
-    let profile = { ...props.profileContext.profile };
+    const profile = { ...props.profileContext.profile };
     this.state = {
       profile: {
         firstName: profile.firstName || "",

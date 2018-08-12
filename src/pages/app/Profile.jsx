@@ -28,7 +28,11 @@ const ProfileHandler = props => {
   return (
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
-        <Route path={"/p/" + username + "/about"} component={About} />
+        <Route 
+          exact
+          path={"/p/" + username + "/about"} 
+          component={withProfile(About)}
+        />
         <Route
           exact
           path={"/p/" + username + "/qualification"}
@@ -92,6 +96,13 @@ class Profile extends React.Component {
     this.setState({ profile: profile });
   };
 
+  updateProfileValue = (name, value) => {
+    let { profile } = this.state;
+    profile[name] = value;
+    this.setState({ profile: profile });
+    this.props.dispatch(userActions.editProfileValue(name, value));
+  }
+
   render() {
     const { profile, profileLoading } = this.state;
     const { authUser } = this.props;
@@ -108,7 +119,8 @@ class Profile extends React.Component {
         value={{
           profile: profile,
           canEdit: canEditProfile,
-          updateProfile: this.updateProfile
+          updateProfile: this.updateProfile,
+          updateProfileValue: this.updateProfileValue
         }}>
         {profile === null || <Navigation username={this.state.username} />}
         {profile ? (
