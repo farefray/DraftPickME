@@ -1,83 +1,49 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { Route } from "react-router-dom";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
 import { userService } from "@/services";
 import Loader from "react-loaders";
-import { ProfileContext } from "./profile/components/ProfileContext";
+import {
+  ProfileContext,
+  withProfile
+} from "./profile/components/ProfileContext";
+import { userActions } from "@/actions";
 
 import {
   About,
   Qualification,
   Experience,
   Contact,
-  Home,
+  Main,
   EditProfile
 } from "./profile";
 import { FreeUsername } from "./profile/FreeUsername";
-
-const RouteWithProps = ({
-  component: Component,
-  path,
-  profile,
-  canEdit,
-  ...rest
-}) => (
-  <Route
-    {...rest}
-    render={props => (
-      <Component path={path} profile={profile} canEdit={canEdit} {...props} />
-    )}
-  />
-);
-
-RouteWithProps.propTypes = {
-  component: PropTypes.func.isRequired,
-  canEdit: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  profile: PropTypes.object
-};
 
 const ProfileHandler = props => {
   let username = props.match.params.username;
   return (
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
-        <RouteWithProps
-          path={"/p/" + username + "/about"}
-          component={About}
-          profile={props.profile}
-          canEdit={props.canEdit}
-        />
-        <RouteWithProps
+        <Route path={"/p/" + username + "/about"} component={About} />
+        <Route
           exact
           path={"/p/" + username + "/qualification"}
           component={Qualification}
-          profile={props.profile}
-          canEdit={props.canEdit}
         />
-        <RouteWithProps
+        <Route
           exact
           path={"/p/" + username + "/experience"}
           component={Experience}
-          profile={props.profile}
-          canEdit={props.canEdit}
         />
-        <RouteWithProps
-          exact
-          path={"/p/" + username + "/contact"}
-          component={Contact}
-          profile={props.profile}
-          canEdit={props.canEdit}
-        />
-        <RouteWithProps
+        <Route exact path={"/p/" + username + "/contact"} component={Contact} />
+        <Route
           exact
           path={"/p/" + username + "/edit"}
-          profile={props.profile}
-          component={EditProfile}
-          canEdit={props.canEdit}
+          component={withProfile(EditProfile)}
         />
       </Drilldown>
     </div>
@@ -89,10 +55,7 @@ ProfileHandler.propTypes = {
     params: PropTypes.shape({
       username: PropTypes.string.isRequired
     })
-  }),
-  canEdit: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  profile: PropTypes.object
+  })
 };
 
 class Profile extends React.Component {
@@ -124,6 +87,11 @@ class Profile extends React.Component {
       });
   }
 
+  updateProfile = profile => {
+    this.props.dispatch(userActions.edit(profile));
+    this.setState({ profile: profile });
+  };
+
   render() {
     const { profile, profileLoading } = this.state;
     const { authUser } = this.props;
@@ -137,24 +105,17 @@ class Profile extends React.Component {
 
     return (
       <ProfileContext.Provider
-        value={{ profile: profile, canEdit: canEditProfile }}>
+        value={{
+          profile: profile,
+          canEdit: canEditProfile,
+          updateProfile: this.updateProfile
+        }}>
         {profile === null || <Navigation username={this.state.username} />}
         {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
-              <RouteWithProps
-                exact
-                path="/p/:username"
-                profile={profile}
-                canEdit={canEditProfile}
-                component={Home}
-              />
-              <RouteWithProps
-                path="/p/:username/:page"
-                profile={profile}
-                canEdit={canEditProfile}
-                component={ProfileHandler}
-              />
+              <Route exact path="/p/:username" component={Main} />
+              <Route path="/p/:username/:page" component={ProfileHandler} />
             </Drilldown>
           </div>
         ) : profileLoading === false && profile === false ? (
@@ -175,9 +136,11 @@ Profile.propTypes = {
       username: PropTypes.string.isRequired
     })
   }),
+  dispatch: PropTypes.func.isRequired,
   authUser: PropTypes.object
 };
 
+const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
 function mapStateToProps(state) {
   const { authUser } = state.authentication;
   return {
@@ -186,4 +149,5 @@ function mapStateToProps(state) {
 }
 
 const connectedProfile = connect(mapStateToProps)(Profile);
-export { connectedProfile as Profile };
+const withDispatch = connect(mapDispatchToProps)(connectedProfile);
+export { withDispatch as Profile };

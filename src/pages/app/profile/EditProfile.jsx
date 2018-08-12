@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
-import { userActions } from "@/actions";
+
 import Uploads from "./editprofile/Uploads";
 import Forbidden from "@/pages/components/Forbidden";
 
@@ -25,7 +23,7 @@ class EditProfile extends React.Component {
   constructor(props) {
     super(props);
 
-    let profile = { ...props.profile };
+    let profile = { ...props.profileContext.profile };
     this.state = {
       profile: {
         firstName: profile.firstName || "",
@@ -46,9 +44,7 @@ class EditProfile extends React.Component {
   }
 
   static propTypes = {
-    profile: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    canEdit: PropTypes.bool.isRequired
+    profileContext: PropTypes.object.isRequired
   };
 
   handleSubmit = event => {
@@ -61,9 +57,7 @@ class EditProfile extends React.Component {
       profile.photo = uploads.photo;
     }
 
-    // Issue. This way we are not updating userprofile which is currently being used for pages. Changes will be updated only after page reload. This need to be fixed, by storing profile in redux and updating it.
-    console.log(profile);
-    this.props.dispatch(userActions.edit(profile));
+    this.props.profileContext.updateProfile(profile);
     event.preventDefault();
   }
 
@@ -81,7 +75,7 @@ class EditProfile extends React.Component {
   };
 
   render() {
-    if (!this.props.canEdit) {
+    if (!this.props.profileContext.canEdit) {
       // todo better way handle authorized page. I know its bad. P3
       return <Forbidden />;
     }
@@ -92,7 +86,7 @@ class EditProfile extends React.Component {
         <div className="row">
           <div className="col-md-6 col-md-offset-2">
             <h2>
-              <span className="thin">Hello</span> {this.props.profile.firstName}
+              <span className="thin">Hello</span> {this.props.profileContext.profile.firstName}
               <span className="thin">
                 ! Edit your profile before publishing!
               </span>
@@ -278,6 +272,4 @@ class EditProfile extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
-const connectedEditProfile = connect(mapDispatchToProps)(EditProfile);
-export { connectedEditProfile as EditProfile };
+export { EditProfile };

@@ -1,4 +1,4 @@
-export * from './Home';
+export * from './Main';
 export * from './About';
 export * from './Experience';
 export * from './Qualification';
