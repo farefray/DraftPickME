@@ -88,16 +88,23 @@ class Profile extends React.Component {
 
     this.updateProfileContext = profile => {
       this.setState(
-        () => ({
-          providerContext: {
-            profile: profile,
-            updateProfileContext: this.updateProfileContext,
-            updateProfileValue: this.updateProfileValue
-          }
-        }),
+        (prevState) => {
+          // very dirty way, to merge states without losing part of profile
+          let {profile: prevProfile} = prevState.providerContext;
+          let updatedProfile = _.assign(prevProfile, profile);
+          const updatedContext = _.assign(
+            prevState.providerContext, {
+              profile: updatedProfile
+            }
+          )
+          return {providerContext: updatedContext};
+        },
         () => {
           let { profile: profileFromContext } = this.state.providerContext;
+          console.log(_.cloneDeep(profileFromContext));
+          console.log(_.cloneDeep(profile));
           profile = _.assign(profileFromContext, profile);
+          console.log(_.cloneDeep(profile));
           this.props.dispatch(userActions.edit(profile));
         }
       );
@@ -155,6 +162,7 @@ class Profile extends React.Component {
       profile.email == authUser.email
     ); /// Should be reworked, but no bugs cuz of that, P3
 
+    // TODO P1 - after state.providerContext/context was updated, we got full redraw which is useless and messy :(
     return (
       <ProfileContext.Provider value={this.state.providerContext}>
         {profile === null || (
