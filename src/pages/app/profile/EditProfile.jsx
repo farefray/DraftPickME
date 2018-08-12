@@ -44,7 +44,8 @@ class EditProfile extends React.Component {
   }
 
   static propTypes = {
-    profileContext: PropTypes.object.isRequired
+    profileContext: PropTypes.object.isRequired,
+    canEdit: PropTypes.bool.isRequired
   };
 
   handleSubmit = event => {
@@ -75,7 +76,7 @@ class EditProfile extends React.Component {
   };
 
   render() {
-    if (!this.props.profileContext.canEdit) {
+    if (!this.props.canEdit) {
       // todo better way handle authorized page. I know its bad. P3
       return <Forbidden />;
     }

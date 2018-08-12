@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Route } from "react-router-dom";
+import { RouteWithProps } from "@/pages/components/RouteWithProps";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
 import { userService } from "@/services";
@@ -28,26 +29,35 @@ const ProfileHandler = props => {
   return (
     <div>
       <Drilldown animateHeight={true} fillParent={true}>
-        <Route 
+        <RouteWithProps
           exact
-          path={"/p/" + username + "/about"} 
+          path={"/p/" + username + "/about"}
           component={withProfile(About)}
+          canEdit={props.canEdit}
         />
-        <Route
+        <RouteWithProps
           exact
           path={"/p/" + username + "/qualification"}
-          component={Qualification}
+          component={withProfile(Qualification)}
+          canEdit={props.canEdit}
         />
-        <Route
+        <RouteWithProps
           exact
           path={"/p/" + username + "/experience"}
           component={Experience}
+          canEdit={props.canEdit}
         />
-        <Route exact path={"/p/" + username + "/contact"} component={Contact} />
-        <Route
+        <RouteWithProps
+          exact
+          path={"/p/" + username + "/contact"}
+          component={Contact}
+          canEdit={props.canEdit}
+        />
+        <RouteWithProps
           exact
           path={"/p/" + username + "/edit"}
           component={withProfile(EditProfile)}
+          canEdit={props.canEdit}
         />
       </Drilldown>
     </div>
@@ -66,11 +76,16 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log("constructor");
+    console.log(props.authUser);
     let username = props.match.params.username;
     this.state = {
       username: username,
       profileLoading: true,
-      profile: null
+      providerContext: {
+        profile: null,
+        canEdit: false
+      }
     };
   }
 
@@ -79,55 +94,60 @@ class Profile extends React.Component {
       .getByUsername(this.state.username)
       .then(profile => {
         this.setState({
-          profile: profile,
-          profileLoading: false
+          profileLoading: false,
+          providerContext: {
+            profile: profile,
+            updateProfile: this.updateProfile,
+            updateProfileValue: this.updateProfileValue
+          }
         });
       })
       .catch(() => {
         this.setState({
-          profile: false,
-          profileLoading: false
+          profileLoading: false,
+          profileContext: {
+            profile: false
+          }
         });
       });
   }
 
   updateProfile = profile => {
     this.props.dispatch(userActions.edit(profile));
-    this.setState({ profile: profile });
+    //this.setState({providerContext: { profile: profile }});
   };
 
   updateProfileValue = (name, value) => {
-    let { profile } = this.state;
+    let { profile } = this.state.providerContext;
     profile[name] = value;
-    this.setState({ profile: profile });
+    //this.setState({providerContext: { profile: profile }});
     this.props.dispatch(userActions.editProfileValue(name, value));
-  }
+  };
 
   render() {
-    const { profile, profileLoading } = this.state;
     const { authUser } = this.props;
-
-    let canEditProfile = !!(
+    const { profileLoading } = this.state;
+    const { profile } = this.state.providerContext;
+    const canEdit = !!(
       authUser &&
       profile &&
       profile.email &&
       profile.email == authUser.email
-    );
+    ); /// Should be reworked, but no bugs cuz of that, P3
 
     return (
-      <ProfileContext.Provider
-        value={{
-          profile: profile,
-          canEdit: canEditProfile,
-          updateProfile: this.updateProfile,
-          updateProfileValue: this.updateProfileValue
-        }}>
-        {profile === null || <Navigation username={this.state.username} />}
+      <ProfileContext.Provider value={this.state.providerContext}>
+        {profile === null || <Navigation username={this.state.username} canEdit={canEdit} />}
         {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
-              <Route exact path="/p/:username" component={Main} />
-              <Route path="/p/:username/:page" component={ProfileHandler} />
+              <RouteWithProps exact path="/p/:username" component={Main} />
+              <RouteWithProps
+                path="/p/:username/:page"
+                component={ProfileHandler}
+                authUser={this.props.authUser}
+                canEdit={canEdit}
+              />
             </Drilldown>
           </div>
         ) : profileLoading === false && profile === false ? (

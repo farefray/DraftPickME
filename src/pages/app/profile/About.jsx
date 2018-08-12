@@ -4,7 +4,8 @@ import UserProfile from "./about/UserProfile";
 
 class About extends React.PureComponent {
   static propTypes = {
-    profileContext: PropTypes.object.isRequired
+    profileContext: PropTypes.object.isRequired,
+    canEdit: PropTypes.bool.isRequired
   };
 
   updateUserProfileValue = (name, value) => {
@@ -12,7 +13,7 @@ class About extends React.PureComponent {
   };
 
   render() {
-    let { profile } = this.props.profileContext;
+    const { profile } = this.props.profileContext;
     if (!profile) {
       return <div>Loading...</div>;
     }
@@ -21,7 +22,7 @@ class About extends React.PureComponent {
       <section id="about" className="container">
         <UserProfile
           profile={profile}
-          canEdit={this.props.profileContext.canEdit}
+          canEdit={this.props.canEdit}
           updateUserProfileValue={this.updateUserProfileValue}
         />
       </section>

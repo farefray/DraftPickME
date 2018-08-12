@@ -14,6 +14,7 @@ export default class Skills extends React.Component {
 
   removeSkill = key => {
     let { data } = this.props;
+    // TODO P0 - if deleted, then array is not anymore an object and it bugs
     delete data[key];
     this.update(data);
   };
@@ -30,6 +31,7 @@ export default class Skills extends React.Component {
 
   addSkill = () => {
     let { data } = this.props;
+    // TODO P3 make a fabric for this
     data.push({
       value: "Skill name",
       percent: "Optional description",

@@ -23,7 +23,7 @@ function Navigation(props) {
           <nav
             id="nav"
             className={
-              "animated fadeInLeft is-editable-" + profileContext.canEdit
+              "animated fadeInLeft is-editable-" + props.canEdit
             }>
             <div className="logo-space" />
             <ul>
@@ -100,7 +100,7 @@ function Navigation(props) {
               </React.Fragment>
             </ul>
             <div className="bottom">&copy; {currentYear}</div>
-            {!profileContext.canEdit || (
+            {!props.canEdit || (
               <Link
                 className="nav-controller"
                 to={url + "/edit"}
@@ -117,7 +117,8 @@ function Navigation(props) {
 }
 
 Navigation.propTypes = {
-  username: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired,
+  canEdit: PropTypes.bool.isRequired
 };
 
 export { Navigation };

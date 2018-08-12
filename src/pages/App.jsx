@@ -19,27 +19,19 @@ const Main = props => {
     <div id="root">
       <TransitionGroup>
         <CSSTransition
-            key={props.location.pathname}
-            classNames="fadeTranslate"
-            timeout={1000}
-            mountOnEnter={false}
-            unmountOnExit={true}
-          >
+          key={props.location.pathname}
+          classNames="fadeTranslate"
+          timeout={1000}
+          mountOnEnter={false}
+          unmountOnExit={true}>
           <Switch location={props.location}>
-            <Route
-              exact
-              path="/"
-              component={Homepage}
-            />
-            <Route path="/login" component={Login} />          
+            <Route exact path="/" component={Homepage} />
+            <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
           </Switch>
         </CSSTransition>
       </TransitionGroup>
-      <Route
-        path="/p/:username"
-        component={Profile}
-      />
+      <Route path="/p/:username" component={Profile} />
     </div>
   );
 };
@@ -51,16 +43,18 @@ Main.propTypes = {
 };
 
 class App extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired
-  }
-
-  componentDidMount() {
-    // changing authUser by trigger from firebase (probably must be moved into Redux instead of passing by props)
+  constructor(props) {
+    super(props);
+    
+    // changing authUser by trigger from firebase
     firebase.auth.onAuthStateChanged(authUser => {
       this.props.dispatch(userActions.authChanged(authUser));
     });
   }
+
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired
+  };
 
   render() {
     return (
@@ -68,7 +62,7 @@ class App extends React.Component {
         <NProgress color="#78cc78" />
         <Alerts />
         <Router history={history}>
-          <Route path="/" component={Main}/>
+          <Route path="/" component={Main} />
         </Router>
       </div>
     );
