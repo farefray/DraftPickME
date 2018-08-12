@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 
 const RouteWithProps = ({ component: Component, path, ...rest }) => (
-  <Route render={props => <Component path={path} {...props} {...rest} />} />
+  <Route path={path} render={(props) => <Component {...props} {...rest} />} />
 );
 
 RouteWithProps.propTypes = {

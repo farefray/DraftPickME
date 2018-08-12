@@ -44,13 +44,13 @@ const ProfileHandler = props => {
         <RouteWithProps
           exact
           path={"/p/" + username + "/experience"}
-          component={Experience}
+          component={withProfile(Experience)}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
           path={"/p/" + username + "/contact"}
-          component={Contact}
+          component={withProfile(Contact)}
           canEdit={props.canEdit}
         />
         <RouteWithProps
@@ -69,22 +69,20 @@ ProfileHandler.propTypes = {
     params: PropTypes.shape({
       username: PropTypes.string.isRequired
     })
-  })
+  }),
+  canEdit: PropTypes.bool.isRequired
 };
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log("constructor");
-    console.log(props.authUser);
     let username = props.match.params.username;
     this.state = {
       username: username,
       profileLoading: true,
       providerContext: {
-        profile: null,
-        canEdit: false
+        profile: null
       }
     };
   }
@@ -141,7 +139,7 @@ class Profile extends React.Component {
         {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
-              <RouteWithProps exact path="/p/:username" component={Main} />
+              <RouteWithProps exact path="/p/:username" component={withProfile(Main)} />
               <RouteWithProps
                 path="/p/:username/:page"
                 component={ProfileHandler}
