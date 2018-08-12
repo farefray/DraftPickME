@@ -23,7 +23,7 @@ class Contact extends React.Component {
   }
 
   static propTypes = {
-    profile: PropTypes.object.isRequired
+    profileContext: PropTypes.object.isRequired
   };
 
   focusContactForm = event => {
@@ -47,7 +47,7 @@ class Contact extends React.Component {
     }
 
     const { contactData } = this.state;
-    const { profile } = this.props;
+    const { profile } = this.props.profileContext;
     userService.contactUser(profile.email, contactData);
     this.setState({ contacted: true });
     setTimeout(() => {
@@ -56,7 +56,7 @@ class Contact extends React.Component {
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile } = this.props.profileContext;
     const { contacted, hireMeClicked, contactDone } = this.state;
     return (
       <section id="contact">

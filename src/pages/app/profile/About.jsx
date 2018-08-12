@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import UserProfile from "./about/UserProfile";
 
-class About extends React.PureComponent {
+class About extends React.Component {
   static propTypes = {
     profileContext: PropTypes.object.isRequired,
     canEdit: PropTypes.bool.isRequired

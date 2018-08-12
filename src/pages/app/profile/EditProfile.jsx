@@ -58,7 +58,7 @@ class EditProfile extends React.Component {
       profile.photo = uploads.photo;
     }
 
-    this.props.profileContext.updateProfile(profile);
+    this.props.profileContext.updateProfileContext(profile);
     event.preventDefault();
   }
 

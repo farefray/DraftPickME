@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Route } from "react-router-dom";
 import { RouteWithProps } from "@/pages/components/RouteWithProps";
 import Drilldown from "react-router-drilldown";
 import { Navigation } from "../components/Navigation";
@@ -13,6 +12,7 @@ import {
   withProfile
 } from "./profile/components/ProfileContext";
 import { userActions } from "@/actions";
+import _ from "lodash";
 
 import {
   About,
@@ -85,6 +85,40 @@ class Profile extends React.Component {
         profile: null
       }
     };
+
+    this.updateProfileContext = profile => {
+      this.setState(
+        () => ({
+          providerContext: {
+            profile: profile,
+            updateProfileContext: this.updateProfileContext,
+            updateProfileValue: this.updateProfileValue
+          }
+        }),
+        () => {
+          let { profile: profileFromContext } = this.state.providerContext;
+          profile = _.assign(profileFromContext, profile);
+          this.props.dispatch(userActions.edit(profile));
+        }
+      );
+    };
+
+    this.updateProfileValue = (name, value) => {
+      let { profile } = this.state.providerContext;
+      profile[name] = value;
+      this.setState(
+        () => ({
+          providerContext: {
+            profile: profile,
+            updateProfileContext: this.updateProfileContext,
+            updateProfileValue: this.updateProfileValue
+          }
+        }),
+        () => {
+          this.props.dispatch(userActions.editProfileValue(name, value));
+        }
+      );
+    };
   }
 
   componentDidMount() {
@@ -95,7 +129,7 @@ class Profile extends React.Component {
           profileLoading: false,
           providerContext: {
             profile: profile,
-            updateProfile: this.updateProfile,
+            updateProfileContext: this.updateProfileContext,
             updateProfileValue: this.updateProfileValue
           }
         });
@@ -110,18 +144,6 @@ class Profile extends React.Component {
       });
   }
 
-  updateProfile = profile => {
-    this.props.dispatch(userActions.edit(profile));
-    //this.setState({providerContext: { profile: profile }});
-  };
-
-  updateProfileValue = (name, value) => {
-    let { profile } = this.state.providerContext;
-    profile[name] = value;
-    //this.setState({providerContext: { profile: profile }});
-    this.props.dispatch(userActions.editProfileValue(name, value));
-  };
-
   render() {
     const { authUser } = this.props;
     const { profileLoading } = this.state;
@@ -135,11 +157,17 @@ class Profile extends React.Component {
 
     return (
       <ProfileContext.Provider value={this.state.providerContext}>
-        {profile === null || <Navigation username={this.state.username} canEdit={canEdit} />}
+        {profile === null || (
+          <Navigation username={this.state.username} canEdit={canEdit} />
+        )}
         {profile ? (
           <div id="drilldown">
             <Drilldown animateHeight={true} fillParent={true}>
-              <RouteWithProps exact path="/p/:username" component={withProfile(Main)} />
+              <RouteWithProps
+                exact
+                path="/p/:username"
+                component={withProfile(Main)}
+              />
               <RouteWithProps
                 path="/p/:username/:page"
                 component={ProfileHandler}

@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Skills from "./qualification/Skills";
 import Languages from "./qualification/Languages";
 import Specialities from "./qualification/Specialities";
 import Jobs from "./qualification/Jobs";
 import ButtonSave from "@/pages/components/ButtonSave";
-import _ from 'lodash';
+import _ from "lodash";
 
 class Qualification extends React.PureComponent {
   constructor(props) {
     super(props);
-    let {qualification} = this.props.profileContext.profile;
-    if(qualification) {
+    let { qualification } = this.props.profileContext.profile;
+    if (qualification) {
       qualification = _.cloneDeep(qualification); // avoiding mutating of profile which is in context. Todo better way - P3
     } else {
       qualification = {};
@@ -45,12 +45,19 @@ class Qualification extends React.PureComponent {
 
   // Actually this can be moved to higher order component to keep it DRY
   updateUserProfile = () => {
-    let { qualification } = this.props.profileContext.profile;
-    qualification = { ...this.state.qualification };
-    this.props.profileContext.updateProfileValue("qualification", qualification);
-    this.setState({
-      unsaved: false
-    });
+    this.setState(
+      {
+        unsaved: false
+      },
+      () => {
+        let { qualification } = this.props.profileContext.profile;
+        qualification = { ...this.state.qualification };
+        this.props.profileContext.updateProfileValue(
+          "qualification",
+          qualification
+        );
+      }
+    );
   };
 
   onChange = (name, value) => {
