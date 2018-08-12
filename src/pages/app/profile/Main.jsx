@@ -2,11 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { AwesomeButton } from "react-awesome-button";
-import { initHeader, initAnimation, addListeners } from "../../../js/homepageAnimation.js";
+import {
+  initHeader,
+  initAnimation,
+  addListeners
+} from "@/js/homepageAnimation";
 
-class Home extends React.Component {
+class Main extends React.PureComponent {
   static propTypes = {
-    profile: PropTypes.object
+    profileContext: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -17,7 +21,8 @@ class Home extends React.Component {
   }
 
   render() {
-    let { profile } = this.props;
+    const { profileContext } = this.props;
+
     return (
       <div id="home" className="large-header">
         <canvas className="demo-canvas" />
@@ -29,23 +34,18 @@ class Home extends React.Component {
                   <div className="col-md-12">
                     <h1>
                       <span className="thin">
-                        Hi! I'm {profile.firstName} {profile.lastName}
+                        Hi! I'm {profileContext.profile.firstName}{" "}
+                        {profileContext.profile.lastName}
                       </span>
                     </h1>
-                    <h4 className="sup-home">{profile.title}</h4>
-                    {profile.cvFile && profile.cvFile.path ? (
-                      <a
-                        className="button text-center"
-                        href={profile.cvFile.path}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        <i className="fa fa-download" /> Download CV
-                      </a>
-                    ) : (
-                      ""
-                    )}
-                    <AwesomeButton type="primary" size="large" className="text-center" element={Link} to={"/p/" + profile.username + "/about"}>
-                    <i className="fa fa-file-text" /> More About Me
+                    <h4 className="sup-home">{profileContext.profile.title}</h4>
+                    <AwesomeButton
+                      type="primary"
+                      size="large"
+                      className="text-center"
+                      element={Link}
+                      to={"/p/" + profileContext.profile.username + "/about"}>
+                      <i className="fa fa-file-text" /> More About Me
                     </AwesomeButton>
                   </div>
                 </div>
@@ -58,4 +58,4 @@ class Home extends React.Component {
   }
 }
 
-export { Home };
+export { Main };

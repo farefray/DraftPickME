@@ -78,63 +78,69 @@ export default class UserProfile extends React.PureComponent {
           <div className="info">
             <div className="col-md-6 no-padding-left">
               <ul>
-                <li>
-                  <p className="info-title">Age </p>
-                  <span className="info-details">
-                    <Editable
-                      name="age"
-                      dataType="text"
-                      disabled={disabledEditing}
-                      value={profile.age ? profile.age : "-"}
-                      placement="bottom"
-                      mode="popup"
-                      handleSubmit={newBlock =>
-                        this.props.updateUserProfileValue(
-                          newBlock.props.name,
-                          newBlock.newValue
-                        )
-                      }
-                    />
-                  </span>
-                </li>
-                <li>
-                  <p className="info-title">Address </p>
-                  <span className="info-details">
-                    <Editable
-                      name="address"
-                      dataType="text"
-                      disabled={disabledEditing}
-                      value={profile.address ? profile.address : "-"}
-                      placement="bottom"
-                      mode="popup"
-                      handleSubmit={newBlock =>
-                        this.props.updateUserProfileValue(
-                          newBlock.props.name,
-                          newBlock.newValue
-                        )
-                      }
-                    />
-                  </span>
-                </li>
-                <li>
-                  <p className="info-title">Email </p>
-                  <span className="info-details">
-                    <Editable
-                      name="email"
-                      dataType="text"
-                      disabled={disabledEditing}
-                      value={profile.email ? profile.email : "-"}
-                      placement="bottom"
-                      mode="popup"
-                      handleSubmit={newBlock =>
-                        this.props.updateUserProfileValue(
-                          newBlock.props.name,
-                          newBlock.newValue
-                        )
-                      }
-                    />
-                  </span>
-                </li>
+                {(!profile.age && disabledEditing) || (
+                  <li>
+                    <p className="info-title">Age </p>
+                    <span className="info-details">
+                      <Editable
+                        name="age"
+                        dataType="text"
+                        disabled={disabledEditing}
+                        value={profile.age ? profile.age : "-"}
+                        placement="bottom"
+                        mode="popup"
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(
+                            newBlock.props.name,
+                            newBlock.newValue
+                          )
+                        }
+                      />
+                    </span>
+                  </li>
+                )}
+                {(!profile.country && disabledEditing) || (
+                  <li>
+                    <p className="info-title">Country </p>
+                    <span className="info-details">
+                      <Editable
+                        name="country"
+                        dataType="text"
+                        disabled={disabledEditing}
+                        value={profile.country ? profile.country : "-"}
+                        placement="bottom"
+                        mode="popup"
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(
+                            newBlock.props.name,
+                            newBlock.newValue
+                          )
+                        }
+                      />
+                    </span>
+                  </li>
+                )}
+                {(!profile.email && disabledEditing) || (
+                  <li>
+                    <p className="info-title">Email </p>
+                    <span className="info-details">
+                      <Editable
+                        name="email"
+                        dataType="text"
+                        disabled={disabledEditing}
+                        value={profile.email ? profile.email : "-"}
+                        placement="bottom"
+                        mode="popup"
+                        handleSubmit={newBlock =>
+                          this.props.updateUserProfileValue(
+                            newBlock.props.name,
+                            newBlock.newValue
+                          )
+                        }
+                      />
+                    </span>
+                  </li>
+                )}
               </ul>
             </div>
             <div className="col-md-6 no-padding-left">
@@ -166,25 +172,6 @@ export default class UserProfile extends React.PureComponent {
                       dataType="text"
                       disabled={disabledEditing}
                       value={profile.website ? profile.website : "-"}
-                      placement="bottom"
-                      mode="popup"
-                      handleSubmit={newBlock =>
-                        this.props.updateUserProfileValue(
-                          newBlock.props.name,
-                          newBlock.newValue
-                        )
-                      }
-                    />
-                  </span>
-                </li>
-                <li>
-                  <p className="info-title">Country </p>
-                  <span className="info-details">
-                    <Editable
-                      name="country"
-                      dataType="text"
-                      disabled={disabledEditing}
-                      value={profile.country ? profile.country : "-"}
                       placement="bottom"
                       mode="popup"
                       handleSubmit={newBlock =>

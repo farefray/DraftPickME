@@ -1,26 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import UserProfile from "./about/UserProfile";
-import { userActions } from "../../../actions";
 
-class About extends React.PureComponent {
+class About extends React.Component {
   static propTypes = {
-    profile: PropTypes.object,
-    canEdit: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired
+    profileContext: PropTypes.object.isRequired,
+    canEdit: PropTypes.bool.isRequired
   };
 
+  shouldComponentUpdate() {
+    return false;
+  }
+  
   updateUserProfileValue = (name, value) => {
-    let { profile } = this.props;
-    profile[name] = value;
-    // stupid profile handling. Will be reworked into redux.
-    this.props.dispatch(userActions.editProfileValue(name, value));
+    this.props.profileContext.updateProfileValue(name, value);
   };
 
   render() {
-    let { profile } = this.props;
+    const { profile } = this.props.profileContext;
     if (!profile) {
       return <div>Loading...</div>;
     }
@@ -37,6 +34,4 @@ class About extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
-const connectedAbout = connect(mapDispatchToProps)(About);
-export { connectedAbout as About };
+export { About };

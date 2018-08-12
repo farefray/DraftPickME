@@ -12,7 +12,8 @@ export function authentication(state = initialState, action) {
       };
     case userConstants.LOGOUT:
       return {
-        loggedIn: null
+        loggedIn: null,
+        authUser: null
       };
     default:
       return state

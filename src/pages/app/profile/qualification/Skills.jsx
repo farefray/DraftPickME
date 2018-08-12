@@ -19,6 +19,10 @@ export default class Skills extends React.Component {
   };
 
   update(data) {
+    data = data.filter(block => {
+      return block && block !== null;
+    });
+
     this.props.onChange(this.props.name, data);
   }
 
@@ -30,14 +34,12 @@ export default class Skills extends React.Component {
 
   addSkill = () => {
     let { data } = this.props;
+    // TODO P3 make a fabric for this
     data.push({
       value: "Skill name",
       percent: "Optional description",
       power: 3
-    });
-    data = data.filter(block => {
-      return block && block !== null;
-    });
+    });    
     this.update(data);
   };
 

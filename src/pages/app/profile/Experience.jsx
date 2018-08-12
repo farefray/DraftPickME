@@ -1,45 +1,50 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import FlipMove from "react-flip-move";
 import { userActions } from "../../../actions";
 import Project from "./experience/Project";
 import ButtonAdd from "./components/ButtonAdd";
 import ButtonSave from "@/pages/components/ButtonSave";
+import _ from "lodash";
 
 class Experience extends Component {
   constructor(props) {
     super(props);
 
-    const { profile } = this.props;
+    let { projects } = this.props.profileContext.profile;
+    if (projects) {
+      projects = _.cloneDeep(projects); // avoiding mutating of profile which is in context. Todo better way - P3
+    }
+    
     this.state = {
-      projectsBlocks: profile && profile.projects ? profile.projects : [],
+      projectsBlocks: projects || [],
       unsaved: false // todo probably warn about unsaved page on route and also move this to HOC
     };
   }
 
   static propTypes = {
-    profile: PropTypes.shape({
-      projects: PropTypes.array
-    }).isRequired,
-    canEdit: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired
+    profileContext: PropTypes.object.isRequired,
+    canEdit: PropTypes.bool.isRequired
   };
 
   updateUserProjects = () => {
-    let { profile } = this.props;
-    let { projectsBlocks } = this.state;
+    this.setState(
+      {
+        unsaved: false
+      },
+      () => {
+        let { projectsBlocks } = this.state;
 
-    // removing null values from array, in order to save into db
-    projectsBlocks = projectsBlocks.filter(project => {
-      return project !== null;
-    });
+        // removing null values from array, in order to save into db, TODO beter way
+        projectsBlocks = projectsBlocks.filter(project => {
+          return project !== null;
+        });
 
-    profile["projects"] = projectsBlocks;
-    this.setState({ unsaved: false });
-    this.props.dispatch(
-      userActions.editProfileValue("projects", projectsBlocks)
+        this.props.profileContext.updateProfileValue(
+          "projects",
+          projectsBlocks
+        );
+      }
     );
   };
 
@@ -115,7 +120,4 @@ class Experience extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(dispatch);
-
-const connectedExperience = connect(mapDispatchToProps)(Experience);
-export { connectedExperience as Experience };
+export { Experience };
