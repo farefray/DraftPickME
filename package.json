@@ -1,10 +1,7 @@
 {
   "name": "draftpickme",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "",
-  "engines": {
-    "npm": ">=3"
-  },
   "scripts": {
     "preinstall": "node tools/nodeVersionCheck.js",
     "start-message": "babel-node tools/startMessage.js",
