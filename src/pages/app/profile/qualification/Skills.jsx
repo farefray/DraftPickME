@@ -14,12 +14,15 @@ export default class Skills extends React.Component {
 
   removeSkill = key => {
     let { data } = this.props;
-    // TODO P0 - if deleted, then array is not anymore an object and it bugs
     delete data[key];
     this.update(data);
   };
 
   update(data) {
+    data = data.filter(block => {
+      return block && block !== null;
+    });
+
     this.props.onChange(this.props.name, data);
   }
 
@@ -36,10 +39,7 @@ export default class Skills extends React.Component {
       value: "Skill name",
       percent: "Optional description",
       power: 3
-    });
-    data = data.filter(block => {
-      return block && block !== null;
-    });
+    });    
     this.update(data);
   };
 

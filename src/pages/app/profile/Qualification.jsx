@@ -7,7 +7,7 @@ import Jobs from "./qualification/Jobs";
 import ButtonSave from "@/pages/components/ButtonSave";
 import _ from "lodash";
 
-class Qualification extends React.PureComponent {
+class Qualification extends React.Component {
   constructor(props) {
     super(props);
     let { qualification } = this.props.profileContext.profile;
