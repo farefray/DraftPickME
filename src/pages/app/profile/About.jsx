@@ -8,10 +8,6 @@ class About extends React.Component {
     canEdit: PropTypes.bool.isRequired
   };
 
-  shouldComponentUpdate() {
-    return false;
-  }
-  
   updateUserProfileValue = (name, value) => {
     this.props.profileContext.updateProfileValue(name, value);
   };

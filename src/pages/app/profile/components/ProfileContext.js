@@ -2,6 +2,8 @@ import React from "react";
 
 export const ProfileContext = React.createContext({
     profile: null,
+    username: null,
+    profileLoading: false,
     updateProfileValue: () => {},
     updateProfileContext: () => {}
 });

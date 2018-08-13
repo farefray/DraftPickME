@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { RouteWithProps } from "@/pages/components/RouteWithProps";
-import Drilldown from "react-router-drilldown";
-import { Navigation } from "../components/Navigation";
-import { userService } from "@/services";
-import Loader from "react-loaders";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { RouteWithProps } from '@/pages/components/RouteWithProps';
+import Drilldown from 'react-router-drilldown';
+import { Navigation } from '../components/Navigation';
+import { userService } from '@/services';
+import Loader from 'react-loaders';
 import {
   ProfileContext,
   withProfile
-} from "./profile/components/ProfileContext";
-import { userActions } from "@/actions";
-import _ from "lodash";
+} from './profile/components/ProfileContext';
+import { userActions } from '@/actions';
+import _ from 'lodash';
 
 import {
   About,
@@ -21,8 +21,8 @@ import {
   Contact,
   Main,
   EditProfile
-} from "./profile";
-import { FreeUsername } from "./profile/FreeUsername";
+} from './profile';
+import { FreeUsername } from './profile/FreeUsername';
 
 const ProfileHandler = props => {
   let username = props.match.params.username;
@@ -31,31 +31,31 @@ const ProfileHandler = props => {
       <Drilldown animateHeight={true} fillParent={true}>
         <RouteWithProps
           exact
-          path={"/p/" + username + "/about"}
+          path={'/p/' + username + '/about'}
           component={withProfile(About)}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + username + "/qualification"}
+          path={'/p/' + username + '/qualification'}
           component={withProfile(Qualification)}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + username + "/experience"}
+          path={'/p/' + username + '/experience'}
           component={withProfile(Experience)}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + username + "/contact"}
+          path={'/p/' + username + '/contact'}
           component={withProfile(Contact)}
           canEdit={props.canEdit}
         />
         <RouteWithProps
           exact
-          path={"/p/" + username + "/edit"}
+          path={'/p/' + username + '/edit'}
           component={withProfile(EditProfile)}
           canEdit={props.canEdit}
         />
@@ -81,46 +81,48 @@ class Profile extends React.Component {
     this.state = {
       username: username,
       profileLoading: true,
-      providerContext: {
-        profile: null
-      }
+      profile: null
     };
+
+    userService
+      .getByUsername(username)
+      .then(profile => {
+        this.setState({
+          profileLoading: false,
+          profile: profile,
+          updateProfileContext: this.updateProfileContext,
+          updateProfileValue: this.updateProfileValue
+        });
+      })
+      .catch(() => {
+        this.setState({
+          profileLoading: false,
+          profile: false
+        });
+      });
 
     this.updateProfileContext = profile => {
       this.setState(
-        (prevState) => {
+        prevState => {
           // very dirty way, to merge states without losing part of profile
-          let {profile: prevProfile} = prevState.providerContext;
+          let { profile: prevProfile } = prevState;
           let updatedProfile = _.assign(prevProfile, profile);
-          const updatedContext = _.assign(
-            prevState.providerContext, {
-              profile: updatedProfile
-            }
-          )
-          return {providerContext: updatedContext};
+          return { profile: updatedProfile };
         },
         () => {
-          let { profile: profileFromContext } = this.state.providerContext;
-          console.log(_.cloneDeep(profileFromContext));
-          console.log(_.cloneDeep(profile));
-          profile = _.assign(profileFromContext, profile);
-          console.log(_.cloneDeep(profile));
-          this.props.dispatch(userActions.edit(profile));
+          this.props.dispatch(userActions.edit(this.state.profile));
         }
       );
     };
 
     this.updateProfileValue = (name, value) => {
-      let { profile } = this.state.providerContext;
-      profile[name] = value;
       this.setState(
-        () => ({
-          providerContext: {
-            profile: profile,
-            updateProfileContext: this.updateProfileContext,
-            updateProfileValue: this.updateProfileValue
-          }
-        }),
+        prevState => {
+          let { profile: prevProfile } = prevState;
+          let updatedProfile = _.cloneDeep(prevProfile);
+          updatedProfile[name] = value;
+          return { profile: updatedProfile };
+        },
         () => {
           this.props.dispatch(userActions.editProfileValue(name, value));
         }
@@ -128,33 +130,23 @@ class Profile extends React.Component {
     };
   }
 
-  componentDidMount() {
-    userService
-      .getByUsername(this.state.username)
-      .then(profile => {
-        this.setState({
-          profileLoading: false,
-          providerContext: {
-            profile: profile,
-            updateProfileContext: this.updateProfileContext,
-            updateProfileValue: this.updateProfileValue
-          }
-        });
-      })
-      .catch(() => {
-        this.setState({
-          profileLoading: false,
-          profileContext: {
-            profile: false
-          }
-        });
-      });
+  shouldComponentUpdate(nextProps, nextState) {
+    // Here's the issue, after state/context was updated inside nested components, we got full redraw which makes page blink and actually useless, as nested component updated himself with editable fields.
+    let { profile: nextProfileState } = nextState;
+    let { profile: prevProfileState } = this.state;
+    if(nextProfileState !== null && prevProfileState !== null && !_.isEqual(nextProfileState, prevProfileState)) {
+      // thats profile change. We shouldn't rerender all nested components, as its already being handled by editable components
+      return false;
+    }
+
+    return true;
   }
+
 
   render() {
     const { authUser } = this.props;
     const { profileLoading } = this.state;
-    const { profile } = this.state.providerContext;
+    const { profile } = this.state;
     const canEdit = !!(
       authUser &&
       profile &&
@@ -162,9 +154,8 @@ class Profile extends React.Component {
       profile.email == authUser.email
     ); /// Should be reworked, but no bugs cuz of that, P3
 
-    // TODO P1 - after state.providerContext/context was updated, we got full redraw which is useless and messy :(
     return (
-      <ProfileContext.Provider value={this.state.providerContext}>
+      <ProfileContext.Provider value={this.state}>
         {profile === null || (
           <Navigation username={this.state.username} canEdit={canEdit} />
         )}
